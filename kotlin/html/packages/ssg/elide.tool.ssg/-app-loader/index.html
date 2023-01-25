@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AppLoader</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>elide</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="ssg::elide.tool.ssg/AppLoader///PointingToDeclaration//-132187826">
+  <div class="breadcrumbs"><a href="../../index.html">ssg</a><span class="delimiter">/</span><a href="../index.html">elide.tool.ssg</a><span class="delimiter">/</span><span class="current">AppLoader</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>App</span><wbr><span><span>Loader</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="index.html">AppLoader</a><span class="token keyword"> implements </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/Closeable.html">Closeable</a><span class="token punctuation">, </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/AutoCloseable.html">AutoCloseable</a></div><h1 class="">SSG: Application Runner</h1><p class="paragraph">This interface defines the API surface of an object charged with running an Elide application within the context of an SSG compiler build. The app must be running while requests are executed against it; then, after request activity has concluded, the app must safely be stopped and cleaned up.</p><p class="paragraph">In CLI circumstances, the app will need to be run on the command line, either via a JAR or native executable. In testing circumstances, the app can be run inline with requests directed within the test process.</p><p class="paragraph">There is a special mode, "HTTP mode," which, when active, directs the application runner to load against an external HTTP URL instead of a JAR or native executable. In this mode, the <code class="lang-kotlin">target</code> parameter passed on the command line, or in the scope of a programmatic invocation, is expected to be an HTTP or HTTPS URL instead of a file system path.</p><h2 class=""> Target application expectations</h2><p class="paragraph">The target application is expected to be a well-formed Elide application, which extends Micronaut's same guarantees; i.e. the app must be configurable via environment variables and system properties at runtime, so that the compiler can assign a port and other configuration values to the app.</p><h2 class=""> HTTP mode</h2><p class="paragraph">When "HTTP mode" is active, the app loader will direct requests to an external URL, instead of loading classes from a JAR. In this mode, the <code class="lang-kotlin">target</code> parameter is expected to be a well-formed HTTP or HTTPS URL. Requests are executed against the provided URL with the loaded app manifest.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="1815310781%2FFunctions%2F-132187826" anchor-label="close" id="1815310781%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1815310781%2FFunctions%2F-132187826"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1815310781%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>&nbsp;<a href="index.html#1815310781%2FFunctions%2F-132187826"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-404650366%2FFunctions%2F-132187826" anchor-label="executeRequest" id="-404650366%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="execute-request.html"><span>execute</span><wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-404650366%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><a href="../-static-fragment/index.html">StaticFragment</a>&nbsp;<a href="execute-request.html"><span class="token function">executeRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-static-fragment-spec/index.html">StaticFragmentSpec</a>&nbsp;spec</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Execute the provided <a href="../-static-fragment-spec/index.html">StaticFragmentSpec</a> against the currently-loaded application; prepare the result in a final <a href="../-static-fragment/index.html">StaticFragment</a> record and return it.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1540156351%2FFunctions%2F-132187826" anchor-label="generateRequests" id="1540156351%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="generate-requests.html"><span>generate</span><wbr><span><span>Requests</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1540156351%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-static-fragment-spec/index.html">StaticFragmentSpec</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="generate-requests.html"><span class="token function">generateRequests</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-request-factory/index.html">RequestFactory</a>&nbsp;factory</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Generate a set of seed requests against known application endpoints, based on the <span data-unresolved-link="tools.elide.meta/AppManifest///PointingToDeclaration/">AppManifest</span> provided to the <a href="prep.html">prep</a> method; the provided <a href="generate-requests.html">factory</a> should be used to generate each request.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-184360040%2FFunctions%2F-132187826" anchor-label="prep" id="-184360040%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="prep.html"><span><span>prep</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-184360040%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../-loaded-app-info/index.html">LoadedAppInfo</a>&nbsp;<a href="prep.html"><span class="token function">prep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-site-compiler-params/index.html">SiteCompilerParams</a>&nbsp;params<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="tools.elide.meta/AppManifest///PointingToDeclaration/">AppManifest</span>&nbsp;app</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Prepare to execute an application by loading the <code class="lang-kotlin">jar</code> or HTTP target specified within the provided <a href="prep.html">params</a>; if extra classpath entries are provided by invoking tooling, they can be considered here.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1071465234%2FFunctions%2F-132187826" anchor-label="prepAsync" id="1071465234%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="prep-async.html"><span>prep</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1071465234%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><span data-unresolved-link="kotlinx.coroutines/Deferred///PointingToDeclaration/">Deferred</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-loaded-app-info/index.html">LoadedAppInfo</a><span class="token operator">&gt;</span>&nbsp;<a href="prep-async.html"><span class="token function">prepAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-site-compiler-params/index.html">SiteCompilerParams</a>&nbsp;params<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="tools.elide.meta/AppManifest///PointingToDeclaration/">AppManifest</span>&nbsp;app</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Prepare to execute an application by loading the <code class="lang-kotlin">target</code> from the provided <a href="prep-async.html">params</a> (if HTTP mode is inactive); otherwise, parse the provided URL in HTTP mode.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="908784747%2FInheritors%2F-132187826" anchor-label="DefaultAppLoader" id="908784747%2FInheritors%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-default-app-loader/index.html">DefaultAppLoader</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908784747%2FInheritors%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

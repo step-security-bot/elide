@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StaticFragmentSpec.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">StaticFragmentSpec.kt</span></div><h1>StaticFragmentSpec.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import io.micronaut.http.HttpRequest
+import tools.elide.meta.Endpoint
+
+/**
+ * Payload class for an expected site fragment.
+ *
+ * @param request Request generated for this endpoint.
+ * @param endpoint Endpoint specification that generated this request.
+ */
+<span class="pc" id="L12">public sealed class StaticFragmentSpec(</span>
+<span class="pc" id="L13">  internal open val request: HttpRequest&lt;*&gt;,</span>
+<span class="pc" id="L14">  internal open val endpoint: Endpoint? = null,</span>
+) {
+  public companion object {
+    /** @return [StaticFragmentSpec] from a known endpoint. */
+    @JvmStatic public fun fromEndpoint(
+      request: HttpRequest&lt;*&gt;,
+      endpoint: Endpoint,
+<span class="fc" id="L21">    ): EndpointSpec = EndpointSpec(</span>
+<span class="fc" id="L22">      request = request,</span>
+<span class="fc" id="L23">      endpoint = endpoint,</span>
+<span class="fc" id="L24">    )</span>
+
+    /** @return [StaticFragmentSpec] from a known endpoint. */
+    @JvmStatic public fun fromDetectedArtifact(
+      request: HttpRequest&lt;*&gt;,
+      artifact: DetectedArtifact,
+<span class="fc" id="L30">    ): SynthesizedSpec = SynthesizedSpec(</span>
+<span class="fc" id="L31">      request,</span>
+<span class="fc" id="L32">      artifact,</span>
+<span class="fc" id="L33">    )</span>
+  }
+
+  /** @return Generated request for this fragment. */
+  public abstract fun request(): HttpRequest&lt;*&gt;
+
+  /** @return Endpoint info, if available, or throws. */
+  public abstract fun endpoint(): Endpoint
+
+  /** Spec for a known endpoint, determined via application manifest. */
+<span class="fc" id="L43">  public data class EndpointSpec(</span>
+<span class="fc" id="L44">    override val request: HttpRequest&lt;*&gt;,</span>
+<span class="fc" id="L45">    override val endpoint: Endpoint,</span>
+<span class="fc" id="L46">  ) : StaticFragmentSpec(request, endpoint) {</span>
+<span class="fc" id="L47">    override fun request(): HttpRequest&lt;*&gt; = request</span>
+
+<span class="fc" id="L49">    override fun endpoint(): Endpoint = endpoint</span>
+  }
+
+  /** Spec for a known endpoint, determined via application manifest. */
+<span class="fc" id="L53">  public data class SynthesizedSpec(</span>
+<span class="fc" id="L54">    override val request: HttpRequest&lt;*&gt;,</span>
+<span class="fc" id="L55">    internal val artifact: DetectedArtifact,</span>
+<span class="pc" id="L56">    internal val expectedType: StaticContentReader.ArtifactType? = null,</span>
+<span class="fc" id="L57">  ) : StaticFragmentSpec(request, null) {</span>
+<span class="fc" id="L58">    override fun request(): HttpRequest&lt;*&gt; = request</span>
+
+<span class="nc" id="L60">    override fun endpoint(): Endpoint = error(</span>
+<span class="nc" id="L61">      &quot;Cannot acquire endpoint for synthesized spec&quot;</span>
+    )
+
+    internal companion object {
+      /** Spawn a synthesized request spec from an HTTP request. */
+      @JvmStatic internal fun fromRequest(
+        base: HttpRequest&lt;*&gt;,
+        request: HttpRequest&lt;*&gt;,
+        expectedType: StaticContentReader.ArtifactType,
+<span class="fc" id="L70">      ): SynthesizedSpec = SynthesizedSpec(</span>
+<span class="fc" id="L71">        request = request,</span>
+<span class="fc" id="L72">        artifact = DetectedArtifact(</span>
+<span class="fc" id="L73">          url = request.uri.toURL(),</span>
+<span class="fc" id="L74">          request = base,</span>
+<span class="fc" id="L75">          type = expectedType,</span>
+        ),
+<span class="fc" id="L77">        expectedType = expectedType,</span>
+<span class="fc" id="L78">      )</span>
+    }
+<span class="fc" id="L80">  }</span>
+<span class="nc" id="L81">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,411 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Options</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../../index.html">
+<span>elide</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="ssg::elide.tool.ssg/SiteCompilerParams.Options///PointingToDeclaration//-132187826">
+  <div class="breadcrumbs"><a href="../../../index.html">ssg</a><span class="delimiter">/</span><a href="../../index.html">elide.tool.ssg</a><span class="delimiter">/</span><a href="../index.html">SiteCompilerParams</a><span class="delimiter">/</span><span class="current">Options</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Options</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">Options</a></div><p class="paragraph">Options payload for programmatic invocation of the SSG compiler.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button></div>
+    <div class="tabs-section-body">
+      <h4 class="">Parameters</h4>
+      <div data-togglable="Parameters">
+        <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>classpath</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Extra JARs to add to the app execution classpath.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>verbose</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to emit verbose log messages.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>debug</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to enable debugging features.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>http</span><wbr><span><span>Mode</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to run against the app in HTTP mode.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>ignore</span><wbr><span>Cert</span><wbr><span><span>Errors</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to ignore certificate errors.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>crawl</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to crawl HTML content for additional URLs.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>extra</span><wbr><span><span>Origins</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Extra origins to consider legal for crawling.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>timeout</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Timeout to apply when executing app requests. Expressed in seconds.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>precompress</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to pre-compress assets as <code class="lang-kotlin">*.gz</code> or <code class="lang-kotlin">*.br</code> files, or both, or none.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>pretty</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Whether to enable color and other pretty terminal output features.</p></div></div></div></div></div></div></div></div></div>
+      </div>
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="2114806615%2FConstructors%2F-132187826" anchor-label="SiteCompilerParams.Options" id="2114806615%2FConstructors%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-site-compiler-params.-options.html"><span>Site</span><wbr><span>Compiler</span><wbr><span>Params.</span><wbr><span>Options</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2114806615%2FConstructors%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SiteCompilerParams.Options</a>&nbsp;<a href="-site-compiler-params.-options.html"><span class="token function">SiteCompilerParams.Options</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>&nbsp;classpath<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;verbose<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;debug<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;httpMode<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;ignoreCertErrors<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;crawl<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html">SortedSet</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;extraOrigins<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>&nbsp;timeout<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="tools.elide.data/CompressionMode///PointingToDeclaration/">CompressionMode</span><span class="token operator">&gt;</span>&nbsp;precompress<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;pretty</span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Types</h2>
+      <div class="table" data-togglable="Types"><a data-name="-185263644%2FClasslikes%2F-132187826" anchor-label="Companion" id="-185263644%2FClasslikes%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-185263644%2FClasslikes%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-companion/index.html">Companion</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-339439146%2FFunctions%2F-132187826" anchor-label="getClasspath" id="-339439146%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-classpath.html"><span>get</span><wbr><span><span>Classpath</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-339439146%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>&nbsp;<a href="get-classpath.html"><span class="token function">getClasspath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="885377420%2FFunctions%2F-132187826" anchor-label="getCrawl" id="885377420%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-crawl.html"><span>get</span><wbr><span><span>Crawl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="885377420%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-crawl.html"><span class="token function">getCrawl</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1856757536%2FFunctions%2F-132187826" anchor-label="getDebug" id="-1856757536%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-debug.html"><span>get</span><wbr><span><span>Debug</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1856757536%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-debug.html"><span class="token function">getDebug</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-227788374%2FFunctions%2F-132187826" anchor-label="getExtraOrigins" id="-227788374%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-extra-origins.html"><span>get</span><wbr><span>Extra</span><wbr><span><span>Origins</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-227788374%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html">SortedSet</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;<a href="get-extra-origins.html"><span class="token function">getExtraOrigins</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="668773372%2FFunctions%2F-132187826" anchor-label="getHttpMode" id="668773372%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-http-mode.html"><span>get</span><wbr><span>Http</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="668773372%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-http-mode.html"><span class="token function">getHttpMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-515376410%2FFunctions%2F-132187826" anchor-label="getIgnoreCertErrors" id="-515376410%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-ignore-cert-errors.html"><span>get</span><wbr><span>Ignore</span><wbr><span>Cert</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-515376410%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-ignore-cert-errors.html"><span class="token function">getIgnoreCertErrors</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1523986450%2FFunctions%2F-132187826" anchor-label="getPrecompress" id="-1523986450%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-precompress.html"><span>get</span><wbr><span><span>Precompress</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1523986450%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="tools.elide.data/CompressionMode///PointingToDeclaration/">CompressionMode</span><span class="token operator">&gt;</span>&nbsp;<a href="get-precompress.html"><span class="token function">getPrecompress</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2039328433%2FFunctions%2F-132187826" anchor-label="getPretty" id="2039328433%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-pretty.html"><span>get</span><wbr><span><span>Pretty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2039328433%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-pretty.html"><span class="token function">getPretty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2085365778%2FFunctions%2F-132187826" anchor-label="getTimeout" id="2085365778%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-timeout.html"><span>get</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2085365778%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>&nbsp;<a href="get-timeout.html"><span class="token function">getTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="840643345%2FFunctions%2F-132187826" anchor-label="getVerbose" id="840643345%2FFunctions%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="get-verbose.html"><span>get</span><wbr><span><span>Verbose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="840643345%2FFunctions%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-verbose.html"><span class="token function">getVerbose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="2120012192%2FProperties%2F-132187826" anchor-label="classpath" id="2120012192%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#2120012192%2FProperties%2F-132187826"><span><span>classpath</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2120012192%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="2120012192%2FProperties%2F-132187826" anchor-label="classpath" id="2120012192%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>&nbsp;<a href="index.html#2120012192%2FProperties%2F-132187826">classpath</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1161395798%2FProperties%2F-132187826" anchor-label="crawl" id="1161395798%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1161395798%2FProperties%2F-132187826"><span><span>crawl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1161395798%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="1161395798%2FProperties%2F-132187826" anchor-label="crawl" id="1161395798%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#1161395798%2FProperties%2F-132187826">crawl</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1580739158%2FProperties%2F-132187826" anchor-label="debug" id="-1580739158%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1580739158%2FProperties%2F-132187826"><span><span>debug</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1580739158%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="-1580739158%2FProperties%2F-132187826" anchor-label="debug" id="-1580739158%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#-1580739158%2FProperties%2F-132187826">debug</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1439919520%2FProperties%2F-132187826" anchor-label="extraOrigins" id="1439919520%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1439919520%2FProperties%2F-132187826"><span>extra</span><wbr><span><span>Origins</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1439919520%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="1439919520%2FProperties%2F-132187826" anchor-label="extraOrigins" id="1439919520%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/SortedSet.html">SortedSet</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#1439919520%2FProperties%2F-132187826">extraOrigins</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1330099470%2FProperties%2F-132187826" anchor-label="httpMode" id="-1330099470%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-1330099470%2FProperties%2F-132187826"><span>http</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1330099470%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="-1330099470%2FProperties%2F-132187826" anchor-label="httpMode" id="-1330099470%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#-1330099470%2FProperties%2F-132187826">httpMode</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="359154652%2FProperties%2F-132187826" anchor-label="ignoreCertErrors" id="359154652%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#359154652%2FProperties%2F-132187826"><span>ignore</span><wbr><span>Cert</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="359154652%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="359154652%2FProperties%2F-132187826" anchor-label="ignoreCertErrors" id="359154652%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#359154652%2FProperties%2F-132187826">ignoreCertErrors</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-223263432%2FProperties%2F-132187826" anchor-label="precompress" id="-223263432%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-223263432%2FProperties%2F-132187826"><span><span>precompress</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-223263432%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="-223263432%2FProperties%2F-132187826" anchor-label="precompress" id="-223263432%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">Set</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="tools.elide.data/CompressionMode///PointingToDeclaration/">CompressionMode</span><span class="token operator">&gt;</span>&nbsp;<a href="index.html#-223263432%2FProperties%2F-132187826">precompress</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2005963559%2FProperties%2F-132187826" anchor-label="pretty" id="2005963559%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#2005963559%2FProperties%2F-132187826"><span><span>pretty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2005963559%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="2005963559%2FProperties%2F-132187826" anchor-label="pretty" id="2005963559%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#2005963559%2FProperties%2F-132187826">pretty</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1051054684%2FProperties%2F-132187826" anchor-label="timeout" id="1051054684%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#1051054684%2FProperties%2F-132187826"><span><span>timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1051054684%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="1051054684%2FProperties%2F-132187826" anchor-label="timeout" id="1051054684%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>&nbsp;<a href="index.html#1051054684%2FProperties%2F-132187826">timeout</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-193667749%2FProperties%2F-132187826" anchor-label="verbose" id="-193667749%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a>
+        <div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-193667749%2FProperties%2F-132187826"><span><span>verbose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193667749%2FProperties%2F-132187826"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><a data-name="-193667749%2FProperties%2F-132187826" anchor-label="verbose" id="-193667749%2FProperties%2F-132187826" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"></a><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#-193667749%2FProperties%2F-132187826">verbose</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

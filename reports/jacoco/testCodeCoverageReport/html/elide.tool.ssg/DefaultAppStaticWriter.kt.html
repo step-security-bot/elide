@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultAppStaticWriter.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">DefaultAppStaticWriter.kt</span></div><h1>DefaultAppStaticWriter.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import com.google.common.annotations.VisibleForTesting
+import elide.runtime.Logger
+import elide.runtime.Logging
+import elide.tool.ssg.AppStaticWriter.FragmentOutputs
+import elide.tool.ssg.AppStaticWriter.FragmentWrite
+import jakarta.inject.Singleton
+import kotlinx.coroutines.*
+import org.apache.commons.compress.archivers.ArchiveEntry
+import org.apache.commons.compress.archivers.ArchiveOutputStream
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry
+import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream
+import tools.elide.meta.EndpointType
+import java.io.Closeable
+import java.io.File
+import java.io.IOException
+import java.io.OutputStream
+import java.nio.file.Path
+import java.nio.file.attribute.FileTime
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.io.path.Path
+
+/** Default writer implementation for static sites. */
+<span class="fc" id="L27">@Singleton internal class DefaultAppStaticWriter (</span>
+<span class="fc" id="L28">  private val dispatcher: CoroutineDispatcher = Dispatchers.Default,</span>
+) : AppStaticWriter {
+  companion object {
+    /** @return Relative path from input. */
+    @JvmStatic private fun relativize(path: Path): Path {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">      return if (path.startsWith(&quot;/&quot;)) {</span>
+<span class="fc" id="L34">        Path(path.toString().drop(1))</span>
+      } else {
+<span class="fc" id="L36">        path</span>
+      }
+    }
+
+    /** @return Relative path from input. */
+<span class="fc" id="L41">    @JvmStatic private fun relativize(path: String): Path = relativize(Path(path))</span>
+  }
+
+  /** Defines types of output writer implementations. */
+  private sealed interface OutputWriter : Closeable, AutoCloseable {
+    /** Prepare the provided [path] as an output target. */
+<span class="nc" id="L47">    suspend fun prepare(path: Path) = Unit</span>
+
+    /** Ensure that a directory exists at the provided [path]. */
+<span class="fc" id="L50">    suspend fun ensureDirectory(base: Path, path: Path) = Unit</span>
+
+    /** Write a file from a static [fragment] and calculated [path], within the output [base]. */
+    suspend fun writeFile(base: Path, path: Path, fragment: StaticFragment): FragmentWrite
+
+    /** Flush all pending output to disk. */
+<span class="fc" id="L56">    suspend fun flush() = Unit // default: no-op</span>
+
+    /** Close any pending resources. */
+<span class="fc" id="L59">    override fun close() = Unit // default: no-op</span>
+  }
+
+  /** Writes outputs to a directory. */
+<span class="fc" id="L63">  private inner class DirectoryOutputWriter(private val parent: File): OutputWriter {</span>
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">    override suspend fun prepare(path: Path): Unit = if (!parent.exists()) ioOperation(&quot;createOutputTree&quot;) {</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">      if (!parent.mkdirs()) throw IOException(&quot;Failed to create output directory tree '$path'&quot;)</span>
+<span class="pc" id="L66">    } else { /* no-op */ }</span>
+
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    override suspend fun ensureDirectory(base: Path, path: Path): Unit = ioOperation(&quot;ensureDirectory&quot;) {</span>
+      // relativize archive file path
+<span class="fc" id="L70">      val relativePath = relativize(path)</span>
+<span class="fc" id="L71">      val resolved = base.resolve(relativePath)</span>
+<span class="fc" id="L72">      File(resolved.toAbsolutePath().toUri()).let {</span>
+<span class="pc bpc" id="L73" title="3 of 4 branches missed.">        if (!it.parentFile.exists() &amp;&amp; !it.parentFile.mkdirs()) {</span>
+<span class="nc" id="L74">          throw IOException(&quot;Failed to create tree directory '${resolved.parent}'&quot;)</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        } else if (!it.parentFile.canWrite()) {</span>
+<span class="nc" id="L76">          throw IOException(&quot;No permission to create tree directory '${resolved.parent}'&quot;)</span>
+        } else {
+<span class="fc" id="L78">          logging.trace(&quot;Ensure directory: '$resolved'&quot;)</span>
+        }
+<span class="fc" id="L80">      }</span>
+<span class="fc" id="L81">    }</span>
+
+    @Suppress(&quot;BlockingMethodInNonBlockingContext&quot;)
+    override suspend fun writeFile(
+      base: Path,
+      path: Path,
+      fragment: StaticFragment,
+<span class="fc" id="L88">    ): FragmentWrite = ioOperation(&quot;write&quot;) {</span>
+<span class="fc" id="L89">      File(base.resolve(path).toAbsolutePath().toUri()).let {</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (it.exists()) {</span>
+<span class="nc" id="L91">          throw IOException(&quot;Output file already exists: '$path'&quot;)</span>
+        } else {
+<span class="fc" id="L93">          logging.trace(&quot;Writing file: '$path'&quot;)</span>
+<span class="fc" id="L94">          val size = AtomicLong(0)</span>
+<span class="fc" id="L95">          registerAsync(it.outputStream()) { stream -&gt;</span>
+<span class="fc" id="L96">            val data = fragment.content.array()</span>
+<span class="fc" id="L97">            size.set(data.size.toLong())</span>
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            withContext(dispatcher) {</span>
+<span class="fc" id="L100">              stream.write(data)</span>
+<span class="fc" id="L101">            }</span>
+<span class="fc" id="L102">          }.await()</span>
+
+<span class="fc" id="L104">          FragmentWrite.success(</span>
+<span class="fc" id="L105">            fragment,</span>
+<span class="fc" id="L106">            path.toString(),</span>
+<span class="fc" id="L107">            size.get(),</span>
+          )
+        }
+      }
+<span class="fc" id="L111">    }</span>
+  }
+
+  /** Writes outputs to an archive. */
+<span class="fc" id="L115">  private abstract inner class ArchiveOutputWriter&lt;A: ArchiveOutputStream, E: ArchiveEntry&gt;(</span>
+<span class="fc" id="L116">    protected val stream: A,</span>
+  ): OutputWriter {
+    // Write an archive entry.
+    @Synchronized private fun writeArchiveEntry(entry: E, write: OutputStream.() -&gt; Unit): E {
+<span class="fc" id="L120">      stream.putArchiveEntry(entry)</span>
+<span class="fc" id="L121">      write.invoke(stream)</span>
+<span class="fc" id="L122">      stream.closeArchiveEntry()</span>
+<span class="fc" id="L123">      return entry</span>
+    }
+
+<span class="fc" id="L126">    override suspend fun prepare(path: Path): Unit = when {</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">      !path.toFile().canWrite() -&gt; throw SSGCompilerError.IOError(&quot;Output file is not writable: $path&quot;)</span>
+<span class="fc" id="L128">      else -&gt; Unit</span>
+<span class="fc" id="L129">    }</span>
+
+    override suspend fun writeFile(
+      base: Path,
+      path: Path,
+      fragment: StaticFragment,
+    ): FragmentWrite {
+      // acquire raw bytes of target file
+<span class="fc" id="L137">      val bytes = fragment.content.array()</span>
+<span class="fc" id="L138">      val pathString = path.toString()</span>
+
+      // relativize archive file path, then package, write, and close as archive entry
+<span class="fc" id="L141">      val relativePath = relativize(pathString)</span>
+<span class="fc" id="L142">      val entry = writeArchiveEntry(entryFromFile(relativePath.toString(), fragment)) {</span>
+<span class="fc" id="L143">        write(bytes)</span>
+<span class="fc" id="L144">      }</span>
+
+      // return as written fragment
+<span class="fc" id="L147">      return FragmentWrite.success(</span>
+<span class="fc" id="L148">        fragment = fragment,</span>
+<span class="fc" id="L149">        path = path.toString(),</span>
+<span class="fc" id="L150">        size = bytes.size.toLong(),</span>
+<span class="fc" id="L151">        compressed = entry.size,</span>
+      )
+    }
+
+    @Suppress(&quot;BlockingMethodInNonBlockingContext&quot;)
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">    override suspend fun flush() = withContext(dispatcher) {</span>
+<span class="fc" id="L157">      stream.flush()</span>
+<span class="pc" id="L158">    }</span>
+
+    override fun close() {
+<span class="fc" id="L161">      stream.flush()</span>
+<span class="fc" id="L162">      stream.close()</span>
+<span class="fc" id="L163">    }</span>
+
+    /** @return Archive entry [E] from the provided [fragment]. */
+    abstract fun entryFromFile(path: String, fragment: StaticFragment): E
+  }
+
+  /** Writes outputs to a tar archive. */
+<span class="fc" id="L170">  private inner class TarArchiveWriter private constructor (target: TarArchiveOutputStream):</span>
+<span class="fc" id="L171">    ArchiveOutputWriter&lt;TarArchiveOutputStream, TarArchiveEntry&gt;(target) {</span>
+
+    // Alternate constructor which loads from a file.
+<span class="fc" id="L174">    constructor(file: File): this(</span>
+<span class="fc" id="L175">      TarArchiveOutputStream(file.outputStream()),</span>
+<span class="fc" id="L176">    )</span>
+
+<span class="fc" id="L178">    override fun entryFromFile(path: String, fragment: StaticFragment): TarArchiveEntry = TarArchiveEntry(</span>
+<span class="fc" id="L179">      path,</span>
+<span class="fc" id="L180">    ).apply {</span>
+<span class="fc" id="L181">      size = fragment.content.array().size.toLong()</span>
+<span class="fc" id="L182">      setModTime(FileTime.fromMillis(0))</span>
+<span class="fc" id="L183">    }</span>
+  }
+
+  /** Writes outputs to a zip archive. */
+<span class="fc" id="L187">  private inner class ZipArchiveWriter private constructor (target: ZipArchiveOutputStream):</span>
+<span class="fc" id="L188">    ArchiveOutputWriter&lt;ZipArchiveOutputStream, ZipArchiveEntry&gt;(target) {</span>
+
+    // Alternate constructor which loads from a file.
+<span class="fc" id="L191">    constructor(file: File): this(</span>
+<span class="fc" id="L192">      ZipArchiveOutputStream(file.outputStream()),</span>
+<span class="fc" id="L193">    )</span>
+
+<span class="fc" id="L195">    override fun entryFromFile(path: String, fragment: StaticFragment): ZipArchiveEntry = ZipArchiveEntry(</span>
+<span class="fc" id="L196">      path,</span>
+<span class="fc" id="L197">    ).apply {</span>
+<span class="fc" id="L198">      size = fragment.content.array().size.toLong()</span>
+<span class="fc" id="L199">      setTime(FileTime.fromMillis(0))</span>
+<span class="fc" id="L200">    }</span>
+  }
+
+  // Private logger.
+<span class="fc" id="L204">  private val logging: Logger = Logging.of(DefaultAppStaticWriter::class)</span>
+
+  // Compiler params.
+  private lateinit var params: SiteCompilerParams
+
+  // Resources that must be closed.
+<span class="fc" id="L210">  private val closeables: ArrayList&lt;Closeable&gt; = ArrayList()</span>
+
+  // Register a stream as a closeable.
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">  private suspend fun &lt;C: Closeable, R&gt; registerAsync(resource: C, op: suspend (C) -&gt; R): Deferred&lt;R&gt; = coroutineScope {</span>
+<span class="fc" id="L214">    closeables.add(resource)</span>
+<span class="fc" id="L215">    async {</span>
+<span class="fc" id="L216">      op.invoke(resource)</span>
+    }
+<span class="fc" id="L218">  }</span>
+
+  // Build a virtualized output file-path based on the input `fragment`. Relative to output base.
+  @VisibleForTesting @Suppress(&quot;unused&quot;) internal fun filepathForFragment(fragment: StaticFragment): String {
+<span class="fc" id="L222">    val basepath = fragment.basePath()</span>
+<span class="fc" id="L223">    val tailpath = fragment.tailPath()</span>
+<span class="fc" id="L224">    val produces = fragment.produces()</span>
+
+<span class="pc bpc" id="L226" title="1 of 6 branches missed.">    val filepathVirtual = if (!tailpath.isNullOrBlank()) {</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">      if (tailpath.startsWith(&quot;/&quot;)) {</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">        if (basepath == &quot;/&quot;) {</span>
+<span class="fc" id="L229">          tailpath  // it's a duplicate or empty base</span>
+        } else {
+<span class="fc" id="L231">          &quot;$basepath$tailpath&quot;</span>
+        }
+      } else {
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (basepath == &quot;/&quot;) {</span>
+<span class="fc" id="L235">          &quot;/$tailpath&quot;  // it's a duplicate or empty base, just with a relative tail</span>
+        } else {
+<span class="fc" id="L237">          &quot;$basepath/$tailpath&quot;</span>
+        }
+      }
+    } else {
+<span class="fc" id="L241">      basepath</span>
+    }
+<span class="fc bfc" id="L243" title="All 4 branches covered.">    val extensionVirtual = if (fragment.endpointType() == EndpointType.PAGE || produces.contains(&quot;text/html&quot;)) {</span>
+<span class="fc" id="L244">      &quot;html&quot;</span>
+    } else {
+<span class="fc" id="L246">      null</span>
+    }
+<span class="fc bfc" id="L248" title="All 2 branches covered.">    val finalUrlSegment = if (filepathVirtual != &quot;/&quot;) {</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">      (tailpath ?: basepath).split(&quot;/&quot;).last()</span>
+    } else {
+<span class="fc" id="L251">      &quot;&quot;</span>
+    }
+<span class="fc" id="L253">    val filename = when {</span>
+      // if the virtual URL is `/` and we guessed `html` for the extension, it should be an `index.html` file within the
+      // enclosing folder (potentially at the root).
+<span class="pc bpc" id="L256" title="1 of 4 branches missed.">      filepathVirtual == &quot;/&quot; &amp;&amp; extensionVirtual == &quot;html&quot; -&gt; &quot;index.html&quot;</span>
+
+      // or, if the final URL segment is non-empty and contains a `.` with characters after it, it is probably a file
+      // name with an extension, so we can use that.
+<span class="pc bpc" id="L260" title="3 of 6 branches missed.">      finalUrlSegment.isNotBlank() &amp;&amp; finalUrlSegment.contains(&quot;.&quot;) &amp;&amp; (</span>
+<span class="pc bpc" id="L261" title="2 of 4 branches missed.">        finalUrlSegment.split(&quot;.&quot;).last().isNotEmpty()</span>
+<span class="fc" id="L262">      ) -&gt; finalUrlSegment</span>
+
+      // otherwise, we don't really have a way to guess the filename and should fail.
+<span class="nc" id="L265">      else -&gt; throw SSGCompilerError.OutputError(&quot;Cannot determine filename for fragment: $fragment&quot;)</span>
+    }
+
+    // if the base path is at the root, or it is an empty string, then our folder base path should be an empty string,
+    // indicating that this file belongs at the root of the output tree.
+<span class="fc" id="L270">    val folderBase = when {</span>
+<span class="pc bpc" id="L271" title="1 of 8 branches missed.">      (basepath == &quot;/&quot; || basepath == &quot;&quot;) &amp;&amp; (tailpath == &quot;/&quot; || tailpath == &quot;&quot;) -&gt; &quot;&quot;</span>
+
+      // otherwise, we need a base folder path. if the virtual path contains the filename, that means the filename is
+      // not virtualized/computed, so we can safely trim it from the virtualized path to get the base.
+<span class="fc" id="L275">      else -&gt; filepathVirtual.split(&quot;/&quot;).dropLast(1).joinToString(&quot;/&quot;)</span>
+    }
+<span class="pc bpc" id="L277" title="2 of 8 branches missed.">    return if (folderBase.isNotEmpty() &amp;&amp; filename.isNotEmpty()) {</span>
+<span class="fc" id="L278">      listOf(</span>
+<span class="fc" id="L279">        folderBase,</span>
+<span class="fc" id="L280">        filename,</span>
+<span class="fc" id="L281">      ).joinToString(</span>
+<span class="fc" id="L282">        &quot;/&quot;</span>
+      )
+    } else {
+      // folder base is empty; we can just use a filename at the root.
+<span class="fc" id="L286">      &quot;/$filename&quot;</span>
+    }
+  }
+
+  // Run an I/O operation, protecting for errors.
+<span class="fc" id="L291">  @VisibleForTesting internal suspend fun &lt;R: Any&gt; ioOperation(phase: String, op: suspend () -&gt; R): R = try {</span>
+<span class="fc" id="L292">    op.invoke()</span>
+<span class="nc" id="L293">  } catch (err: IOException) {</span>
+<span class="nc" id="L294">    logging.error(&quot;Failed to write static site in I/O phase '$phase'&quot;, err)</span>
+<span class="nc" id="L295">    throw SSGCompilerError.IOError(&quot;Failed to write static site in I/O phase '$phase'&quot;, err)</span>
+<span class="nc" id="L296">  } catch (err: Throwable) {</span>
+<span class="nc" id="L297">    logging.error(&quot;Failed to write static site in I/O phase '$phase'&quot;, err)</span>
+<span class="pc" id="L298">    throw SSGCompilerError.Generic(err)</span>
+<span class="fc" id="L299">  }</span>
+
+  /** @inheritDoc */
+  override suspend fun writeAsync(params: SiteCompilerParams, buffer: StaticSiteBuffer): Deferred&lt;FragmentOutputs&gt; {
+    // assign params, build file for target
+<span class="fc" id="L304">    this.params = params</span>
+<span class="fc" id="L305">    val base = Path(params.output.path)</span>
+
+    // resolve output facade
+<span class="fc bfc" id="L308" title="All 2 branches covered.">    return registerAsync(when (params.output.mode) {</span>
+      // handle directory output
+<span class="fc" id="L310">      SiteCompilerParams.OutputMode.DIRECTORY -&gt; DirectoryOutputWriter(base.toFile())</span>
+
+      // handle output for each file type
+<span class="fc bfc" id="L313" title="All 2 branches covered.">      SiteCompilerParams.OutputMode.FILE -&gt; when ((params.output as SiteCompilerParams.Output.File).format) {</span>
+<span class="fc" id="L314">        SiteCompilerParams.OutputFormat.ZIP -&gt; ZipArchiveWriter(base.toFile())</span>
+<span class="fc" id="L315">        SiteCompilerParams.OutputFormat.TAR -&gt; TarArchiveWriter(base.toFile())</span>
+      }
+<span class="fc" id="L317">    }) {</span>
+      // prepare the path, which includes permission tests, creating empty directories, and so on.
+<span class="fc" id="L319">      ioOperation(&quot;prepare&quot;) {</span>
+<span class="fc" id="L320">        it.prepare(base)</span>
+<span class="fc" id="L321">      }</span>
+
+      // seal buffer, we're ready to write
+<span class="fc" id="L324">      buffer.seal()</span>
+
+      // for each fragment in the buffer, (1) call `ensureDirectory`, and (2) call `writeFile`.
+<span class="fc" id="L327">      val jobs = buffer.consumeAsync { fragment -&gt;</span>
+        // translate the fragment into a file path
+<span class="fc" id="L329">        val path = Path(filepathForFragment(fragment))</span>
+<span class="fc" id="L330">        val relativePath = relativize(path)</span>
+
+        // ensure that any parent directories exist, as applicable.
+<span class="fc" id="L333">        ioOperation(&quot;ensureDirectory&quot;) {</span>
+<span class="fc" id="L334">          it.ensureDirectory(base, path)</span>
+<span class="fc" id="L335">        }</span>
+
+        // write the file in question.
+<span class="fc" id="L338">        ioOperation(&quot;writeFile&quot;) {</span>
+<span class="fc" id="L339">          it.writeFile(base, relativePath, fragment)</span>
+        }
+      }
+
+      // wait for all jobs to finish, then flush all remaining output.
+<span class="fc" id="L344">      jobs.joinAll()</span>
+<span class="fc" id="L345">      it.flush()</span>
+
+      // return the output path as the result
+<span class="fc" id="L348">      FragmentOutputs.of(</span>
+<span class="fc" id="L349">        path = base.toAbsolutePath().toString(),</span>
+<span class="fc" id="L350">        fragments = emptyList(),</span>
+      )
+    }
+  }
+
+  /** @inheritDoc */
+<span class="fc" id="L356">  override fun close(): Unit = closeables.forEach {</span>
+<span class="fc" id="L357">    it.close()</span>
+<span class="fc" id="L358">  }</span>
+<span class="fc" id="L359">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

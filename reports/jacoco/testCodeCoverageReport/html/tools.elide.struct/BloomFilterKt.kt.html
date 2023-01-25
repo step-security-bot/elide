@@ -4,15 +4,15 @@
 package tools.elide.struct;
 
 @kotlin.jvm.JvmName(&quot;-initializebloomFilter&quot;)
-public inline fun bloomFilter(block: tools.elide.struct.BloomFilterKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter =
+inline fun bloomFilter(block: tools.elide.struct.BloomFilterKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter =
 <span class="nc" id="L8">  tools.elide.struct.BloomFilterKt.Dsl._create(tools.elide.struct.BloomFilter.newBuilder()).apply { block() }._build()</span>
-public object BloomFilterKt {
+object BloomFilterKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.struct.BloomFilter.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.struct.BloomFilter.Builder): Dsl = Dsl(builder)
@@ -30,7 +30,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;.crypto.HashAlgorithm algorithm = 1;&lt;/code&gt;
      */
-    public var algorithm: tools.elide.crypto.HashAlgorithm
+     var algorithm: tools.elide.crypto.HashAlgorithm
       @JvmName(&quot;getAlgorithm&quot;)
 <span class="nc" id="L35">      get() = _builder.getAlgorithm()</span>
       @JvmName(&quot;setAlgorithm&quot;)
@@ -45,7 +45,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;.crypto.HashAlgorithm algorithm = 1;&lt;/code&gt;
      */
-    public fun clearAlgorithm() {
+    fun clearAlgorithm() {
 <span class="nc" id="L49">      _builder.clearAlgorithm()</span>
 <span class="nc" id="L50">    }</span>
 
@@ -56,7 +56,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint32 rounds = 2;&lt;/code&gt;
      */
-    public var rounds: kotlin.Int
+    var rounds: kotlin.Int
       @JvmName(&quot;getRounds&quot;)
 <span class="nc" id="L61">      get() = _builder.getRounds()</span>
       @JvmName(&quot;setRounds&quot;)
@@ -70,7 +70,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint32 rounds = 2;&lt;/code&gt;
      */
-    public fun clearRounds() {
+    fun clearRounds() {
 <span class="nc" id="L74">      _builder.clearRounds()</span>
 <span class="nc" id="L75">    }</span>
 
@@ -81,7 +81,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint64 count = 3;&lt;/code&gt;
      */
-    public var count: kotlin.Long
+    var count: kotlin.Long
       @JvmName(&quot;getCount&quot;)
 <span class="nc" id="L86">      get() = _builder.getCount()</span>
       @JvmName(&quot;setCount&quot;)
@@ -95,7 +95,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint64 count = 3;&lt;/code&gt;
      */
-    public fun clearCount() {
+    fun clearCount() {
 <span class="nc" id="L99">      _builder.clearCount()</span>
 <span class="nc" id="L100">    }</span>
 
@@ -106,7 +106,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint64 limit = 4;&lt;/code&gt;
      */
-    public var limit: kotlin.Long
+    var limit: kotlin.Long
       @JvmName(&quot;getLimit&quot;)
 <span class="nc" id="L111">      get() = _builder.getLimit()</span>
       @JvmName(&quot;setLimit&quot;)
@@ -120,7 +120,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;uint64 limit = 4;&lt;/code&gt;
      */
-    public fun clearLimit() {
+    fun clearLimit() {
 <span class="nc" id="L124">      _builder.clearLimit()</span>
 <span class="nc" id="L125">    }</span>
 
@@ -129,7 +129,7 @@ public object BloomFilterKt {
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-    public class LayerProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    class LayerProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
      * &lt;pre&gt;
      * Specifies each layer of this Bloom filter structure. If no more than one layer is present, the structure represents
@@ -139,7 +139,7 @@ public object BloomFilterKt {
      *
      * &lt;code&gt;repeated .struct.BloomFilter.FilterLayer layer = 5;&lt;/code&gt;
      */
-     public val layer: com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;
+     val layer: com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;
       @kotlin.jvm.JvmSynthetic
       get() = com.google.protobuf.kotlin.DslList(
         _builder.getLayerList()
@@ -156,7 +156,7 @@ public object BloomFilterKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;addLayer&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.add(value: tools.elide.struct.BloomFilter.FilterLayer) {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.add(value: tools.elide.struct.BloomFilter.FilterLayer) {
       _builder.addLayer(value)
     }
     /**
@@ -172,7 +172,7 @@ public object BloomFilterKt {
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;plusAssignLayer&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.plusAssign(value: tools.elide.struct.BloomFilter.FilterLayer) {
+    inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.plusAssign(value: tools.elide.struct.BloomFilter.FilterLayer) {
       add(value)
     }
     /**
@@ -187,7 +187,7 @@ public object BloomFilterKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;addAllLayer&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.struct.BloomFilter.FilterLayer&gt;) {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.struct.BloomFilter.FilterLayer&gt;) {
       _builder.addAllLayer(values)
     }
     /**
@@ -203,7 +203,7 @@ public object BloomFilterKt {
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;plusAssignAllLayer&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.struct.BloomFilter.FilterLayer&gt;) {
+    inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.struct.BloomFilter.FilterLayer&gt;) {
       addAll(values)
     }
     /**
@@ -219,7 +219,7 @@ public object BloomFilterKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;setLayer&quot;)
-    public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.set(index: kotlin.Int, value: tools.elide.struct.BloomFilter.FilterLayer) {
+    operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.set(index: kotlin.Int, value: tools.elide.struct.BloomFilter.FilterLayer) {
       _builder.setLayer(index, value)
     }
     /**
@@ -233,21 +233,21 @@ public object BloomFilterKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;clearLayer&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.clear() {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.struct.BloomFilter.FilterLayer, LayerProxy&gt;.clear() {
       _builder.clearLayer()
     }
 
   }
   @kotlin.jvm.JvmName(&quot;-initializefilterLayer&quot;)
-  public inline fun filterLayer(block: tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter.FilterLayer =
+  inline fun filterLayer(block: tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter.FilterLayer =
 <span class="nc" id="L243">    tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl._create(tools.elide.struct.BloomFilter.FilterLayer.newBuilder()).apply { block() }._build()</span>
-  public object FilterLayerKt {
+  object FilterLayerKt {
 <span class="nc" id="L245">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L247">    public class Dsl private constructor(</span>
+<span class="nc" id="L247">    class Dsl private constructor(</span>
 <span class="nc" id="L248">      private val _builder: tools.elide.struct.BloomFilter.FilterLayer.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.struct.BloomFilter.FilterLayer.Builder): Dsl = Dsl(builder)
@@ -262,7 +262,7 @@ public object BloomFilterKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class BitsetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class BitsetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Raw bit sets for each layer of the filter.
@@ -270,7 +270,7 @@ public object BloomFilterKt {
        *
        * &lt;code&gt;repeated fixed64 bitset = 2;&lt;/code&gt;
        */
-       public val bitset: com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;
+       val bitset: com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getBitsetList()
@@ -285,7 +285,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addBitset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.add(value: kotlin.Long) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.add(value: kotlin.Long) {
         _builder.addBitset(value)
       }/**
        * &lt;pre&gt;
@@ -298,7 +298,7 @@ public object BloomFilterKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignBitset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.plusAssign(value: kotlin.Long) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.plusAssign(value: kotlin.Long) {
         add(value)
       }/**
        * &lt;pre&gt;
@@ -310,7 +310,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllBitset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
         _builder.addAllBitset(values)
       }/**
        * &lt;pre&gt;
@@ -323,7 +323,7 @@ public object BloomFilterKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllBitset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
         addAll(values)
       }/**
        * &lt;pre&gt;
@@ -336,7 +336,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setBitset&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.set(index: kotlin.Int, value: kotlin.Long) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.set(index: kotlin.Int, value: kotlin.Long) {
         _builder.setBitset(index, value)
       }/**
        * &lt;pre&gt;
@@ -347,7 +347,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearBitset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, BitsetProxy&gt;.clear() {
         _builder.clearBitset()
       }
       /**
@@ -355,7 +355,7 @@ public object BloomFilterKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class CountProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class CountProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Count of items for each bucket in this filter layer. Only present if this is a *Counting Bloom filter*, in which
@@ -364,7 +364,7 @@ public object BloomFilterKt {
        *
        * &lt;code&gt;repeated uint64 count = 4;&lt;/code&gt;
        */
-       public val count: com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;
+       val count: com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getCountList()
@@ -380,7 +380,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addCount&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.add(value: kotlin.Long) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.add(value: kotlin.Long) {
         _builder.addCount(value)
       }/**
        * &lt;pre&gt;
@@ -394,7 +394,7 @@ public object BloomFilterKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignCount&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.plusAssign(value: kotlin.Long) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.plusAssign(value: kotlin.Long) {
         add(value)
       }/**
        * &lt;pre&gt;
@@ -407,7 +407,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllCount&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
         _builder.addAllCount(values)
       }/**
        * &lt;pre&gt;
@@ -421,7 +421,7 @@ public object BloomFilterKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllCount&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.Long&gt;) {
         addAll(values)
       }/**
        * &lt;pre&gt;
@@ -435,7 +435,7 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setCount&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.set(index: kotlin.Int, value: kotlin.Long) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.set(index: kotlin.Int, value: kotlin.Long) {
         _builder.setCount(index, value)
       }/**
        * &lt;pre&gt;
@@ -447,17 +447,17 @@ public object BloomFilterKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearCount&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.Long, CountProxy&gt;.clear() {
         _builder.clearCount()
       }}
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.struct.BloomFilter.copy(block: tools.elide.struct.BloomFilterKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter =
+inline fun tools.elide.struct.BloomFilter.copy(block: tools.elide.struct.BloomFilterKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter =
   tools.elide.struct.BloomFilterKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.struct.BloomFilter.FilterLayer.copy(block: tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter.FilterLayer =
+inline fun tools.elide.struct.BloomFilter.FilterLayer.copy(block: tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl.() -&gt; kotlin.Unit): tools.elide.struct.BloomFilter.FilterLayer =
   tools.elide.struct.BloomFilterKt.FilterLayerKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

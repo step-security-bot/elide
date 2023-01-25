@@ -4,15 +4,15 @@
 package tools.elide.data;
 
 @kotlin.jvm.JvmName(&quot;-initializedataContainerRef&quot;)
-public inline fun dataContainerRef(block: tools.elide.data.DataContainerRefKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef =
+inline fun dataContainerRef(block: tools.elide.data.DataContainerRefKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef =
 <span class="nc" id="L8">  tools.elide.data.DataContainerRefKt.Dsl._create(tools.elide.data.DataContainerRef.newBuilder()).apply { block() }._build()</span>
-public object DataContainerRefKt {
+object DataContainerRefKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.data.DataContainerRef.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.data.DataContainerRef.Builder): Dsl = Dsl(builder)
@@ -30,7 +30,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.CompressedData data = 1;&lt;/code&gt;
      */
-    public var data: tools.elide.data.CompressedData
+    var data: tools.elide.data.CompressedData
       @JvmName(&quot;getData&quot;)
 <span class="nc" id="L35">      get() = _builder.getData()</span>
       @JvmName(&quot;setData&quot;)
@@ -45,7 +45,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.CompressedData data = 1;&lt;/code&gt;
      */
-    public fun clearData() {
+    fun clearData() {
 <span class="nc" id="L49">      _builder.clearData()</span>
 <span class="nc" id="L50">    }</span>
     /**
@@ -57,7 +57,7 @@ public object DataContainerRefKt {
      * &lt;code&gt;.data.CompressedData data = 1;&lt;/code&gt;
      * @return Whether the data field is set.
      */
-    public fun hasData(): kotlin.Boolean {
+    fun hasData(): kotlin.Boolean {
 <span class="nc" id="L61">      return _builder.hasData()</span>
     }
 
@@ -68,7 +68,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair resource = 2;&lt;/code&gt;
      */
-    public var resource: tools.elide.data.DataContainerRef.FingerprintPathPair
+    var resource: tools.elide.data.DataContainerRef.FingerprintPathPair
       @JvmName(&quot;getResource&quot;)
 <span class="nc" id="L73">      get() = _builder.getResource()</span>
       @JvmName(&quot;setResource&quot;)
@@ -82,7 +82,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair resource = 2;&lt;/code&gt;
      */
-    public fun clearResource() {
+    fun clearResource() {
 <span class="nc" id="L86">      _builder.clearResource()</span>
 <span class="nc" id="L87">    }</span>
     /**
@@ -93,7 +93,7 @@ public object DataContainerRefKt {
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair resource = 2;&lt;/code&gt;
      * @return Whether the resource field is set.
      */
-    public fun hasResource(): kotlin.Boolean {
+    fun hasResource(): kotlin.Boolean {
 <span class="nc" id="L97">      return _builder.hasResource()</span>
     }
 
@@ -104,7 +104,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair filesystem = 3;&lt;/code&gt;
      */
-    public var filesystem: tools.elide.data.DataContainerRef.FingerprintPathPair
+    var filesystem: tools.elide.data.DataContainerRef.FingerprintPathPair
       @JvmName(&quot;getFilesystem&quot;)
 <span class="nc" id="L109">      get() = _builder.getFilesystem()</span>
       @JvmName(&quot;setFilesystem&quot;)
@@ -118,7 +118,7 @@ public object DataContainerRefKt {
      *
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair filesystem = 3;&lt;/code&gt;
      */
-    public fun clearFilesystem() {
+    fun clearFilesystem() {
 <span class="nc" id="L122">      _builder.clearFilesystem()</span>
 <span class="nc" id="L123">    }</span>
     /**
@@ -129,27 +129,27 @@ public object DataContainerRefKt {
      * &lt;code&gt;.data.DataContainerRef.FingerprintPathPair filesystem = 3;&lt;/code&gt;
      * @return Whether the filesystem field is set.
      */
-    public fun hasFilesystem(): kotlin.Boolean {
+    fun hasFilesystem(): kotlin.Boolean {
 <span class="nc" id="L133">      return _builder.hasFilesystem()</span>
     }
-    public val referenceCase: tools.elide.data.DataContainerRef.ReferenceCase
+    val referenceCase: tools.elide.data.DataContainerRef.ReferenceCase
       @JvmName(&quot;getReferenceCase&quot;)
 <span class="nc" id="L137">      get() = _builder.getReferenceCase()</span>
 
-    public fun clearReference() {
+    fun clearReference() {
 <span class="nc" id="L140">      _builder.clearReference()</span>
 <span class="nc" id="L141">    }</span>
   }
   @kotlin.jvm.JvmName(&quot;-initializefingerprintPathPair&quot;)
-  public inline fun fingerprintPathPair(block: tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef.FingerprintPathPair =
+  inline fun fingerprintPathPair(block: tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef.FingerprintPathPair =
 <span class="nc" id="L145">    tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl._create(tools.elide.data.DataContainerRef.FingerprintPathPair.newBuilder()).apply { block() }._build()</span>
-  public object FingerprintPathPairKt {
+  object FingerprintPathPairKt {
 <span class="nc" id="L147">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L149">    public class Dsl private constructor(</span>
+<span class="nc" id="L149">    class Dsl private constructor(</span>
 <span class="nc" id="L150">      private val _builder: tools.elide.data.DataContainerRef.FingerprintPathPair.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.data.DataContainerRef.FingerprintPathPair.Builder): Dsl = Dsl(builder)
@@ -166,7 +166,7 @@ public object DataContainerRefKt {
        *
        * &lt;code&gt;.data.DataFingerprint fingerprint = 1;&lt;/code&gt;
        */
-      public var fingerprint: tools.elide.data.DataFingerprint
+      var fingerprint: tools.elide.data.DataFingerprint
         @JvmName(&quot;getFingerprint&quot;)
 <span class="nc" id="L171">        get() = _builder.getFingerprint()</span>
         @JvmName(&quot;setFingerprint&quot;)
@@ -180,7 +180,7 @@ public object DataContainerRefKt {
        *
        * &lt;code&gt;.data.DataFingerprint fingerprint = 1;&lt;/code&gt;
        */
-      public fun clearFingerprint() {
+      fun clearFingerprint() {
 <span class="nc" id="L184">        _builder.clearFingerprint()</span>
 <span class="nc" id="L185">      }</span>
       /**
@@ -191,7 +191,7 @@ public object DataContainerRefKt {
        * &lt;code&gt;.data.DataFingerprint fingerprint = 1;&lt;/code&gt;
        * @return Whether the fingerprint field is set.
        */
-      public fun hasFingerprint(): kotlin.Boolean {
+      fun hasFingerprint(): kotlin.Boolean {
 <span class="nc" id="L195">        return _builder.hasFingerprint()</span>
       }
 
@@ -202,7 +202,7 @@ public object DataContainerRefKt {
        *
        * &lt;code&gt;string path = 2;&lt;/code&gt;
        */
-      public var path: kotlin.String
+      var path: kotlin.String
         @JvmName(&quot;getPath&quot;)
 <span class="nc" id="L207">        get() = _builder.getPath()</span>
         @JvmName(&quot;setPath&quot;)
@@ -216,18 +216,18 @@ public object DataContainerRefKt {
        *
        * &lt;code&gt;string path = 2;&lt;/code&gt;
        */
-      public fun clearPath() {
+      fun clearPath() {
 <span class="nc" id="L220">        _builder.clearPath()</span>
 <span class="nc" id="L221">      }</span>
     }
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.data.DataContainerRef.copy(block: tools.elide.data.DataContainerRefKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef =
+inline fun tools.elide.data.DataContainerRef.copy(block: tools.elide.data.DataContainerRefKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef =
   tools.elide.data.DataContainerRefKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.data.DataContainerRef.FingerprintPathPair.copy(block: tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef.FingerprintPathPair =
+inline fun tools.elide.data.DataContainerRef.FingerprintPathPair.copy(block: tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl.() -&gt; kotlin.Unit): tools.elide.data.DataContainerRef.FingerprintPathPair =
   tools.elide.data.DataContainerRefKt.FingerprintPathPairKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 val tools.elide.data.DataContainerRef.FingerprintPathPairOrBuilder.fingerprintOrNull: tools.elide.data.DataFingerprint?

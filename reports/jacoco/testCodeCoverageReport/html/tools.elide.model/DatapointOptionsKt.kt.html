@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializedatapointOptions&quot;)
-public inline fun datapointOptions(block: tools.elide.model.DatapointOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.DatapointOptions =
+inline fun datapointOptions(block: tools.elide.model.DatapointOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.DatapointOptions =
 <span class="nc" id="L8">  tools.elide.model.DatapointOptionsKt.Dsl._create(tools.elide.model.DatapointOptions.newBuilder()).apply { block() }._build()</span>
-public object DatapointOptionsKt {
+object DatapointOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.DatapointOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.DatapointOptions.Builder): Dsl = Dsl(builder)
@@ -30,7 +30,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;.model.Visibility visibility = 1;&lt;/code&gt;
      */
-    public var visibility: tools.elide.model.Visibility
+     var visibility: tools.elide.model.Visibility
       @JvmName(&quot;getVisibility&quot;)
 <span class="nc" id="L35">      get() = _builder.getVisibility()</span>
       @JvmName(&quot;setVisibility&quot;)
@@ -45,7 +45,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;.model.Visibility visibility = 1;&lt;/code&gt;
      */
-    public fun clearVisibility() {
+    fun clearVisibility() {
 <span class="nc" id="L49">      _builder.clearVisibility()</span>
 <span class="nc" id="L50">    }</span>
 
@@ -57,7 +57,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool required = 2;&lt;/code&gt;
      */
-    public var required: kotlin.Boolean
+    var required: kotlin.Boolean
       @JvmName(&quot;getRequired&quot;)
 <span class="nc" id="L62">      get() = _builder.getRequired()</span>
       @JvmName(&quot;setRequired&quot;)
@@ -72,7 +72,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool required = 2;&lt;/code&gt;
      */
-    public fun clearRequired() {
+    fun clearRequired() {
 <span class="nc" id="L76">      _builder.clearRequired()</span>
 <span class="nc" id="L77">    }</span>
 
@@ -85,7 +85,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool concrete = 3;&lt;/code&gt;
      */
-    public var concrete: kotlin.Boolean
+    var concrete: kotlin.Boolean
       @JvmName(&quot;getConcrete&quot;)
 <span class="nc" id="L90">      get() = _builder.getConcrete()</span>
       @JvmName(&quot;setConcrete&quot;)
@@ -101,7 +101,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool concrete = 3;&lt;/code&gt;
      */
-    public fun clearConcrete() {
+    fun clearConcrete() {
 <span class="nc" id="L105">      _builder.clearConcrete()</span>
 <span class="nc" id="L106">    }</span>
 
@@ -113,7 +113,7 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool ephemeral = 4;&lt;/code&gt;
      */
-    public var ephemeral: kotlin.Boolean
+    var ephemeral: kotlin.Boolean
       @JvmName(&quot;getEphemeral&quot;)
 <span class="nc" id="L118">      get() = _builder.getEphemeral()</span>
       @JvmName(&quot;setEphemeral&quot;)
@@ -128,13 +128,13 @@ public object DatapointOptionsKt {
      *
      * &lt;code&gt;bool ephemeral = 4;&lt;/code&gt;
      */
-    public fun clearEphemeral() {
+    fun clearEphemeral() {
 <span class="nc" id="L132">      _builder.clearEphemeral()</span>
 <span class="nc" id="L133">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.DatapointOptions.copy(block: tools.elide.model.DatapointOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.DatapointOptions =
+inline fun tools.elide.model.DatapointOptions.copy(block: tools.elide.model.DatapointOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.DatapointOptions =
   tools.elide.model.DatapointOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

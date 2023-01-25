@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SiteCompiler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">SiteCompiler.kt</span></div><h1>SiteCompiler.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import com.google.common.annotations.VisibleForTesting
+import elide.tool.ssg.SiteCompilerParams as CompilerParams
+import elide.tool.ssg.SiteCompilerParams.Options
+import elide.tool.ssg.SiteCompileResult as CompileResult
+import com.google.errorprone.annotations.CanIgnoreReturnValue
+import elide.runtime.Logger
+import elide.runtime.Logging
+import elide.tool.ssg.SiteCompilerParams
+import elide.tool.ssg.cfg.ElideSSGCompiler.ELIDE_TOOL_VERSION
+import io.micronaut.configuration.picocli.MicronautFactory
+import io.micronaut.context.ApplicationContext
+import jakarta.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import picocli.CommandLine
+import picocli.CommandLine.Command
+import picocli.CommandLine.Option
+import picocli.CommandLine.Parameters
+import tools.elide.data.CompressionMode
+import java.net.URL
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
+import kotlin.system.exitProcess
+
+/** Entrypoint for the site compiler command-line tool. */
+<span class="fc" id="L29">@Command(</span>
+  name = &quot;ssg&quot;,
+  description = [&quot;Compile a static site from an Elide application.&quot;],
+  mixinStandardHelpOptions = true,
+  version = [ELIDE_TOOL_VERSION],
+)
+@Suppress(&quot;MemberVisibilityCanBePrivate&quot;)
+<span class="fc" id="L36">public class SiteCompiler internal constructor () : Runnable {</span>
+  public companion object {
+    /** CLI entrypoint and [args]. */
+<span class="nc" id="L39">    @JvmStatic public fun main(args: Array&lt;String&gt;): Unit = exitProcess(exec(args))</span>
+
+    /** @return Tool version. */
+<span class="fc" id="L42">    @JvmStatic public fun version(): String = ELIDE_TOOL_VERSION</span>
+
+    /**
+     * Programmatic entrypoint for the SSG compiler; equivalent to invoking [main].
+     *
+     * @param manifest Filesystem path to the manifest which should be read and interpreted.
+     * @param target File path to the application JAR which should be launched, or HTTP URL if running in HTP mode.
+     * @param output Output settings for this compiler run.
+     * @param options Options to apply to this compile execution.
+     * @param logging Logger to use for compiler messages.
+     * @param dispatcher Co-routine dispatcher to use, as applicable.
+     * @return Compiler result.
+     */
+<span class="fc" id="L55">    @JvmStatic public fun compile(</span>
+      manifest: String,
+      target: String,
+      output: CompilerParams.Output,
+      options: Options,
+<span class="fc" id="L60">      logging: Logger? = null,</span>
+<span class="fc" id="L61">      dispatcher: CoroutineDispatcher? = null,</span>
+    ): CompileResult {
+<span class="fc" id="L63">      return SiteCompiler().apply {</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        val ioDispatcher = dispatcher ?: Dispatchers.IO</span>
+        // setup default actors
+<span class="fc" id="L66">        manifestReader = FilesystemManifestReader(ioDispatcher)</span>
+<span class="fc" id="L67">        requestFactory = DefaultRequestFactory()</span>
+<span class="fc" id="L68">        contentReader = DefaultAppStaticReader()</span>
+<span class="fc" id="L69">        contentWriter = DefaultAppStaticWriter(ioDispatcher)</span>
+<span class="fc" id="L70">        appLoader = DefaultAppLoader(contentReader, ioDispatcher)</span>
+<span class="fc" id="L71">        compiler = DefaultAppStaticCompiler(ioDispatcher)</span>
+
+        // configure the compiler
+<span class="fc" id="L74">        configure(logging = logging, params = CompilerParams(</span>
+<span class="fc" id="L75">          target = target,</span>
+<span class="fc" id="L76">          output = output,</span>
+<span class="fc" id="L77">          manifest = manifest,</span>
+<span class="fc" id="L78">          options = options.copy(</span>
+<span class="fc" id="L79">            httpMode = options.httpMode,</span>
+          ),
+        ))
+<span class="fc" id="L82">      }.compile()</span>
+    }
+
+    // Wrap the tool execution with exception protection.
+    private suspend fun &lt;R&gt; executeTool(logging: Logger, op: suspend () -&gt; R): R {
+<span class="fc" id="L87">      return try {</span>
+<span class="fc" id="L88">        op.invoke()</span>
+<span class="nc" id="L89">      } catch (err: SSGCompilerError) {</span>
+<span class="nc" id="L90">        logging.error(&quot;SSG compiler failed: error of type '${err::class.simpleName}'. ${err.message}&quot;, err)</span>
+<span class="nc" id="L91">        throw err</span>
+<span class="nc" id="L92">      } catch (thr: Throwable) {</span>
+        // translate to generic SSG compiler error
+<span class="nc" id="L94">        logging.error(&quot;SSG compiler failed with unhandled exception: ${thr.message}&quot;, thr)</span>
+<span class="pc" id="L95">        throw SSGCompilerError.Generic(thr)</span>
+      }
+    }
+
+    // Private execution entrypoint for customizing core Picocli settings.
+    @JvmStatic @VisibleForTesting internal fun exec(args: Array&lt;String&gt;): Int {
+<span class="pc" id="L101">      return ApplicationContext.builder().start().use {</span>
+<span class="fc" id="L102">        CommandLine(SiteCompiler::class.java, MicronautFactory(it))</span>
+<span class="fc" id="L103">          .setUsageHelpAutoWidth(true)</span>
+<span class="fc" id="L104">          .execute(*args)</span>
+      }
+    }
+  }
+
+  // Logger.
+  private lateinit var logging: Logger
+
+  // Compiler params.
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">  internal lateinit var params: CompilerParams</span>
+
+  // Whether parameters have been parsed.
+<span class="fc" id="L116">  internal val paramsAvailable: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // Compiler params.
+<span class="pc" id="L119">  internal var appTarget: AtomicReference&lt;URL&gt; = AtomicReference(null)</span>
+
+  // Whether the app target is available.
+<span class="pc" id="L122">  internal val appTargetAvailable: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // Compile result.
+<span class="fc" id="L125">  private val result: AtomicReference&lt;CompileResult&gt; = AtomicReference(null)</span>
+
+  // Whether compile results are available.
+<span class="fc" id="L128">  private val resultAvailable: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // Manifest reader implementation.
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">  @Inject internal lateinit var manifestReader: ManifestReader</span>
+
+  // App runner implementation.
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">  @Inject internal lateinit var appLoader: AppLoader</span>
+
+  // Static content reader implementation.
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">  @Inject internal lateinit var contentReader: StaticContentReader</span>
+
+  // Static content writer implementation.
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">  @Inject internal lateinit var contentWriter: AppStaticWriter</span>
+
+  // Request factory implementation.
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">  @Inject internal lateinit var requestFactory: RequestFactory</span>
+
+  // Site compiler logic implementation.
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">  @Inject internal lateinit var compiler: AppStaticCompiler</span>
+
+  /** Verbose logging mode. */
+  @Option(
+    names = [&quot;-v&quot;, &quot;--verbose&quot;],
+    description = [&quot;Activate verbose logging.&quot;],
+  )
+<span class="fc" id="L153">  internal var verbose: Boolean = false</span>
+
+  /** Debug mode. */
+  @Option(
+    names = [&quot;--debug&quot;],
+    description = [&quot;Activate debug mode/wait for a debugger.&quot;],
+  )
+<span class="fc" id="L160">  internal var debug: Boolean = false</span>
+
+  /** Classpath to apply. */
+  @Option(
+    names = [&quot;--classpath&quot;],
+    description = [&quot;Add JARs to the application execution classpath.&quot;],
+  )
+<span class="fc" id="L167">  internal var classpath: String? = null</span>
+
+  /** HTTP fetch mode. */
+  @Suppress(&quot;HttpUrlsUsage&quot;)
+  @Option(
+    names = [&quot;--http&quot;],
+    negatable = true,
+    description = [&quot;Activate HTTP mode. Automatically active if `target` starts with `http://` or `https://`.&quot;],
+    defaultValue = &quot;false&quot;,
+  )
+<span class="fc" id="L177">  internal var httpMode: Boolean = false</span>
+
+  /** Ignore certificate errors. */
+  @Option(
+    names = [&quot;--ignore-cert-errors&quot;],
+    negatable = true,
+    description = [&quot;Ignore certificate validation errors. CAREFUL: This can be dangerous.&quot;],
+    defaultValue = &quot;false&quot;,
+  )
+<span class="fc" id="L186">  internal var ignoreCertErrors: Boolean = false</span>
+
+  /** Crawl returned HTML. */
+  @Option(
+    names = [&quot;--crawl&quot;],
+    negatable = true,
+    description = [&quot;Whether to crawl returned HTML for additional URLs. Defaults to `false`.&quot;],
+    defaultValue = &quot;false&quot;,
+  )
+<span class="pc" id="L195">  internal var crawl: Boolean = false</span>
+
+  /** Whether to activate pretty logging; on by default. */
+  @Option(
+    names = [&quot;--pretty&quot;],
+    negatable = true,
+    description = [&quot;Timeout to apply to application requests. Expressed in seconds, defaults to 30s.&quot;],
+    defaultValue = &quot;true&quot;,
+  )
+<span class="fc" id="L204">  internal var pretty: Boolean = false</span>
+
+  /** Crawl returned HTML. */
+  @Option(
+    names = [&quot;--precompress&quot;],
+    description = [
+      &quot;Whether to pre-compress eligible outputs with GZIP or Brotli. Pass `GZIP` or `BROTLI`, zero or more times.&quot;
+    ],
+  )
+<span class="fc" id="L213">  internal var precompress: Set&lt;CompressionMode&gt; = emptySet()</span>
+
+  /** Extra allowable origins. */
+  @Option(
+    names = [&quot;--allow-origin&quot;],
+    description = [&quot;Extra origins to allow downloads from.&quot;],
+  )
+<span class="fc" id="L220">  internal var extraOrigins: Set&lt;String&gt; = emptySet()</span>
+
+  /** Request timeout value to apply. */
+  @Option(
+    names = [&quot;--timeout&quot;],
+    description = [&quot;Timeout to apply to application requests. Expressed in seconds, defaults to 30s.&quot;],
+    defaultValue = &quot;30&quot;,
+  )
+<span class="fc" id="L228">  internal var timeout: Int = Options.DEFAULT_REQUEST_TIMEOUT</span>
+
+  /** Location of the manifest to read. */
+  @Parameters(
+    index = &quot;0&quot;,
+    description = [&quot;Location of the app manifest to read. Prefix with `classpath:` or provide a file system path.&quot;],
+  )
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">  internal lateinit var manifest: String</span>
+
+  /** Location of the app JAR to execute requests against, or URL to execute against if [httpMode] is active. */
+  @Parameters(
+    index = &quot;1&quot;,
+    description = [&quot;Target URL or JAR for the application.&quot;],
+  )
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">  internal lateinit var target: String</span>
+
+  /** Output target for this compilation run; can be a directory path, or a zip file path, or tar file path. */
+  @Parameters(
+    index = &quot;2&quot;,
+    description = [&quot;Output directory, zip, or tarball.&quot;],
+  )
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">  internal lateinit var output: String</span>
+
+  /** Interface for manually configuring the compiler; meant for testing and internal use only. */
+<span class="pc" id="L252">  @VisibleForTesting internal fun configure(params: SiteCompilerParams? = null, logging: Logger? = null): SiteCompiler {</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">    if (params != null) {</span>
+<span class="pc bpc" id="L254" title="1 of 2 branches missed.">      manifest = params.manifest.ifBlank {</span>
+<span class="pc" id="L255">        throw SSGCompilerError.InvalidArgument(&quot;Cannot load blank manifest path&quot;)</span>
+      }
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">      target = params.target.ifBlank {</span>
+<span class="pc" id="L258">        throw SSGCompilerError.InvalidArgument(&quot;Cannot load blank JAR path/HTTP target&quot;)</span>
+      }
+<span class="fc" id="L260">      this.params = params</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">      this.logging = logging ?: Logging.of(SiteCompiler::class.java)</span>
+<span class="fc" id="L262">      paramsAvailable.compareAndSet(false, true)</span>
+<span class="fc" id="L263">      params.options.applyTo(this)</span>
+    }
+<span class="fc" id="L265">    return this</span>
+  }
+
+  /** Utility function to indicate a successful compile. */
+  @CanIgnoreReturnValue internal fun success(
+    info: LoadedAppInfo,
+    out: String,
+    buf: StaticSiteBuffer,
+  ): CompileResult.Success {
+<span class="fc" id="L274">    val success = CompileResult.Success(params, info, out, buf)</span>
+<span class="fc" id="L275">    result.set(success)</span>
+<span class="fc" id="L276">    resultAvailable.compareAndSet(false, true)</span>
+<span class="fc" id="L277">    return success</span>
+  }
+
+  /** Utility function to indicate a compile failure. */
+<span class="nc" id="L281">  @CanIgnoreReturnValue internal fun failure(err: Throwable, exitCode: Int = -1): CompileResult.Failure {</span>
+<span class="nc" id="L282">    val failure = CompileResult.Failure(params, err, exitCode)</span>
+<span class="nc" id="L283">    result.set(failure)</span>
+<span class="nc" id="L284">    resultAvailable.compareAndSet(false, true)</span>
+<span class="nc" id="L285">    return failure</span>
+  }
+
+  // Trigger a compiler run programmatically.
+  private fun compile(): CompileResult {
+<span class="pc bpc" id="L290" title="2 of 4 branches missed.">    require(!resultAvailable.get()) {</span>
+<span class="nc" id="L291">      &quot;Cannot compile more than once&quot;</span>
+    }
+<span class="fc" id="L293">    run()</span>
+<span class="fc" id="L294">    val result = result.get()</span>
+<span class="pc bpc" id="L295" title="3 of 6 branches missed.">    require(resultAvailable.get() &amp;&amp; result != null) {</span>
+<span class="nc" id="L296">      &quot;Compile produced no result&quot;</span>
+    }
+<span class="fc" id="L298">    return result</span>
+  }
+
+  // Main execution function.
+<span class="fc" id="L302">  private suspend fun execute(): CompileResult {</span>
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">    logging.info(&quot;Compiling Elide app to static site...&quot;)</span>
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">    logging.debug(&quot;SSG Compiler parameters: $params&quot;)</span>
+<span class="pc" id="L305">    val manifest = manifestReader.use {</span>
+<span class="fc" id="L306">      manifestReader.readManifest(params)</span>
+    }
+<span class="fc" id="L308">    val appInfo = appLoader.prep(params, manifest)</span>
+
+    // generate expected requests via `appLoader`
+<span class="fc" id="L311">    appLoader.use {</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">      if (!appInfo.eligible) {</span>
+        // in this case, there are no pre-compiled endpoints within the target app manifest; so the compiler has
+        // nothing to do. this is not considered an error.
+<span class="pc bpc" id="L315" title="1 of 2 branches missed.">        logging.warn(&quot;App loader indicates no eligible SSG endpoints. Skipping compile.&quot;)</span>
+<span class="fc" id="L316">        return success(appInfo, target, StaticSiteBuffer())</span>
+      } else {
+<span class="pc bpc" id="L318" title="1 of 2 branches missed.">        logging.info(&quot;App loader indicates eligible SSG endpoints. Compiling...&quot;)</span>
+      }
+
+      // mount app target
+<span class="fc" id="L322">      appTarget.set(appInfo.target)</span>
+<span class="fc" id="L323">      appTargetAvailable.compareAndSet(false, true)</span>
+
+<span class="fc" id="L325">      val (count, seq) = appLoader.generateRequests(requestFactory)</span>
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">      logging.info(&quot;Executing $count baseline requests against app target...&quot;)</span>
+
+      // then begin executing requests, and extracting results, into the `StaticSiteBuffer`
+<span class="fc" id="L329">      val buffer = StaticSiteBuffer()</span>
+<span class="fc" id="L330">      compiler.prepare(</span>
+<span class="fc" id="L331">        params,</span>
+<span class="fc" id="L332">        appInfo,</span>
+<span class="fc" id="L333">        appLoader,</span>
+      )
+
+<span class="pc" id="L336">      return when (val result = compiler.compileStaticSite(count, appInfo, seq, buffer)) {</span>
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">        is CompileResult.Failure -&gt; failure(result.err, result.exitCode)</span>
+<span class="fc" id="L338">        is CompileResult.Success -&gt; {</span>
+          // at this point, we're ready to write outputs.
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">          logging.info(&quot;Site compile complete. Writing outputs...&quot;)</span>
+<span class="pc" id="L341">          contentWriter.use {</span>
+<span class="fc" id="L342">            contentWriter.write(params, buffer)</span>
+          }
+<span class="pc bpc" id="L344" title="1 of 2 branches missed.">          logging.info(&quot;Static site compile succeeded.&quot;)</span>
+<span class="fc" id="L345">          success(appInfo, result.output, buffer)</span>
+        }
+      }
+    }
+  }
+
+  /** Run the SSG compiler. */
+<span class="fc" id="L352">  override fun run(): Unit = runBlocking {</span>
+    // if called via CLI, we will need to initialize parameters manually.
+<span class="fc bfc" id="L354" title="All 2 branches covered.">    if (!paramsAvailable.get()) {</span>
+<span class="fc" id="L355">      logging = Logging.of(SiteCompiler::class)</span>
+<span class="fc" id="L356">      params = CompilerParams(</span>
+<span class="fc" id="L357">        manifest = manifest,</span>
+<span class="fc" id="L358">        target = target,</span>
+<span class="fc" id="L359">        output = CompilerParams.Output.fromParams(output),</span>
+<span class="fc" id="L360">        options = Options(</span>
+<span class="pc bpc" id="L361" title="1 of 2 branches missed.">          verbose = verbose,</span>
+<span class="pc bpc" id="L362" title="1 of 2 branches missed.">          debug = debug,</span>
+<span class="fc" id="L363">          classpath = classpath,</span>
+<span class="pc bpc" id="L364" title="4 of 6 branches missed.">          httpMode = httpMode || target.startsWith(&quot;http&quot;),</span>
+<span class="pc bpc" id="L365" title="1 of 2 branches missed.">          ignoreCertErrors = ignoreCertErrors,</span>
+<span class="pc bpc" id="L366" title="1 of 2 branches missed.">          crawl = crawl,</span>
+<span class="fc" id="L367">          timeout = timeout,</span>
+<span class="fc" id="L368">          extraOrigins = extraOrigins.toSortedSet(),</span>
+<span class="fc" id="L369">          precompress = precompress,</span>
+<span class="pc bpc" id="L370" title="1 of 2 branches missed.">          pretty = pretty,</span>
+        )
+      )
+<span class="fc" id="L373">      paramsAvailable.compareAndSet(false, true)</span>
+    }
+
+    // wrap for error protection and begin execution
+<span class="pc bpc" id="L377" title="1 of 2 branches missed.">    executeTool(logging) {</span>
+<span class="pc" id="L378">      compiler.use {</span>
+<span class="fc" id="L379">        execute()</span>
+<span class="fc" id="L380">      }</span>
+<span class="fc" id="L381">    }</span>
+<span class="fc" id="L382">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

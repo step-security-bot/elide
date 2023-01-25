@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RequestFactory.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">RequestFactory.kt</span></div><h1>RequestFactory.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import elide.server.annotations.Page
+import elide.server.controller.PageController
+import elide.server.controller.PageWithProps
+import io.micronaut.http.HttpRequest
+
+
+/**
+ *
+ */
+<span class="nc" id="L12">@Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;unused&quot;)</span>
+<span class="nc" id="L13">class RequestFactory {</span>
+  /**
+   *
+   */
+  suspend fun create(page: Page, controller: PageController): HttpRequest&lt;*&gt; {
+<span class="nc" id="L18">    TODO(&quot;not yet implemented&quot;)</span>
+  }
+
+  /**
+   *
+   */
+  suspend fun &lt;S&gt; create(page: Page, controller: PageWithProps&lt;S&gt;, state: S): HttpRequest&lt;*&gt; {
+<span class="nc" id="L25">    TODO(&quot;not yet implemented&quot;)</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

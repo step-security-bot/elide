@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FrameworkFeature.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.runtime.feature</a> &gt; <span class="el_source">FrameworkFeature.kt</span></div><h1>FrameworkFeature.kt</h1><pre class="source lang-java linenums">package elide.runtime.feature
+
+import elide.runtime.Logger
+import elide.runtime.Logging
+import org.graalvm.nativeimage.hosted.Feature
+import org.graalvm.nativeimage.hosted.RuntimeReflection
+import java.io.IOException
+import java.lang.reflect.Method
+import java.lang.reflect.Modifier
+import java.net.JarURLConnection
+
+/**
+ *
+ */
+public interface FrameworkFeature : Feature {
+  /**
+   *
+   */
+  public fun logging(): Logger {
+<span class="nc" id="L20">    return Logging.of(FrameworkFeature::class)</span>
+  }
+
+  /**
+   * Returns the method of a class or fails if it is not present.
+   */
+  public fun getMethodOrFail(
+    clazz: Class&lt;*&gt;, methodName: String, vararg params: Class&lt;*&gt;?
+  ): Method {
+<span class="nc" id="L29">    try {</span>
+<span class="nc" id="L30">      return clazz.getDeclaredMethod(methodName, *params)</span>
+<span class="nc" id="L31">    } catch (e: NoSuchMethodException) {</span>
+<span class="nc" id="L32">      throw RuntimeException(</span>
+<span class="nc" id="L33">        &quot;Failed to find method &quot; + methodName + &quot; for class &quot; + clazz.name, e</span>
+      )
+    }
+  }
+
+  /**
+   * Registers a class for reflective construction via its default constructor.
+   */
+  public fun registerForReflectiveInstantiation(access: Feature.FeatureAccess, className: String) {
+<span class="nc" id="L42">    val clazz = access.findClassByName(className)</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">    if (clazz != null) {</span>
+<span class="nc" id="L44">      RuntimeReflection.register(clazz)</span>
+<span class="nc" id="L45">      RuntimeReflection.registerForReflectiveInstantiation(clazz)</span>
+    } else {
+<span class="nc" id="L47">      logging().warning(</span>
+<span class="nc" id="L48">        &quot;Failed to find $className on the classpath for reflective instantiation.&quot;</span>
+      )
+    }
+<span class="nc" id="L51">  }</span>
+
+  /**
+   * Registers all constructors of a class for reflection.
+   */
+  public fun registerConstructorsForReflection(access: Feature.FeatureAccess, name: String) {
+<span class="nc" id="L57">    val clazz = access.findClassByName(name)</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">    if (clazz != null) {</span>
+<span class="nc" id="L59">      RuntimeReflection.register(clazz)</span>
+<span class="nc" id="L60">      RuntimeReflection.register(*clazz.declaredConstructors)</span>
+    } else {
+<span class="nc" id="L62">      logging().warning(</span>
+<span class="nc" id="L63">        &quot;Failed to find $name on the classpath for reflection.&quot;</span>
+      )
+    }
+<span class="nc" id="L66">  }</span>
+
+  /**
+   * Registers an entire class for reflection use.
+   */
+  public fun registerClassForReflection(access: Feature.FeatureAccess, name: String) {
+<span class="nc" id="L72">    val clazz = access.findClassByName(name)</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    if (clazz != null) {</span>
+<span class="nc" id="L74">      RuntimeReflection.register(clazz)</span>
+<span class="nc" id="L75">      RuntimeReflection.register(*clazz.declaredConstructors)</span>
+<span class="nc" id="L76">      RuntimeReflection.register(*clazz.declaredFields)</span>
+<span class="nc" id="L77">      RuntimeReflection.register(*clazz.declaredMethods)</span>
+    } else {
+<span class="nc" id="L79">      logging().warning(</span>
+<span class="nc" id="L80">        &quot;Failed to find $name on the classpath for reflection.&quot;</span>
+      )
+    }
+<span class="nc" id="L83">  }</span>
+
+  /**
+   * Registers the transitive class hierarchy of the provided `className` for reflection.
+   *
+   *
+   * The transitive class hierarchy contains the class itself and its transitive set of
+   * *non-private* nested subclasses.
+   */
+  public fun registerClassHierarchyForReflection(access: Feature.FeatureAccess, className: String) {
+<span class="nc" id="L93">    val clazz = access.findClassByName(className)</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">    if (clazz != null) {</span>
+<span class="nc" id="L95">      registerClassForReflection(access, className)</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">      for (nestedClass: Class&lt;*&gt; in clazz.declaredClasses) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (!Modifier.isPrivate(nestedClass.modifiers)) {</span>
+<span class="nc" id="L98">          registerClassHierarchyForReflection(access, nestedClass.name)</span>
+        }
+      }
+    } else {
+<span class="nc" id="L102">      logging().warning(</span>
+<span class="nc" id="L103">        &quot;Failed to find $className on the classpath for reflection.&quot;</span>
+      )
+    }
+<span class="nc" id="L106">  }</span>
+
+  /**
+   * Registers a class for unsafe reflective field access.
+   */
+  public fun registerForUnsafeFieldAccess(
+    access: Feature.FeatureAccess, className: String, vararg fields: String
+  ) {
+<span class="nc" id="L114">    val clazz = access.findClassByName(className)</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">    if (clazz != null) {</span>
+<span class="nc" id="L116">      RuntimeReflection.register(clazz)</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">      for (fieldName: String in fields) {</span>
+<span class="nc" id="L118">        try {</span>
+<span class="nc" id="L119">          RuntimeReflection.register(clazz.getDeclaredField(fieldName))</span>
+<span class="nc" id="L120">        } catch (ex: NoSuchFieldException) {</span>
+<span class="nc" id="L121">          logging().warning(&quot;Failed to register field $fieldName for class $className: '${ex.message}'&quot;)</span>
+        }
+      }
+    } else {
+<span class="nc" id="L125">      logging().warning(</span>
+<span class="nc" id="L126">        &quot;Failed to find &quot; + className</span>
+          + &quot; on the classpath for unsafe fields access registration.&quot;
+      )
+    }
+<span class="nc" id="L130">  }</span>
+
+  /**
+   * Registers all the classes under the specified package for reflection.
+   */
+  public fun registerPackageForReflection(access: Feature.FeatureAccess, packageName: String) {
+<span class="nc" id="L136">    val classLoader = Thread.currentThread().contextClassLoader</span>
+<span class="nc" id="L137">    try {</span>
+<span class="nc" id="L138">      val path = packageName.replace('.', '/')</span>
+<span class="nc" id="L139">      val resources = classLoader.getResources(path)</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">      while (resources.hasMoreElements()) {</span>
+<span class="nc" id="L141">        val url = resources.nextElement()</span>
+<span class="nc" id="L142">        val connection = url.openConnection()</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (connection is JarURLConnection) {</span>
+<span class="nc" id="L144">          val classes = findClassesInJar(connection, packageName)</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">          for (className: String in classes) {</span>
+<span class="nc" id="L146">            registerClassHierarchyForReflection(access, className)</span>
+          }
+        }
+      }
+<span class="nc" id="L150">    } catch (e: IOException) {</span>
+<span class="nc" id="L151">      throw RuntimeException(&quot;Failed to load classes under package name.&quot;, e)</span>
+    }
+<span class="nc" id="L153">  }</span>
+
+  /**
+   *
+   */
+  @Throws(IOException::class)
+  public fun findClassesInJar(
+    urlConnection: JarURLConnection,
+    packageName: String
+  ): List&lt;String&gt; {
+<span class="nc" id="L163">    val result: MutableList&lt;String&gt; = ArrayList()</span>
+<span class="nc" id="L164">    val jarFile = urlConnection.jarFile</span>
+<span class="nc" id="L165">    val entries = jarFile.entries()</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">    while (entries.hasMoreElements()) {</span>
+<span class="nc" id="L167">      val entry = entries.nextElement()</span>
+<span class="nc" id="L168">      val entryName = entry.name</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">      if (entryName.endsWith(&quot;.class&quot;)) {</span>
+<span class="nc" id="L170">        val javaClassName = entryName</span>
+<span class="nc" id="L171">          .replace(&quot;.class&quot;, &quot;&quot;)</span>
+<span class="nc" id="L172">          .replace('/', '.')</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (javaClassName.startsWith(packageName)) {</span>
+<span class="nc" id="L174">          result.add(javaClassName)</span>
+        }
+      }
+    }
+<span class="nc" id="L178">    return result</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

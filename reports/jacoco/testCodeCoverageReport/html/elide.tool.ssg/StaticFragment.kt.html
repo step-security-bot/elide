@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StaticFragment.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">StaticFragment.kt</span></div><h1>StaticFragment.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import tools.elide.meta.Endpoint
+import tools.elide.meta.EndpointType
+import java.net.URL
+import java.nio.ByteBuffer
+import java.util.SortedSet
+
+/**
+ * Internal payload for a single static site fragment, associated with the HTTP request that produced it.
+ *
+ * @param parent Parent endpoint which produced this fragment, if applicable.
+ * @param explicitUrl Known explicit URL for this fragment; only available for crawled fragments.
+ * @param expectedType Expected type; only available for crawled fragments.
+ * @param request HTTP request which produced this site fragment.
+ * @param endpoint HTTP endpoint specification for this site fragment.
+ * @param response HTTP response produced for this fragment.
+ * @param content Parsed data which should be saved as file content.
+ * @param discovered Set of additionally-discovered transitive static fragment specs to resolve.
+ */
+<span class="fc" id="L23">public sealed class StaticFragment(</span>
+<span class="pc" id="L24">  internal open val parent: Endpoint? = null,</span>
+<span class="pc" id="L25">  internal open val explicitUrl: URL? = null,</span>
+<span class="fc" id="L26">  internal open val expectedType: EndpointType? = null,</span>
+<span class="pc" id="L27">  internal open val endpoint: Endpoint? = null,</span>
+<span class="pc" id="L28">  public val request: HttpRequest&lt;*&gt;,</span>
+<span class="pc" id="L29">  public val response: HttpResponse&lt;*&gt;,</span>
+<span class="fc" id="L30">  public val content: ByteBuffer,</span>
+<span class="fc" id="L31">  public val discovered: List&lt;StaticFragmentSpec&gt;,</span>
+) {
+  /** @return Base path for this fragment (i.e. prefix path, if any). If none, an empty string is returned. */
+  public abstract fun basePath(): String
+
+  /** @return Tail path for this fragment (i.e. postfix path/file path). If none, an empty string is returned. */
+  public abstract fun tailPath(): String?
+
+  /** @return Types known to be produced by this endpoint, as simple MIME-type strings. */
+  public abstract fun produces(): Set&lt;String&gt;
+
+  /** @return Type of endpoint specified by this structure. */
+  public abstract fun endpointType(): EndpointType
+
+  /** [StaticFragment] which originates from an endpoint. */
+<span class="fc" id="L46">  public class EndpointFragment (</span>
+    request: HttpRequest&lt;*&gt;,
+<span class="fc" id="L48">    override val endpoint: Endpoint,</span>
+    response: HttpResponse&lt;*&gt;,
+    content: ByteBuffer,
+    discovered: List&lt;StaticFragmentSpec&gt;,
+<span class="fc" id="L52">  ) : StaticFragment(</span>
+<span class="fc" id="L53">    request = request,</span>
+<span class="fc" id="L54">    endpoint = endpoint,</span>
+<span class="fc" id="L55">    content = content,</span>
+<span class="fc" id="L56">    response = response,</span>
+<span class="fc" id="L57">    discovered = discovered,</span>
+  ) {
+<span class="fc" id="L59">    override fun basePath(): String = endpoint.base</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">    override fun tailPath(): String? = endpoint.tail.ifBlank { null }</span>
+
+<span class="fc" id="L63">    override fun produces(): SortedSet&lt;String&gt; = endpoint.producesList.toSortedSet()</span>
+
+<span class="fc" id="L65">    override fun endpointType(): EndpointType = endpoint.type</span>
+  }
+
+  /** [StaticFragment] which originates from asset detection. */
+<span class="fc" id="L69">  public class SynthesizedFragment (</span>
+<span class="fc" id="L70">    override val explicitUrl: URL,</span>
+    expectedType: EndpointType,
+    request: HttpRequest&lt;*&gt;,
+    response: HttpResponse&lt;*&gt;,
+    content: ByteBuffer,
+    discovered: List&lt;StaticFragmentSpec&gt;,
+<span class="fc" id="L76">  ) : StaticFragment(</span>
+<span class="fc" id="L77">    parent = null,</span>
+<span class="fc" id="L78">    explicitUrl = explicitUrl,</span>
+<span class="fc" id="L79">    request = request,</span>
+<span class="fc" id="L80">    expectedType = expectedType,</span>
+<span class="fc" id="L81">    content = content,</span>
+<span class="fc" id="L82">    response = response,</span>
+<span class="fc" id="L83">    discovered = discovered,</span>
+  ) {
+<span class="fc" id="L85">    override fun basePath(): String = &quot;&quot;</span>
+
+    override fun tailPath(): String {
+<span class="fc" id="L88">      return explicitUrl.path</span>
+    }
+
+<span class="pc bpc" id="L91" title="4 of 6 branches missed.">    override fun produces(): Set&lt;String&gt; = when (expectedType) {</span>
+<span class="nc" id="L92">      EndpointType.PAGE -&gt; sortedSetOf(&quot;text/html&quot;)</span>
+<span class="nc" id="L93">      EndpointType.API -&gt; sortedSetOf(&quot;application/json&quot;)</span>
+<span class="fc" id="L94">      EndpointType.ASSET -&gt; when {</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        explicitUrl.path.endsWith(&quot;.css&quot;) -&gt; sortedSetOf(&quot;text/css&quot;)</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        explicitUrl.path.endsWith(&quot;.js&quot;) -&gt; sortedSetOf(&quot;application/javascript&quot;)</span>
+<span class="fc" id="L97">        else -&gt; emptySet()</span>
+      }
+<span class="nc" id="L99">      else -&gt; emptySet()</span>
+<span class="fc" id="L100">    }</span>
+
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">    override fun endpointType(): EndpointType = expectedType ?: EndpointType.ENDPOINT_TYPE_UNSPECIFIED</span>
+  }
+
+  public companion object {
+    /** Create a [StaticFragment] from a known endpoint. */
+    @JvmStatic public fun fromEndpoint(
+      spec: StaticFragmentSpec,
+      response: HttpResponse&lt;*&gt;,
+      content: ByteBuffer,
+      discovered: List&lt;StaticFragmentSpec&gt;,
+<span class="fc" id="L112">    ): EndpointFragment = EndpointFragment(</span>
+<span class="fc" id="L113">      spec.request(),</span>
+<span class="fc" id="L114">      spec.endpoint(),</span>
+<span class="fc" id="L115">      response,</span>
+<span class="fc" id="L116">      content,</span>
+<span class="fc" id="L117">      discovered,</span>
+<span class="fc" id="L118">    )</span>
+
+    /** Create a [StaticFragment] from a detected (crawled) endpoint. */
+    @JvmStatic public fun fromDetectedArtifact(
+      artifact: DetectedArtifact,
+      response: HttpResponse&lt;*&gt;,
+      content: ByteBuffer,
+      discovered: List&lt;StaticFragmentSpec&gt;,
+<span class="fc" id="L126">    ): StaticFragment = SynthesizedFragment(</span>
+<span class="fc" id="L127">      explicitUrl = artifact.url,</span>
+<span class="fc" id="L128">      request = artifact.request,</span>
+<span class="fc" id="L129">      response = response,</span>
+<span class="fc" id="L130">      content = content,</span>
+<span class="fc" id="L131">      discovered = discovered,</span>
+<span class="fc" id="L132">      expectedType = when (artifact.type) {</span>
+        StaticContentReader.ArtifactType.IMAGE,
+        StaticContentReader.ArtifactType.SCRIPT,
+        StaticContentReader.ArtifactType.TEXT,
+        StaticContentReader.ArtifactType.FONT,
+<span class="fc" id="L137">        StaticContentReader.ArtifactType.STYLE -&gt; EndpointType.ASSET</span>
+      },
+<span class="fc" id="L139">    )</span>
+  }
+<span class="fc" id="L141">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

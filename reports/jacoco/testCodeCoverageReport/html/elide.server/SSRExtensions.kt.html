@@ -110,38 +110,39 @@ public const val DEFAULT_SSR_DOM_ID: String = &quot;root&quot;
  * @return HTTP response wrapping the generated React SSR output, or an HTTP response which serves a 404 if the asset
  *    could not be located at the specified path.
  */
-<span class="nc" id="L113">public suspend fun ssr(</span>
+@Suppress(&quot;UNUSED_PARAMETER&quot;)
+<span class="nc" id="L114">public suspend fun ssr(</span>
   request: HttpRequest&lt;*&gt;,
-<span class="nc" id="L115">  path: String = NODE_SSR_DEFAULT_PATH,</span>
-<span class="nc" id="L116">  response: MutableHttpResponse&lt;ByteArrayOutputStream&gt; = HttpResponse.ok(),</span>
+<span class="nc" id="L116">  path: String = NODE_SSR_DEFAULT_PATH,</span>
+<span class="nc" id="L117">  response: MutableHttpResponse&lt;ByteArrayOutputStream&gt; = HttpResponse.ok(),</span>
   block: suspend HTML.() -&gt; Unit
 ): MutableHttpResponse&lt;ByteArrayOutputStream&gt; {
-<span class="nc bnc" id="L119" title="All 2 branches missed.">  return if (path.isBlank()) {</span>
-<span class="nc" id="L120">    HttpResponse.notFound()</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">  return if (path.isBlank()) {</span>
+<span class="nc" id="L121">    HttpResponse.notFound()</span>
   } else {
-<span class="nc" id="L122">    return response.body(</span>
-<span class="nc" id="L123">      SSRContent(builder = block).render()</span>
-<span class="nc" id="L124">    ).characterEncoding(StandardCharsets.UTF_8).contentType(</span>
-<span class="nc" id="L125">      &quot;text/html; charset=utf-8&quot;</span>
+<span class="nc" id="L123">    return response.body(</span>
+<span class="nc" id="L124">      SSRContent(builder = block).render()</span>
+<span class="nc" id="L125">    ).characterEncoding(StandardCharsets.UTF_8).contentType(</span>
+<span class="nc" id="L126">      &quot;text/html; charset=utf-8&quot;</span>
     )
   }
 }
 
 // SSR content rendering and container utility.
-<span class="nc" id="L131">internal class SSRContent(</span>
-<span class="nc" id="L132">  private val prettyhtml: Boolean = false,</span>
-<span class="nc" id="L133">  private val builder: suspend HTML.() -&gt; Unit</span>
+<span class="nc" id="L132">internal class SSRContent(</span>
+<span class="nc" id="L133">  private val prettyhtml: Boolean = false,</span>
+<span class="nc" id="L134">  private val builder: suspend HTML.() -&gt; Unit</span>
 ) : SuspensionRenderer&lt;ByteArrayOutputStream&gt; {
   override suspend fun render(): ByteArrayOutputStream {
-<span class="nc" id="L136">    val baos = ByteArrayOutputStream()</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">    baos.bufferedWriter(StandardCharsets.UTF_8).use {</span>
-<span class="nc" id="L138">      it.appendHTML(</span>
-<span class="nc" id="L139">        prettyPrint = prettyhtml,</span>
-<span class="nc" id="L140">      ).htmlSuspend(</span>
-<span class="nc" id="L141">        block = builder</span>
+<span class="nc" id="L137">    val baos = ByteArrayOutputStream()</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">    baos.bufferedWriter(StandardCharsets.UTF_8).use {</span>
+<span class="nc" id="L139">      it.appendHTML(</span>
+<span class="nc" id="L140">        prettyPrint = prettyhtml,</span>
+<span class="nc" id="L141">      ).htmlSuspend(</span>
+<span class="nc" id="L142">        block = builder</span>
       )
     }
-<span class="nc" id="L144">    return baos</span>
+<span class="nc" id="L145">    return baos</span>
   }
-<span class="nc" id="L146">}</span>
+<span class="nc" id="L147">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

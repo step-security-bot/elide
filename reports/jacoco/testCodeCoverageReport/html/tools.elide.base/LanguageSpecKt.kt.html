@@ -4,15 +4,15 @@
 package tools.elide.base;
 
 @kotlin.jvm.JvmName(&quot;-initializelanguageSpec&quot;)
-public inline fun languageSpec(block: tools.elide.base.LanguageSpecKt.Dsl.() -&gt; kotlin.Unit): tools.elide.base.LanguageSpec =
+inline fun languageSpec(block: tools.elide.base.LanguageSpecKt.Dsl.() -&gt; kotlin.Unit): tools.elide.base.LanguageSpec =
 <span class="nc" id="L8">  tools.elide.base.LanguageSpecKt.Dsl._create(tools.elide.base.LanguageSpec.newBuilder()).apply { block() }._build()</span>
-public object LanguageSpecKt {
+object LanguageSpecKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.base.LanguageSpec.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.base.LanguageSpec.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;.base.Language language = 1;&lt;/code&gt;
      */
-    public var language: tools.elide.base.Language
+     var language: tools.elide.base.Language
       @JvmName(&quot;getLanguage&quot;)
 <span class="nc" id="L34">      get() = _builder.getLanguage()</span>
       @JvmName(&quot;setLanguage&quot;)
@@ -43,7 +43,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;.base.Language language = 1;&lt;/code&gt;
      */
-    public fun clearLanguage() {
+    fun clearLanguage() {
 <span class="nc" id="L47">      _builder.clearLanguage()</span>
 <span class="nc" id="L48">    }</span>
     /**
@@ -54,7 +54,7 @@ public object LanguageSpecKt {
      * &lt;code&gt;.base.Language language = 1;&lt;/code&gt;
      * @return Whether the language field is set.
      */
-    public fun hasLanguage(): kotlin.Boolean {
+    fun hasLanguage(): kotlin.Boolean {
 <span class="nc" id="L58">      return _builder.hasLanguage()</span>
     }
 
@@ -66,7 +66,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string iso_language = 2;&lt;/code&gt;
      */
-    public var isoLanguage: kotlin.String
+    var isoLanguage: kotlin.String
       @JvmName(&quot;getIsoLanguage&quot;)
 <span class="nc" id="L71">      get() = _builder.getIsoLanguage()</span>
       @JvmName(&quot;setIsoLanguage&quot;)
@@ -81,7 +81,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string iso_language = 2;&lt;/code&gt;
      */
-    public fun clearIsoLanguage() {
+    fun clearIsoLanguage() {
 <span class="nc" id="L85">      _builder.clearIsoLanguage()</span>
 <span class="nc" id="L86">    }</span>
     /**
@@ -93,7 +93,7 @@ public object LanguageSpecKt {
      * &lt;code&gt;string iso_language = 2;&lt;/code&gt;
      * @return Whether the isoLanguage field is set.
      */
-    public fun hasIsoLanguage(): kotlin.Boolean {
+    fun hasIsoLanguage(): kotlin.Boolean {
 <span class="nc" id="L97">      return _builder.hasIsoLanguage()</span>
     }
 
@@ -104,7 +104,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string iso_country = 3;&lt;/code&gt;
      */
-    public var isoCountry: kotlin.String
+    var isoCountry: kotlin.String
       @JvmName(&quot;getIsoCountry&quot;)
 <span class="nc" id="L109">      get() = _builder.getIsoCountry()</span>
       @JvmName(&quot;setIsoCountry&quot;)
@@ -118,7 +118,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string iso_country = 3;&lt;/code&gt;
      */
-    public fun clearIsoCountry() {
+    fun clearIsoCountry() {
 <span class="nc" id="L122">      _builder.clearIsoCountry()</span>
 <span class="nc" id="L123">    }</span>
     /**
@@ -129,7 +129,7 @@ public object LanguageSpecKt {
      * &lt;code&gt;string iso_country = 3;&lt;/code&gt;
      * @return Whether the isoCountry field is set.
      */
-    public fun hasIsoCountry(): kotlin.Boolean {
+    fun hasIsoCountry(): kotlin.Boolean {
 <span class="nc" id="L133">      return _builder.hasIsoCountry()</span>
     }
 
@@ -140,7 +140,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string dialect = 4;&lt;/code&gt;
      */
-    public var dialect: kotlin.String
+    var dialect: kotlin.String
       @JvmName(&quot;getDialect&quot;)
 <span class="nc" id="L145">      get() = _builder.getDialect()</span>
       @JvmName(&quot;setDialect&quot;)
@@ -154,7 +154,7 @@ public object LanguageSpecKt {
      *
      * &lt;code&gt;string dialect = 4;&lt;/code&gt;
      */
-    public fun clearDialect() {
+    fun clearDialect() {
 <span class="nc" id="L158">      _builder.clearDialect()</span>
 <span class="nc" id="L159">    }</span>
     /**
@@ -165,27 +165,27 @@ public object LanguageSpecKt {
      * &lt;code&gt;string dialect = 4;&lt;/code&gt;
      * @return Whether the dialect field is set.
      */
-    public fun hasDialect(): kotlin.Boolean {
+    fun hasDialect(): kotlin.Boolean {
 <span class="nc" id="L169">      return _builder.hasDialect()</span>
     }
-    public val selectionCase: tools.elide.base.LanguageSpec.SelectionCase
+    val selectionCase: tools.elide.base.LanguageSpec.SelectionCase
       @JvmName(&quot;getSelectionCase&quot;)
 <span class="nc" id="L173">      get() = _builder.getSelectionCase()</span>
 
-    public fun clearSelection() {
+    fun clearSelection() {
 <span class="nc" id="L176">      _builder.clearSelection()</span>
 <span class="nc" id="L177">    }</span>
-    public val modifierCase: tools.elide.base.LanguageSpec.ModifierCase
+    val modifierCase: tools.elide.base.LanguageSpec.ModifierCase
       @JvmName(&quot;getModifierCase&quot;)
 <span class="nc" id="L180">      get() = _builder.getModifierCase()</span>
 
-    public fun clearModifier() {
+    fun clearModifier() {
 <span class="nc" id="L183">      _builder.clearModifier()</span>
 <span class="nc" id="L184">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.base.LanguageSpec.copy(block: tools.elide.base.LanguageSpecKt.Dsl.() -&gt; kotlin.Unit): tools.elide.base.LanguageSpec =
+inline fun tools.elide.base.LanguageSpec.copy(block: tools.elide.base.LanguageSpecKt.Dsl.() -&gt; kotlin.Unit): tools.elide.base.LanguageSpec =
   tools.elide.base.LanguageSpecKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

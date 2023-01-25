@@ -27,7 +27,8 @@
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
-<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet"></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
@@ -50,23 +51,23 @@
   <div class="breadcrumbs"><a href="../../index.html">server</a><span class="delimiter">/</span><a href="../index.html">elide.server</a><span class="delimiter">/</span><span class="current">ResponseHandler</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Response</span><wbr><span><span>Handler</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:server:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">ResponseHandler</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">ResponseBody</a><span class="token operator">&gt;</span></div><p class="paragraph">Describes a handler object which can respond to a request with a given <a href="index.html">ResponseBody</a> type; these throw-away handlers are typically spawned by utility functions to create a context where rendering can take place.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:server:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="index.html">ResponseHandler</a><span class="token operator">&lt;</span>ResponseBody<span class="token keyword"> extends </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html">Object</a><span class="token operator">&gt;</span></div><p class="paragraph">Describes a handler object which can respond to a request with a given <a href="index.html">ResponseBody</a> type; these throw-away handlers are typically spawned by utility functions to create a context where rendering can take place.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
     <div class="tabs-section-body">
       <h2 class="">Functions</h2>
-      <div class="table" data-togglable="Functions"><a data-name="1951220814%2FFunctions%2F-1592384214" anchor-label="respond" id="1951220814%2FFunctions%2F-1592384214" data-filterable-set=":packages:server:dokkaHtmlPartial/main"></a>
+      <div class="table" data-togglable="Functions"><a data-name="-875239676%2FFunctions%2F-1592384214" anchor-label="respond" id="-875239676%2FFunctions%2F-1592384214" data-filterable-set=":packages:server:dokkaHtmlPartial/main"></a>
         <div class="table-row" data-filterable-current=":packages:server:dokkaHtmlPartial/main" data-filterable-set=":packages:server:dokkaHtmlPartial/main">
           <div class="main-subrow keyValue ">
             <div class=""><span class="inline-flex">
                 <div><a href="respond.html"><span><span>respond</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951220814%2FFunctions%2F-1592384214"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-875239676%2FFunctions%2F-1592384214"></span>
                   <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:server:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="respond.html"><span class="token function">respond</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">response<span class="token operator">: </span><span data-unresolved-link="io.micronaut.http/HttpResponse///PointingToDeclaration/">HttpResponse</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">ResponseBody</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.micronaut.http/HttpResponse///PointingToDeclaration/">HttpResponse</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">ResponseBody</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Respond to the request with the provided <a href="respond.html">response</a>.</p></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:server:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><span data-unresolved-link="io.micronaut.http/MutableHttpResponse///PointingToDeclaration/">MutableHttpResponse</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">ResponseBody</a><span class="token operator">&gt;</span>&nbsp;<a href="respond.html"><span class="token function">respond</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="io.micronaut.http/MutableHttpResponse///PointingToDeclaration/">MutableHttpResponse</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">ResponseBody</a><span class="token operator">&gt;</span>&nbsp;response</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Respond to the request with the provided <a href="respond.html">response</a>.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -89,7 +90,7 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>

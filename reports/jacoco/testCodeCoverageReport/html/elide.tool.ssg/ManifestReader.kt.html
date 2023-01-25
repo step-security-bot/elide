@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ManifestReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">ManifestReader.kt</span></div><h1>ManifestReader.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import kotlinx.coroutines.Deferred
+import tools.elide.meta.AppManifest
+import java.io.Closeable
+
+/**
+ * # SSG: Manifest Reader
+ *
+ * This interface defines the API surface of implementations responsible for loading an Elide application manifest
+ * during execution of the SSG (Static Site Generator) compiler.
+ *
+ * ## Filesystem &amp; Classpath Resources
+ *
+ * By default, the manifest reader is expected to interpret given paths as filesystem paths, unless a given path is
+ * prefixed with `classpath:`. In this case, the path is interpreted as a classpath resource.
+ */
+public interface ManifestReader : Closeable, AutoCloseable {
+  /**
+   * Read an application manifest, given the provided [params].
+   *
+   * @param params Compiler params to read a manifest from.
+   * @return Application manifest read from the given parameters.
+   * @throws SSGCompilerError the manifest cannot be located based on the input parameters.
+   */
+  @Throws(SSGCompilerError::class)
+<span class="fc" id="L27">  public suspend fun readManifest(params: SiteCompilerParams): AppManifest = readManifest(params.manifest)</span>
+
+  /**
+   * Read an application manifest, given the provided filesystem [path].
+   *
+   * @param path File-system path to the manifest.
+   * @return Application manifest read from the given parameters.
+   * @throws SSGCompilerError the manifest cannot be located based on the input parameters.
+   */
+  @Throws(SSGCompilerError::class)
+<span class="fc" id="L37">  public suspend fun readManifest(path: String): AppManifest = readManifestAsync(path).await()</span>
+
+  /**
+   * Read an application manifest asynchronously, given the provided filesystem [path].
+   *
+   * If a manifest cannot be located, an exception is raised after calling `await` on the returned job.
+   *
+   * @param path File-system path to the manifest.
+   * @return Deferred job which resolved to the application manifest read from the given parameters.
+   */
+  public suspend fun readManifestAsync(path: String): Deferred&lt;AppManifest&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

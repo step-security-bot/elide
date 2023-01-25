@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializespannerOptions&quot;)
-public inline fun spannerOptions(block: tools.elide.model.SpannerOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerOptions =
+inline fun spannerOptions(block: tools.elide.model.SpannerOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerOptions =
 <span class="nc" id="L8">  tools.elide.model.SpannerOptionsKt.Dsl._create(tools.elide.model.SpannerOptions.newBuilder()).apply { block() }._build()</span>
-public object SpannerOptionsKt {
+object SpannerOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.SpannerOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.SpannerOptions.Builder): Dsl = Dsl(builder)
@@ -24,7 +24,7 @@ public object SpannerOptionsKt {
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.SpannerOptions.copy(block: tools.elide.model.SpannerOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerOptions =
+inline fun tools.elide.model.SpannerOptions.copy(block: tools.elide.model.SpannerOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerOptions =
   tools.elide.model.SpannerOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

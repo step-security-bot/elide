@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultAppStaticCompiler.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">DefaultAppStaticCompiler.kt</span></div><h1>DefaultAppStaticCompiler.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import elide.runtime.Logger
+import elide.runtime.Logging
+import jakarta.inject.Singleton
+import kotlinx.coroutines.*
+import java.util.concurrent.ConcurrentSkipListSet
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
+
+/** Default static app compiler implementation, which executes the request against the app. */
+<span class="fc" id="L12">@Singleton internal class DefaultAppStaticCompiler (</span>
+<span class="fc" id="L13">  private val dispatcher: CoroutineDispatcher = Dispatchers.Default,</span>
+) : AppStaticCompiler {
+  // Private logger.
+<span class="fc" id="L16">  private val logging: Logger = Logging.of(DefaultAppStaticCompiler::class)</span>
+
+  // Whether we have prepared this compiler with inputs and parameters.
+<span class="fc" id="L19">  private val prepared: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // Whether the compiler is currently executing.
+<span class="fc" id="L22">  private val executing: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // Site compiler parameters.
+  private lateinit var params: SiteCompilerParams
+
+  // Interpreted application info.
+  private lateinit var appInfo: LoadedAppInfo
+
+  // Application loader.
+  private lateinit var loader: AppLoader
+
+  // Count of expected requests.
+<span class="fc" id="L34">  private val expected: AtomicInteger = AtomicInteger(0)</span>
+
+  // Count of failed requests.
+<span class="fc" id="L37">  private val failures: AtomicInteger = AtomicInteger(0)</span>
+
+  // Count of completed requests.
+<span class="fc" id="L40">  private val completed: AtomicInteger = AtomicInteger(0)</span>
+
+  // List of jobs to execute. Grows as new jobs are added.
+<span class="fc" id="L43">  private val activeJobs: ArrayList&lt;Deferred&lt;StaticFragment?&gt;&gt; = ArrayList()</span>
+
+  // List of completed jobs.
+<span class="fc" id="L46">  private val finishedJobs: ArrayList&lt;Deferred&lt;StaticFragment?&gt;&gt; = ArrayList()</span>
+
+  // Set of &quot;discovered&quot; static fragments, based on configured fragments.
+<span class="fc" id="L49">  private val discovered: ArrayList&lt;StaticFragmentSpec&gt; = ArrayList()</span>
+
+  // Seen URLs.
+<span class="fc" id="L52">  private val seen: ConcurrentSkipListSet&lt;String&gt; = ConcurrentSkipListSet()</span>
+
+  // Reset the state of the compiler.
+  private fun reset() {
+<span class="fc" id="L56">    expected.set(0)</span>
+<span class="fc" id="L57">    completed.set(0)</span>
+<span class="fc" id="L58">    failures.set(0)</span>
+<span class="fc" id="L59">    activeJobs.clear()</span>
+<span class="fc" id="L60">    activeJobs.trimToSize()</span>
+<span class="fc" id="L61">    finishedJobs.clear()</span>
+<span class="fc" id="L62">    finishedJobs.trimToSize()</span>
+<span class="fc" id="L63">    discovered.clear()</span>
+<span class="fc" id="L64">    discovered.trimToSize()</span>
+<span class="fc" id="L65">  }</span>
+
+  // Execute a request against the app loader, with a way to add discovered requests to the stack.
+  @Suppress(&quot;UNUSED_PARAMETER&quot;) private suspend fun fulfillRequestAsync(
+    app: LoadedAppInfo,
+    spec: StaticFragmentSpec,
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">  ): Deferred&lt;StaticFragment?&gt; = withContext(dispatcher) {</span>
+<span class="fc" id="L72">    async {</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">      loader.executeRequest(spec)</span>
+    }
+<span class="fc" id="L75">  }</span>
+
+  // Indicates whether we are done processing tasks.
+  private fun done(): Boolean {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">    return expected.get() == completed.get()</span>
+  }
+
+  // Build a successful compiler result.
+  private fun buildResult(buf: StaticSiteBuffer): SiteCompileResult.Success {
+<span class="fc" id="L84">    return SiteCompileResult.Success(</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">      params,</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">      appInfo,</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">      params.output.path,</span>
+<span class="fc" id="L88">      buf,</span>
+    )
+  }
+
+  // Check the provided request for uniqueness and enqueue it if it has not been seen yet.
+<span class="fc" id="L93">  private suspend fun checkEnqueueRequest(</span>
+    appInfo: LoadedAppInfo,
+    spec: StaticFragmentSpec,
+  ): Deferred&lt;StaticFragment?&gt;? {
+<span class="fc" id="L97">    val target = spec.request.uri.toString()</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">    return if (!seen.contains(target)) {</span>
+<span class="fc" id="L99">      seen.add(target)</span>
+<span class="fc" id="L100">      logging.trace(&quot;URL '$target' has not been seen; enqueueing for fetch&quot;)</span>
+<span class="fc" id="L101">      val job = fulfillRequestAsync(</span>
+<span class="fc" id="L102">        appInfo,</span>
+<span class="fc" id="L103">        spec,</span>
+      )
+<span class="fc" id="L105">      job</span>
+    } else {
+<span class="nc" id="L107">      logging.trace(&quot;URL '$target' has already been seen; skipping&quot;)</span>
+<span class="nc" id="L108">      null</span>
+    }
+  }
+
+  /** @inheritDoc */
+  override fun prepare(params: SiteCompilerParams, appInfo: LoadedAppInfo, loader: AppLoader) {
+<span class="fc" id="L114">    this.params = params</span>
+<span class="fc" id="L115">    this.appInfo = appInfo</span>
+<span class="fc" id="L116">    this.loader = loader</span>
+<span class="fc" id="L117">    this.prepared.compareAndSet(false, true)</span>
+<span class="fc" id="L118">  }</span>
+
+  /** @inheritDoc */
+  override fun close() {
+<span class="fc" id="L122">    executing.set(false)</span>
+<span class="fc" id="L123">    reset()</span>
+<span class="fc" id="L124">  }</span>
+
+  /** @inheritDoc */
+  override suspend fun compileStaticSiteAsync(
+    count: Int,
+    appInfo: LoadedAppInfo,
+    seed: Sequence&lt;StaticFragmentSpec&gt;,
+    buffer: StaticSiteBuffer,
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">  ): Deferred&lt;SiteCompileResult&gt; = withContext(dispatcher) {</span>
+    // must have parameters set
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">    require(prepared.get()) {</span>
+<span class="nc" id="L135">      &quot;Must prepare compiler implementation before calling `compileStaticSite`.&quot;</span>
+    }
+<span class="pc bpc" id="L137" title="2 of 4 branches missed.">    require(!executing.get()) {</span>
+<span class="nc" id="L138">      &quot;Cannot execute static site compiler while it is already executing.&quot;</span>
+    }
+<span class="fc" id="L140">    reset()</span>
+<span class="fc" id="L141">    executing.compareAndSet(false, true)</span>
+
+    // fill in stateful parameters
+<span class="fc" id="L144">    return@withContext async {</span>
+<span class="fc" id="L145">      expected.set(count)</span>
+<span class="fc" id="L146">      activeJobs.ensureCapacity(count)</span>
+
+      // start initial set of tasks
+<span class="fc bfc" id="L149" title="All 2 branches covered.">      for (spec in seed) {</span>
+<span class="fc" id="L150">        val job = checkEnqueueRequest(</span>
+<span class="fc" id="L151">          appInfo,</span>
+<span class="fc" id="L152">          spec,</span>
+        )
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        if (job != null)</span>
+<span class="fc" id="L155">          activeJobs.add(job)</span>
+      }
+
+<span class="fc bfc" id="L158" title="All 2 branches covered.">      while (!done()) {</span>
+        // wait for all current jobs to complete
+<span class="fc" id="L160">        activeJobs.joinAll()</span>
+<span class="fc" id="L161">        val batch = ArrayList(activeJobs)</span>
+<span class="fc" id="L162">        activeJobs.clear()</span>
+
+        // consume results
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        for (job in batch) {</span>
+<span class="fc" id="L166">          val fragment = job.await()</span>
+<span class="fc" id="L167">          completed.incrementAndGet()</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">          if (fragment == null) {</span>
+<span class="nc" id="L169">            failures.incrementAndGet()</span>
+<span class="nc" id="L170">            continue  // skip: job failed (it will be present in the log already</span>
+          }
+
+<span class="fc" id="L173">          buffer.add(fragment)</span>
+<span class="fc bfc" id="L174" title="All 4 branches covered.">          if (fragment.discovered.isNotEmpty()) {</span>
+            // add to expected jobs
+<span class="fc" id="L176">            expected.addAndGet(fragment.discovered.size)</span>
+<span class="fc" id="L177">            discovered.addAll(fragment.discovered)</span>
+
+            // spawn job for each discovered fragment
+<span class="fc bfc" id="L180" title="All 2 branches covered.">            for (spec in fragment.discovered) {</span>
+<span class="fc" id="L181">              val subjob = checkEnqueueRequest(</span>
+<span class="fc" id="L182">                appInfo,</span>
+<span class="fc" id="L183">                spec,</span>
+              )
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">              if (subjob != null) {</span>
+<span class="fc" id="L186">                activeJobs.add(subjob)</span>
+              }
+            }
+          }
+
+          // add to finished jobs
+<span class="fc" id="L192">          finishedJobs.add(job)</span>
+        }
+      }
+
+      // no longer executing
+<span class="fc" id="L197">      executing.compareAndSet(true, false)</span>
+<span class="fc" id="L198">      buildResult(buffer)</span>
+    }
+<span class="fc" id="L200">  }</span>
+<span class="fc" id="L201">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

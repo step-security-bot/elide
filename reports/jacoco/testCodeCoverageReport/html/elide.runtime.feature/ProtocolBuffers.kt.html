@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProtocolBuffers.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.runtime.feature</a> &gt; <span class="el_source">ProtocolBuffers.kt</span></div><h1>ProtocolBuffers.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;DEPRECATION&quot;)
+
+package elide.runtime.feature
+
+import com.oracle.svm.core.annotate.AutomaticFeature
+import org.graalvm.nativeimage.hosted.Feature
+import org.graalvm.nativeimage.hosted.RuntimeReflection
+import java.lang.reflect.Executable
+import java.util.*
+
+<span class="nc" id="L11">@AutomaticFeature</span>
+<span class="nc" id="L12">internal class ProtocolBuffers : FrameworkFeature {</span>
+  companion object {
+    private const val PROTO_MESSAGE_CLASS = &quot;com.google.protobuf.GeneratedMessageV3&quot;
+    private const val PROTO_ENUM_CLASS = &quot;com.google.protobuf.ProtocolMessageEnum&quot;
+    private const val ENUM_VAL_DESCRIPTOR_CLASS = &quot;com.google.protobuf.Descriptors\$EnumValueDescriptor&quot;
+<span class="nc" id="L17">    private val METHOD_ACCESSOR_PREFIXES = listOf(&quot;get&quot;, &quot;set&quot;, &quot;has&quot;, &quot;add&quot;, &quot;clear&quot;, &quot;newBuilder&quot;)</span>
+
+    /**
+     * Given a proto class, registers the public accessor methods for the provided proto class.
+     */
+    private fun registerFieldAccessors(protoClass: Class&lt;*&gt;) {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">      for (method in protoClass.methods) {</span>
+<span class="nc" id="L24">        val hasAccessorPrefix = METHOD_ACCESSOR_PREFIXES.stream().anyMatch { prefix: String? -&gt;</span>
+<span class="nc" id="L25">          method.name.startsWith(</span>
+<span class="nc" id="L26">            prefix!!</span>
+          )
+        }
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (hasAccessorPrefix) {</span>
+<span class="nc" id="L30">          RuntimeReflection.register(method)</span>
+        }
+      }
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * Given a proto class, returns the Builder nested class.
+     */
+    private fun getBuilderClass(protoClass: Class&lt;*&gt;): Class&lt;*&gt; {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">      for (clazz in protoClass.classes) {</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (clazz.name.endsWith(&quot;Builder&quot;)) {</span>
+<span class="nc" id="L41">          return clazz</span>
+        }
+      }
+<span class="nc" id="L44">      error(&quot;Failed to builder class for proto message '${protoClass.name}'&quot;)</span>
+    }
+  }
+
+  override fun beforeAnalysis(access: Feature.BeforeAnalysisAccess) {
+<span class="nc" id="L49">    val protoMessageClass = access.findClassByName(PROTO_MESSAGE_CLASS)</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">    if (protoMessageClass != null) {</span>
+<span class="nc" id="L51">      val internalAccessorMethod = getMethodOrFail(</span>
+<span class="nc" id="L52">        protoMessageClass,</span>
+<span class="nc" id="L53">        &quot;internalGetFieldAccessorTable&quot;,</span>
+      )
+
+      // Finds every class whose `internalGetFieldAccessorTable()` is reached and registers it.
+      // `internalGetFieldAccessorTable()` is used downstream to access the class reflectively.
+<span class="nc" id="L58">      access.registerMethodOverrideReachabilityHandler({ _: Feature.DuringAnalysisAccess, method: Executable -&gt;</span>
+<span class="nc" id="L59">        registerFieldAccessors(method.declaringClass)</span>
+<span class="nc" id="L60">        registerFieldAccessors(getBuilderClass(method.declaringClass))</span>
+<span class="nc" id="L61">      }, internalAccessorMethod)</span>
+    }
+
+<span class="nc" id="L64">    val protoEnumClass = access.findClassByName(PROTO_ENUM_CLASS)</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    if (protoEnumClass != null) {</span>
+      // Finds every reachable proto enum class and registers specific methods for reflection.
+<span class="nc" id="L67">      access.registerSubtypeReachabilityHandler({ duringAccess: Feature.DuringAnalysisAccess, subtypeClass: Class&lt;*&gt; -&gt;</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (PROTO_ENUM_CLASS != subtypeClass.name) {</span>
+<span class="nc" id="L69">          var method = getMethodOrFail(</span>
+<span class="nc" id="L70">            subtypeClass,</span>
+<span class="nc" id="L71">            &quot;valueOf&quot;,</span>
+<span class="nc" id="L72">            duringAccess.findClassByName(ENUM_VAL_DESCRIPTOR_CLASS)</span>
+          )
+<span class="nc" id="L74">          RuntimeReflection.register(method)</span>
+<span class="nc" id="L75">          method =</span>
+<span class="nc" id="L76">            getMethodOrFail(subtypeClass, &quot;getValueDescriptor&quot;)</span>
+<span class="nc" id="L77">          RuntimeReflection.register(method)</span>
+        }
+<span class="nc" id="L79">      }, protoEnumClass)</span>
+    }
+<span class="nc" id="L81">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

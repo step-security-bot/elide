@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class elide.runtime.gvm.js.vfs.JsRequireHostTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class elide.runtime.gvm.js.vfs.JsRequireHostTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/elide.runtime.gvm.js.vfs.html">elide.runtime.gvm.js.vfs</a> &gt; JsRequireHostTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.309s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testRequireHostFs()</td>
+<td class="success">0.188s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testRequireHostFsNested()</td>
+<td class="success">0.049s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testRequireHostFsNpmModules()</td>
+<td class="success">0.072s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>?[36m16:00:38.972?[0;39m ?[37m[io.micronaut.context.DefaultBeanContext:Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35msample?[0;39m - Reading bootstrap environment configuration
+?[36m16:00:39.130?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side write for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-9D160A15-EFAA-49DC-809C-E22B8E8610B88983521881645170167/test.js' (options: '[Ljava.nio.file.OpenOption;@16dd1b19')
+?[36m16:00:39.131?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.132?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side read for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-9D160A15-EFAA-49DC-809C-E22B8E8610B88983521881645170167/test.js' (options: '[Ljava.nio.file.OpenOption;@747a4a62')
+?[36m16:00:39.132?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.142?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Checking access to path: node_modules, modes: [], linkOptions: [Ljava.nio.file.LinkOption;@5bf3e385
+?[36m16:00:39.143?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.143?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Access check passed: response indicates `ALLOW`
+?[36m16:00:39.322?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Creating directory at path: '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-551FDF31-3276-4506-8A92-3E768506BD3113875031221131258656/testing'
+?[36m16:00:39.322?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.323?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side write for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-551FDF31-3276-4506-8A92-3E768506BD3113875031221131258656/testing/test.js' (options: '[Ljava.nio.file.OpenOption;@22ff7159')
+?[36m16:00:39.323?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.323?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side read for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-551FDF31-3276-4506-8A92-3E768506BD3113875031221131258656/testing/test.js' (options: '[Ljava.nio.file.OpenOption;@3941ca1f')
+?[36m16:00:39.323?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.335?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Checking access to path: node_modules, modes: [], linkOptions: [Ljava.nio.file.LinkOption;@967b658
+?[36m16:00:39.335?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.335?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Access check passed: response indicates `ALLOW`
+?[36m16:00:39.364?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Creating directory at path: '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-5F03573B-2DCF-402F-B83F-613674F48F634650931371250554481/node_modules'
+?[36m16:00:39.364?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Creating directory at path: '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-5F03573B-2DCF-402F-B83F-613674F48F634650931371250554481/node_modules/testing'
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side write for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-5F03573B-2DCF-402F-B83F-613674F48F634650931371250554481/node_modules/testing/test.js' (options: '[Ljava.nio.file.OpenOption;@59589d64')
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side write for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-5F03573B-2DCF-402F-B83F-613674F48F634650931371250554481/node_modules/testing/package.json' (options: '[Ljava.nio.file.OpenOption;@60733c9d')
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Write denied because filesystem is in read-only mode
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Performing host-side read for path '/var/folders/pd/mk9dc77s7cx3j21n6pdt7v200000gn/T/elide-vfs-5F03573B-2DCF-402F-B83F-613674F48F634650931371250554481/node_modules/testing/test.js' (options: '[Ljava.nio.file.OpenOption;@785e9480')
+?[36m16:00:39.365?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.379?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Checking access to path: node_modules, modes: [], linkOptions: [Ljava.nio.file.LinkOption;@6278c70d
+?[36m16:00:39.379?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Delegating policy check to attached policy
+?[36m16:00:39.379?[0;39m ?[37m[elide.runtime.gvm.internals.vfs.HostVFSImpl:Test worker]?[0;39m ?[39mDEBUG?[0;39m ?[35msample?[0;39m - VFS: Access check passed: response indicates `ALLOW`
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.6</a> at Jan 15, 2023, 4:38:05 PM</p>
+</div>
+</div>
+</body>
+</html>

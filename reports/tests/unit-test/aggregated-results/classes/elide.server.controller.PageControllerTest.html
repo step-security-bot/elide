@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.179s</div>
+<div class="counter">3.143s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,6 +66,9 @@
 <li>
 <a href="#tab1">Standard output</a>
 </li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -79,87 +82,87 @@
 </thead>
 <tr>
 <td class="success">testAssignmentToUtilities()</td>
-<td class="success">0.001s</td>
+<td class="success">0.013s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testCanAcquireAppContext()</td>
-<td class="success">0.001s</td>
+<td class="success">0.120s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testCanAcquireAssetManager()</td>
-<td class="success">0.001s</td>
+<td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testGenerateAssetReferenceInvalid()</td>
-<td class="success">0.001s</td>
+<td class="success">0.015s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testGenerateReferenceModuleIdRequired()</td>
-<td class="success">0.004s</td>
+<td class="success">0.100s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testGenerateReferenceValid()</td>
-<td class="success">0.002s</td>
+<td class="success">0.065s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testGenerateReferenceViaHandler()</td>
-<td class="success">0.001s</td>
+<td class="success">0.053s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testInjectable()</td>
-<td class="success">0.003s</td>
+<td class="success">0.033s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testNotFoundStaticFile()</td>
-<td class="success">0.005s</td>
+<td class="success">0.114s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderCssDocument()</td>
-<td class="success">0.069s</td>
+<td class="success">0.261s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderHtmlPage()</td>
-<td class="success">0.030s</td>
+<td class="success">0.755s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderScriptAssetWithHandler()</td>
-<td class="success">0.016s</td>
+<td class="success">0.077s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderScriptAssetWithKnownModule()</td>
-<td class="success">0.011s</td>
+<td class="success">0.063s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderStylesheetAssetWithGenericCall()</td>
-<td class="success">0.005s</td>
+<td class="success">0.028s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderStylesheetAssetWithHandler()</td>
-<td class="success">0.004s</td>
+<td class="success">0.060s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderStylesheetAssetWithKnownModule()</td>
-<td class="success">0.023s</td>
+<td class="success">1.353s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testRenderTextStaticResource()</td>
-<td class="success">0.002s</td>
+<td class="success">0.019s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -167,10 +170,18 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>?[36m16:58:50.606?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Established active environments: [test]
-?[36m16:58:50.607?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Established active environments: [test]
-?[36m16:58:50.611?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Reading bootstrap environment configuration
-?[36m16:58:50.890?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - GRPC started on port 36364
+<pre>?[36m15:36:11.400?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Established active environments: [gcp, cloud, test]
+?[36m15:36:11.492?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Established active environments: [gcp, cloud, test]
+?[36m15:36:12.072?[0;39m ?[1;30m[Test worker]?[0;39m ?[34mINFO ?[0;39m ?[35mhellocss?[0;39m - Reading bootstrap environment configuration
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>[2023.01.13 15:36:26] (Coverage): Error during class instrumentation: com.oracle.truffle.nfi.NFILanguage: java.lang.RuntimeException: java.io.IOException: Class com/oracle/truffle/api/nodes/RootNode not found
+[2023.01.13 15:36:27] (Coverage): Error during class instrumentation: com.oracle.truffle.llvm.runtime.LLVMLanguage: java.lang.RuntimeException: java.io.IOException: Class com/oracle/truffle/api/exception/AbstractTruffleException not found
+[2023.01.13 15:36:27] (Coverage): Error during class instrumentation: org.graalvm.tools.lsp.instrument.LSPInstrument: java.lang.RuntimeException: java.io.IOException: Class org/graalvm/polyglot/Context not found
 </pre>
 </span>
 </div>
@@ -182,7 +193,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at Nov 1, 2022, 5:02:09 PM</p>
+<a href="http://www.gradle.org">Gradle 7.6</a> at Jan 15, 2023, 4:38:05 PM</p>
 </div>
 </div>
 </body>

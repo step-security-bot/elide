@@ -4,15 +4,15 @@
 package tools.elide.assets;
 
 @kotlin.jvm.JvmName(&quot;-initializeassetBundle&quot;)
-public inline fun assetBundle(block: tools.elide.assets.AssetBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle =
+inline fun assetBundle(block: tools.elide.assets.AssetBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle =
 <span class="nc" id="L8">  tools.elide.assets.AssetBundleKt.Dsl._create(tools.elide.assets.AssetBundle.newBuilder()).apply { block() }._build()</span>
-public object AssetBundleKt {
+object AssetBundleKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.assets.AssetBundle.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.assets.AssetBundle.Builder): Dsl = Dsl(builder)
@@ -30,7 +30,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;uint32 version = 1;&lt;/code&gt;
      */
-    public var version: kotlin.Int
+    var version: kotlin.Int
       @JvmName(&quot;getVersion&quot;)
 <span class="nc" id="L35">      get() = _builder.getVersion()</span>
       @JvmName(&quot;setVersion&quot;)
@@ -45,7 +45,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;uint32 version = 1;&lt;/code&gt;
      */
-    public fun clearVersion() {
+    fun clearVersion() {
 <span class="nc" id="L49">      _builder.clearVersion()</span>
 <span class="nc" id="L50">    }</span>
 
@@ -57,7 +57,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;.assets.AssetBundle.BundlerSettings settings = 2;&lt;/code&gt;
      */
-    public var settings: tools.elide.assets.AssetBundle.BundlerSettings
+    var settings: tools.elide.assets.AssetBundle.BundlerSettings
       @JvmName(&quot;getSettings&quot;)
 <span class="nc" id="L62">      get() = _builder.getSettings()</span>
       @JvmName(&quot;setSettings&quot;)
@@ -72,7 +72,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;.assets.AssetBundle.BundlerSettings settings = 2;&lt;/code&gt;
      */
-    public fun clearSettings() {
+    fun clearSettings() {
 <span class="nc" id="L76">      _builder.clearSettings()</span>
 <span class="nc" id="L77">    }</span>
     /**
@@ -84,7 +84,7 @@ public object AssetBundleKt {
      * &lt;code&gt;.assets.AssetBundle.BundlerSettings settings = 2;&lt;/code&gt;
      * @return Whether the settings field is set.
      */
-    public fun hasSettings(): kotlin.Boolean {
+    fun hasSettings(): kotlin.Boolean {
 <span class="nc" id="L88">      return _builder.hasSettings()</span>
     }
 
@@ -96,7 +96,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;.google.protobuf.Timestamp generated = 3;&lt;/code&gt;
      */
-    public var generated: com.google.protobuf.Timestamp
+    var generated: com.google.protobuf.Timestamp
       @JvmName(&quot;getGenerated&quot;)
 <span class="nc" id="L101">      get() = _builder.getGenerated()</span>
       @JvmName(&quot;setGenerated&quot;)
@@ -111,7 +111,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;.google.protobuf.Timestamp generated = 3;&lt;/code&gt;
      */
-    public fun clearGenerated() {
+    fun clearGenerated() {
 <span class="nc" id="L115">      _builder.clearGenerated()</span>
 <span class="nc" id="L116">    }</span>
     /**
@@ -123,7 +123,7 @@ public object AssetBundleKt {
      * &lt;code&gt;.google.protobuf.Timestamp generated = 3;&lt;/code&gt;
      * @return Whether the generated field is set.
      */
-    public fun hasGenerated(): kotlin.Boolean {
+    fun hasGenerated(): kotlin.Boolean {
 <span class="nc" id="L127">      return _builder.hasGenerated()</span>
     }
 
@@ -135,7 +135,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;bytes digest = 4;&lt;/code&gt;
      */
-    public var digest: com.google.protobuf.ByteString
+    var digest: com.google.protobuf.ByteString
       @JvmName(&quot;getDigest&quot;)
 <span class="nc" id="L140">      get() = _builder.getDigest()</span>
       @JvmName(&quot;setDigest&quot;)
@@ -150,7 +150,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;bytes digest = 4;&lt;/code&gt;
      */
-    public fun clearDigest() {
+    fun clearDigest() {
 <span class="nc" id="L154">      _builder.clearDigest()</span>
 <span class="nc" id="L155">    }</span>
 
@@ -159,7 +159,7 @@ public object AssetBundleKt {
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-    public class StylesProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    class StylesProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
      * &lt;pre&gt;
      * Set of styles listed in this asset manifest. Like scripts, this is a map of dotted-path module names mapped to
@@ -168,7 +168,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.StyleBundle&amp;gt; styles = 5;&lt;/code&gt;
      */
-     public val styles: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+     val styles: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;getStylesMap&quot;)
       get() = com.google.protobuf.kotlin.DslMap(
@@ -183,7 +183,7 @@ public object AssetBundleKt {
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.StyleBundle&amp;gt; styles = 5;&lt;/code&gt;
      */
     @JvmName(&quot;putStyles&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       .put(key: kotlin.String, value: tools.elide.assets.AssetBundle.StyleBundle) {
 <span class="nc" id="L188">         _builder.putStyles(key, value)</span>
 <span class="nc" id="L189">       }</span>
@@ -198,7 +198,7 @@ public object AssetBundleKt {
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;setStyles&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+    inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       .set(key: kotlin.String, value: tools.elide.assets.AssetBundle.StyleBundle) {
          put(key, value)
        }
@@ -212,7 +212,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;removeStyles&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       .remove(key: kotlin.String) {
          _builder.removeStyles(key)
        }
@@ -226,7 +226,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;putAllStyles&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       .putAll(map: kotlin.collections.Map&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle&gt;) {
          _builder.putAllStyles(map)
        }
@@ -240,7 +240,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;clearStyles&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.StyleBundle, StylesProxy&gt;
       .clear() {
          _builder.clearStyles()
        }
@@ -250,7 +250,7 @@ public object AssetBundleKt {
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-    public class ScriptsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    class ScriptsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
      * &lt;pre&gt;
      * Set of scripts listed in this asset manifest. Like styles, this is a map of dotted-path module names mapped to
@@ -259,7 +259,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.ScriptBundle&amp;gt; scripts = 6;&lt;/code&gt;
      */
-     public val scripts: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+     val scripts: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;getScriptsMap&quot;)
       get() = com.google.protobuf.kotlin.DslMap(
@@ -274,7 +274,7 @@ public object AssetBundleKt {
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.ScriptBundle&amp;gt; scripts = 6;&lt;/code&gt;
      */
     @JvmName(&quot;putScripts&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       .put(key: kotlin.String, value: tools.elide.assets.AssetBundle.ScriptBundle) {
 <span class="nc" id="L279">         _builder.putScripts(key, value)</span>
 <span class="nc" id="L280">       }</span>
@@ -289,7 +289,7 @@ public object AssetBundleKt {
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;setScripts&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+    inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       .set(key: kotlin.String, value: tools.elide.assets.AssetBundle.ScriptBundle) {
          put(key, value)
        }
@@ -303,7 +303,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;removeScripts&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       .remove(key: kotlin.String) {
          _builder.removeScripts(key)
        }
@@ -317,7 +317,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;putAllScripts&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       .putAll(map: kotlin.collections.Map&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle&gt;) {
          _builder.putAllScripts(map)
        }
@@ -331,7 +331,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;clearScripts&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.ScriptBundle, ScriptsProxy&gt;
       .clear() {
          _builder.clearScripts()
        }
@@ -341,7 +341,7 @@ public object AssetBundleKt {
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-    public class GenericProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    class GenericProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
      * &lt;pre&gt;
      * Generic assets which are mapped within this bundle.
@@ -349,7 +349,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.GenericBundle&amp;gt; generic = 7;&lt;/code&gt;
      */
-     public val generic: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+     val generic: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;getGenericMap&quot;)
       get() = com.google.protobuf.kotlin.DslMap(
@@ -363,7 +363,7 @@ public object AssetBundleKt {
      * &lt;code&gt;map&amp;lt;string, .assets.AssetBundle.GenericBundle&amp;gt; generic = 7;&lt;/code&gt;
      */
     @JvmName(&quot;putGeneric&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       .put(key: kotlin.String, value: tools.elide.assets.AssetBundle.GenericBundle) {
 <span class="nc" id="L368">         _builder.putGeneric(key, value)</span>
 <span class="nc" id="L369">       }</span>
@@ -377,7 +377,7 @@ public object AssetBundleKt {
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;setGeneric&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+    inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       .set(key: kotlin.String, value: tools.elide.assets.AssetBundle.GenericBundle) {
          put(key, value)
        }
@@ -390,7 +390,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;removeGeneric&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       .remove(key: kotlin.String) {
          _builder.removeGeneric(key)
        }
@@ -403,7 +403,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;putAllGeneric&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       .putAll(map: kotlin.collections.Map&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle&gt;) {
          _builder.putAllGeneric(map)
        }
@@ -416,7 +416,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @JvmName(&quot;clearGeneric&quot;)
-    public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
+    fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, tools.elide.assets.AssetBundle.GenericBundle, GenericProxy&gt;
       .clear() {
          _builder.clearGeneric()
        }
@@ -426,7 +426,7 @@ public object AssetBundleKt {
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-    public class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+    class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
      * &lt;pre&gt;
      * Inlined asset contents, which specify pre-compressed asset data corresponding to a given CSS or JavaScript code
@@ -435,7 +435,7 @@ public object AssetBundleKt {
      *
      * &lt;code&gt;repeated .assets.AssetBundle.AssetContent asset = 8;&lt;/code&gt;
      */
-     public val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;
+     val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;
       @kotlin.jvm.JvmSynthetic
       get() = com.google.protobuf.kotlin.DslList(
         _builder.getAssetList()
@@ -451,7 +451,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;addAsset&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.AssetContent) {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.AssetContent) {
       _builder.addAsset(value)
     }
     /**
@@ -466,7 +466,7 @@ public object AssetBundleKt {
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;plusAssignAsset&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.AssetContent) {
+    inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.AssetContent) {
       add(value)
     }
     /**
@@ -480,7 +480,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;addAllAsset&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.AssetContent&gt;) {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.AssetContent&gt;) {
       _builder.addAllAsset(values)
     }
     /**
@@ -495,7 +495,7 @@ public object AssetBundleKt {
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;plusAssignAllAsset&quot;)
     @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-    public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.AssetContent&gt;) {
+    inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.AssetContent&gt;) {
       addAll(values)
     }
     /**
@@ -510,7 +510,7 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;setAsset&quot;)
-    public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.AssetContent) {
+    operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.AssetContent) {
       _builder.setAsset(index, value)
     }
     /**
@@ -523,21 +523,21 @@ public object AssetBundleKt {
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName(&quot;clearAsset&quot;)
-    public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.clear() {
+    fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.AssetContent, AssetProxy&gt;.clear() {
       _builder.clearAsset()
     }
 
   }
   @kotlin.jvm.JvmName(&quot;-initializedigestSettings&quot;)
-  public inline fun digestSettings(block: tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.DigestSettings =
+  inline fun digestSettings(block: tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.DigestSettings =
 <span class="nc" id="L533">    tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl._create(tools.elide.assets.AssetBundle.DigestSettings.newBuilder()).apply { block() }._build()</span>
-  public object DigestSettingsKt {
+  object DigestSettingsKt {
 <span class="nc" id="L535">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L537">    public class Dsl private constructor(</span>
+<span class="nc" id="L537">    class Dsl private constructor(</span>
 <span class="nc" id="L538">      private val _builder: tools.elide.assets.AssetBundle.DigestSettings.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.DigestSettings.Builder): Dsl = Dsl(builder)
@@ -554,7 +554,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.crypto.HashAlgorithm algorithm = 1;&lt;/code&gt;
        */
-      public var algorithm: tools.elide.crypto.HashAlgorithm
+       var algorithm: tools.elide.crypto.HashAlgorithm
         @JvmName(&quot;getAlgorithm&quot;)
 <span class="nc" id="L559">        get() = _builder.getAlgorithm()</span>
         @JvmName(&quot;setAlgorithm&quot;)
@@ -568,7 +568,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.crypto.HashAlgorithm algorithm = 1;&lt;/code&gt;
        */
-      public fun clearAlgorithm() {
+      fun clearAlgorithm() {
 <span class="nc" id="L572">        _builder.clearAlgorithm()</span>
 <span class="nc" id="L573">      }</span>
 
@@ -579,7 +579,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;uint32 tail = 2;&lt;/code&gt;
        */
-      public var tail: kotlin.Int
+      var tail: kotlin.Int
         @JvmName(&quot;getTail&quot;)
 <span class="nc" id="L584">        get() = _builder.getTail()</span>
         @JvmName(&quot;setTail&quot;)
@@ -593,7 +593,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;uint32 tail = 2;&lt;/code&gt;
        */
-      public fun clearTail() {
+      fun clearTail() {
 <span class="nc" id="L597">        _builder.clearTail()</span>
 <span class="nc" id="L598">      }</span>
 
@@ -604,7 +604,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;uint32 rounds = 3;&lt;/code&gt;
        */
-      public var rounds: kotlin.Int
+      var rounds: kotlin.Int
         @JvmName(&quot;getRounds&quot;)
 <span class="nc" id="L609">        get() = _builder.getRounds()</span>
         @JvmName(&quot;setRounds&quot;)
@@ -618,21 +618,21 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;uint32 rounds = 3;&lt;/code&gt;
        */
-      public fun clearRounds() {
+      fun clearRounds() {
 <span class="nc" id="L622">        _builder.clearRounds()</span>
 <span class="nc" id="L623">      }</span>
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializerewriteMap&quot;)
-  public inline fun rewriteMap(block: tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.RewriteMap =
+  inline fun rewriteMap(block: tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.RewriteMap =
 <span class="nc" id="L628">    tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl._create(tools.elide.assets.AssetBundle.RewriteMap.newBuilder()).apply { block() }._build()</span>
-  public object RewriteMapKt {
+  object RewriteMapKt {
 <span class="nc" id="L630">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L632">    public class Dsl private constructor(</span>
+<span class="nc" id="L632">    class Dsl private constructor(</span>
 <span class="nc" id="L633">      private val _builder: tools.elide.assets.AssetBundle.RewriteMap.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.RewriteMap.Builder): Dsl = Dsl(builder)
@@ -649,7 +649,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string file = 1;&lt;/code&gt;
        */
-      public var file: kotlin.String
+      var file: kotlin.String
         @JvmName(&quot;getFile&quot;)
 <span class="nc" id="L654">        get() = _builder.getFile()</span>
         @JvmName(&quot;setFile&quot;)
@@ -663,7 +663,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string file = 1;&lt;/code&gt;
        */
-      public fun clearFile() {
+      fun clearFile() {
 <span class="nc" id="L667">        _builder.clearFile()</span>
 <span class="nc" id="L668">      }</span>
 
@@ -672,7 +672,7 @@ public object AssetBundleKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class MapProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class MapProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Map of symbols to their rewritten values.
@@ -680,7 +680,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;map&amp;lt;string, string&amp;gt; map = 2;&lt;/code&gt;
        */
-       public val map: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+       val map: com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         @kotlin.jvm.JvmSynthetic
         @JvmName(&quot;getMapMap&quot;)
         get() = com.google.protobuf.kotlin.DslMap(
@@ -694,7 +694,7 @@ public object AssetBundleKt {
        * &lt;code&gt;map&amp;lt;string, string&amp;gt; map = 2;&lt;/code&gt;
        */
       @JvmName(&quot;putMap&quot;)
-      public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+      fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         .put(key: kotlin.String, value: kotlin.String) {
 <span class="nc" id="L699">           _builder.putMap(key, value)</span>
 <span class="nc" id="L700">         }</span>
@@ -708,7 +708,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;setMap&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+      inline operator fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         .set(key: kotlin.String, value: kotlin.String) {
            put(key, value)
          }
@@ -721,7 +721,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;removeMap&quot;)
-      public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+      fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         .remove(key: kotlin.String) {
            _builder.removeMap(key)
          }
@@ -734,7 +734,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;putAllMap&quot;)
-      public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+      fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         .putAll(map: kotlin.collections.Map&lt;kotlin.String, kotlin.String&gt;) {
            _builder.putAllMap(map)
          }
@@ -747,22 +747,22 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @JvmName(&quot;clearMap&quot;)
-      public fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
+      fun com.google.protobuf.kotlin.DslMap&lt;kotlin.String, kotlin.String, MapProxy&gt;
         .clear() {
            _builder.clearMap()
          }
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializebundlerSettings&quot;)
-  public inline fun bundlerSettings(block: tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.BundlerSettings =
+  inline fun bundlerSettings(block: tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.BundlerSettings =
 <span class="nc" id="L758">    tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl._create(tools.elide.assets.AssetBundle.BundlerSettings.newBuilder()).apply { block() }._build()</span>
-  public object BundlerSettingsKt {
+  object BundlerSettingsKt {
 <span class="nc" id="L760">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L762">    public class Dsl private constructor(</span>
+<span class="nc" id="L762">    class Dsl private constructor(</span>
 <span class="nc" id="L763">      private val _builder: tools.elide.assets.AssetBundle.BundlerSettings.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.BundlerSettings.Builder): Dsl = Dsl(builder)
@@ -779,7 +779,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool minify = 1;&lt;/code&gt;
        */
-      public var minify: kotlin.Boolean
+      var minify: kotlin.Boolean
         @JvmName(&quot;getMinify&quot;)
 <span class="nc" id="L784">        get() = _builder.getMinify()</span>
         @JvmName(&quot;setMinify&quot;)
@@ -793,7 +793,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool minify = 1;&lt;/code&gt;
        */
-      public fun clearMinify() {
+      fun clearMinify() {
 <span class="nc" id="L797">        _builder.clearMinify()</span>
 <span class="nc" id="L798">      }</span>
 
@@ -804,7 +804,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool prepack = 2;&lt;/code&gt;
        */
-      public var prepack: kotlin.Boolean
+      var prepack: kotlin.Boolean
         @JvmName(&quot;getPrepack&quot;)
 <span class="nc" id="L809">        get() = _builder.getPrepack()</span>
         @JvmName(&quot;setPrepack&quot;)
@@ -818,7 +818,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool prepack = 2;&lt;/code&gt;
        */
-      public fun clearPrepack() {
+      fun clearPrepack() {
 <span class="nc" id="L822">        _builder.clearPrepack()</span>
 <span class="nc" id="L823">      }</span>
 
@@ -829,7 +829,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool rewriting = 3;&lt;/code&gt;
        */
-      public var rewriting: kotlin.Boolean
+      var rewriting: kotlin.Boolean
         @JvmName(&quot;getRewriting&quot;)
 <span class="nc" id="L834">        get() = _builder.getRewriting()</span>
         @JvmName(&quot;setRewriting&quot;)
@@ -843,7 +843,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool rewriting = 3;&lt;/code&gt;
        */
-      public fun clearRewriting() {
+      fun clearRewriting() {
 <span class="nc" id="L847">        _builder.clearRewriting()</span>
 <span class="nc" id="L848">      }</span>
 
@@ -852,7 +852,7 @@ public object AssetBundleKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class CompressionProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class CompressionProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Enabled compression algorithms. If this property is set, there may be compressed variants for each asset,
@@ -861,7 +861,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;repeated .data.CompressionMode compression = 4;&lt;/code&gt;
        */
-       public val compression: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;
+       val compression: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getCompressionList()
@@ -877,7 +877,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addCompression&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.add(value: tools.elide.data.CompressionMode) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.add(value: tools.elide.data.CompressionMode) {
         _builder.addCompression(value)
       }/**
        * &lt;pre&gt;
@@ -891,7 +891,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignCompression&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.plusAssign(value: tools.elide.data.CompressionMode) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.plusAssign(value: tools.elide.data.CompressionMode) {
         add(value)
       }/**
        * &lt;pre&gt;
@@ -904,7 +904,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllCompression&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressionMode&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressionMode&gt;) {
         _builder.addAllCompression(values)
       }/**
        * &lt;pre&gt;
@@ -918,7 +918,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllCompression&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressionMode&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressionMode&gt;) {
         addAll(values)
       }/**
        * &lt;pre&gt;
@@ -932,7 +932,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setCompression&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressionMode) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressionMode) {
         _builder.setCompression(index, value)
       }/**
        * &lt;pre&gt;
@@ -944,7 +944,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearCompression&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressionMode, CompressionProxy&gt;.clear() {
         _builder.clearCompression()
       }
       /**
@@ -955,7 +955,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.DigestSettings digest_settings = 5;&lt;/code&gt;
        */
-      public var digestSettings: tools.elide.assets.AssetBundle.DigestSettings
+      var digestSettings: tools.elide.assets.AssetBundle.DigestSettings
         @JvmName(&quot;getDigestSettings&quot;)
 <span class="nc" id="L960">        get() = _builder.getDigestSettings()</span>
         @JvmName(&quot;setDigestSettings&quot;)
@@ -970,7 +970,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.DigestSettings digest_settings = 5;&lt;/code&gt;
        */
-      public fun clearDigestSettings() {
+      fun clearDigestSettings() {
 <span class="nc" id="L974">        _builder.clearDigestSettings()</span>
 <span class="nc" id="L975">      }</span>
       /**
@@ -982,21 +982,21 @@ public object AssetBundleKt {
        * &lt;code&gt;.assets.AssetBundle.DigestSettings digest_settings = 5;&lt;/code&gt;
        * @return Whether the digestSettings field is set.
        */
-      public fun hasDigestSettings(): kotlin.Boolean {
+      fun hasDigestSettings(): kotlin.Boolean {
 <span class="nc" id="L986">        return _builder.hasDigestSettings()</span>
       }
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializeassetDependencies&quot;)
-  public inline fun assetDependencies(block: tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetDependencies =
+  inline fun assetDependencies(block: tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetDependencies =
 <span class="nc" id="L992">    tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl._create(tools.elide.assets.AssetBundle.AssetDependencies.newBuilder()).apply { block() }._build()</span>
-  public object AssetDependenciesKt {
+  object AssetDependenciesKt {
 <span class="nc" id="L994">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L996">    public class Dsl private constructor(</span>
+<span class="nc" id="L996">    class Dsl private constructor(</span>
 <span class="nc" id="L997">      private val _builder: tools.elide.assets.AssetBundle.AssetDependencies.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.AssetDependencies.Builder): Dsl = Dsl(builder)
@@ -1011,7 +1011,7 @@ public object AssetBundleKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class DirectProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class DirectProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Tokens for direct dependencies.
@@ -1020,7 +1020,7 @@ public object AssetBundleKt {
        * &lt;code&gt;repeated string direct = 1;&lt;/code&gt;
        * @return A list containing the direct.
        */
-      public val direct: com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;
+       val direct: com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getDirectList()
@@ -1035,7 +1035,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addDirect&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.add(value: kotlin.String) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.add(value: kotlin.String) {
         _builder.addDirect(value)
       }
       /**
@@ -1049,7 +1049,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignDirect&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.plusAssign(value: kotlin.String) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.plusAssign(value: kotlin.String) {
         add(value)
       }
       /**
@@ -1062,7 +1062,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllDirect&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
         _builder.addAllDirect(values)
       }
       /**
@@ -1076,7 +1076,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllDirect&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
         addAll(values)
       }
       /**
@@ -1090,7 +1090,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setDirect&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.set(index: kotlin.Int, value: kotlin.String) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.set(index: kotlin.Int, value: kotlin.String) {
         _builder.setDirect(index, value)
       }/**
        * &lt;pre&gt;
@@ -1101,7 +1101,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearDirect&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, DirectProxy&gt;.clear() {
         _builder.clearDirect()
       }
       /**
@@ -1109,7 +1109,7 @@ public object AssetBundleKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class TransitiveProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class TransitiveProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Tokens for transitive dependencies.
@@ -1118,7 +1118,7 @@ public object AssetBundleKt {
        * &lt;code&gt;repeated string transitive = 2;&lt;/code&gt;
        * @return A list containing the transitive.
        */
-      public val transitive: com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;
+       val transitive: com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getTransitiveList()
@@ -1133,7 +1133,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addTransitive&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.add(value: kotlin.String) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.add(value: kotlin.String) {
         _builder.addTransitive(value)
       }
       /**
@@ -1147,7 +1147,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignTransitive&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.plusAssign(value: kotlin.String) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.plusAssign(value: kotlin.String) {
         add(value)
       }
       /**
@@ -1160,7 +1160,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllTransitive&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
         _builder.addAllTransitive(values)
       }
       /**
@@ -1174,7 +1174,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllTransitive&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;kotlin.String&gt;) {
         addAll(values)
       }
       /**
@@ -1188,7 +1188,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setTransitive&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.set(index: kotlin.Int, value: kotlin.String) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.set(index: kotlin.Int, value: kotlin.String) {
         _builder.setTransitive(index, value)
       }/**
        * &lt;pre&gt;
@@ -1199,7 +1199,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearTransitive&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;kotlin.String, TransitiveProxy&gt;.clear() {
         _builder.clearTransitive()
       }
       /**
@@ -1209,7 +1209,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.struct.BloomFilter mask = 3;&lt;/code&gt;
        */
-      public var mask: tools.elide.struct.BloomFilter
+      var mask: tools.elide.struct.BloomFilter
         @JvmName(&quot;getMask&quot;)
 <span class="nc" id="L1214">        get() = _builder.getMask()</span>
         @JvmName(&quot;setMask&quot;)
@@ -1223,7 +1223,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.struct.BloomFilter mask = 3;&lt;/code&gt;
        */
-      public fun clearMask() {
+      fun clearMask() {
 <span class="nc" id="L1227">        _builder.clearMask()</span>
 <span class="nc" id="L1228">      }</span>
       /**
@@ -1234,21 +1234,21 @@ public object AssetBundleKt {
        * &lt;code&gt;.struct.BloomFilter mask = 3;&lt;/code&gt;
        * @return Whether the mask field is set.
        */
-      public fun hasMask(): kotlin.Boolean {
+      fun hasMask(): kotlin.Boolean {
 <span class="nc" id="L1238">        return _builder.hasMask()</span>
       }
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializestyleBundle&quot;)
-  public inline fun styleBundle(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle =
+  inline fun styleBundle(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle =
 <span class="nc" id="L1244">    tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl._create(tools.elide.assets.AssetBundle.StyleBundle.newBuilder()).apply { block() }._build()</span>
-  public object StyleBundleKt {
+  object StyleBundleKt {
 <span class="nc" id="L1246">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L1248">    public class Dsl private constructor(</span>
+<span class="nc" id="L1248">    class Dsl private constructor(</span>
 <span class="nc" id="L1249">      private val _builder: tools.elide.assets.AssetBundle.StyleBundle.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.StyleBundle.Builder): Dsl = Dsl(builder)
@@ -1265,7 +1265,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public var module: kotlin.String
+      var module: kotlin.String
         @JvmName(&quot;getModule&quot;)
 <span class="nc" id="L1270">        get() = _builder.getModule()</span>
         @JvmName(&quot;setModule&quot;)
@@ -1279,7 +1279,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public fun clearModule() {
+      fun clearModule() {
 <span class="nc" id="L1283">        _builder.clearModule()</span>
 <span class="nc" id="L1284">      }</span>
 
@@ -1290,7 +1290,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.RewriteMap rewrite_map = 2;&lt;/code&gt;
        */
-      public var rewriteMap: tools.elide.assets.AssetBundle.RewriteMap
+      var rewriteMap: tools.elide.assets.AssetBundle.RewriteMap
         @JvmName(&quot;getRewriteMap&quot;)
 <span class="nc" id="L1295">        get() = _builder.getRewriteMap()</span>
         @JvmName(&quot;setRewriteMap&quot;)
@@ -1304,7 +1304,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.RewriteMap rewrite_map = 2;&lt;/code&gt;
        */
-      public fun clearRewriteMap() {
+      fun clearRewriteMap() {
 <span class="nc" id="L1308">        _builder.clearRewriteMap()</span>
 <span class="nc" id="L1309">      }</span>
       /**
@@ -1315,7 +1315,7 @@ public object AssetBundleKt {
        * &lt;code&gt;.assets.AssetBundle.RewriteMap rewrite_map = 2;&lt;/code&gt;
        * @return Whether the rewriteMap field is set.
        */
-      public fun hasRewriteMap(): kotlin.Boolean {
+      fun hasRewriteMap(): kotlin.Boolean {
 <span class="nc" id="L1319">        return _builder.hasRewriteMap()</span>
       }
 
@@ -1326,7 +1326,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        */
-      public var dependencies: tools.elide.assets.AssetBundle.AssetDependencies
+      var dependencies: tools.elide.assets.AssetBundle.AssetDependencies
         @JvmName(&quot;getDependencies&quot;)
 <span class="nc" id="L1331">        get() = _builder.getDependencies()</span>
         @JvmName(&quot;setDependencies&quot;)
@@ -1340,7 +1340,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        */
-      public fun clearDependencies() {
+      fun clearDependencies() {
 <span class="nc" id="L1344">        _builder.clearDependencies()</span>
 <span class="nc" id="L1345">      }</span>
       /**
@@ -1351,7 +1351,7 @@ public object AssetBundleKt {
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        * @return Whether the dependencies field is set.
        */
-      public fun hasDependencies(): kotlin.Boolean {
+      fun hasDependencies(): kotlin.Boolean {
 <span class="nc" id="L1355">        return _builder.hasDependencies()</span>
       }
 
@@ -1360,7 +1360,7 @@ public object AssetBundleKt {
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Stylesheet sources associated with this bundle. Always non-empty.
@@ -1368,7 +1368,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;repeated .assets.AssetBundle.StyleBundle.StyleAsset asset = 4;&lt;/code&gt;
        */
-       public val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;
+       val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getAssetList()
@@ -1383,7 +1383,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
         _builder.addAsset(value)
       }
       /**
@@ -1397,7 +1397,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAsset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
         add(value)
       }
       /**
@@ -1410,7 +1410,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset&gt;) {
         _builder.addAllAsset(values)
       }
       /**
@@ -1424,7 +1424,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllAsset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset&gt;) {
         addAll(values)
       }
       /**
@@ -1438,7 +1438,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setAsset&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset) {
         _builder.setAsset(index, value)
       }
       /**
@@ -1450,7 +1450,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.StyleBundle.StyleAsset, AssetProxy&gt;.clear() {
         _builder.clearAsset()
       }
 
@@ -1462,7 +1462,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 5;&lt;/code&gt;
        */
-      public var compressable: kotlin.Boolean
+      var compressable: kotlin.Boolean
         @JvmName(&quot;getCompressable&quot;)
 <span class="nc" id="L1467">        get() = _builder.getCompressable()</span>
         @JvmName(&quot;setCompressable&quot;)
@@ -1476,7 +1476,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 5;&lt;/code&gt;
        */
-      public fun clearCompressable() {
+      fun clearCompressable() {
 <span class="nc" id="L1480">        _builder.clearCompressable()</span>
 <span class="nc" id="L1481">      }</span>
 
@@ -1487,7 +1487,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 6;&lt;/code&gt;
        */
-      public var cacheable: kotlin.Boolean
+      var cacheable: kotlin.Boolean
         @JvmName(&quot;getCacheable&quot;)
 <span class="nc" id="L1492">        get() = _builder.getCacheable()</span>
         @JvmName(&quot;setCacheable&quot;)
@@ -1501,20 +1501,20 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 6;&lt;/code&gt;
        */
-      public fun clearCacheable() {
+      fun clearCacheable() {
 <span class="nc" id="L1505">        _builder.clearCacheable()</span>
 <span class="nc" id="L1506">      }</span>
     }
     @kotlin.jvm.JvmName(&quot;-initializestyleAsset&quot;)
-    public inline fun styleAsset(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle.StyleAsset =
+    inline fun styleAsset(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle.StyleAsset =
 <span class="nc" id="L1510">      tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl._create(tools.elide.assets.AssetBundle.StyleBundle.StyleAsset.newBuilder()).apply { block() }._build()</span>
-    public object StyleAssetKt {
+    object StyleAssetKt {
 <span class="nc" id="L1512">      @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
       @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L1514">      public class Dsl private constructor(</span>
+<span class="nc" id="L1514">      class Dsl private constructor(</span>
 <span class="nc" id="L1515">        private val _builder: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset.Builder</span>
       ) {
-        public companion object {
+        companion object {
           @kotlin.jvm.JvmSynthetic
           @kotlin.PublishedApi
           internal fun _create(builder: tools.elide.assets.AssetBundle.StyleBundle.StyleAsset.Builder): Dsl = Dsl(builder)
@@ -1531,7 +1531,7 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string token = 1;&lt;/code&gt;
          */
-        public var token: kotlin.String
+        var token: kotlin.String
           @JvmName(&quot;getToken&quot;)
 <span class="nc" id="L1536">          get() = _builder.getToken()</span>
           @JvmName(&quot;setToken&quot;)
@@ -1545,7 +1545,7 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string token = 1;&lt;/code&gt;
          */
-        public fun clearToken() {
+        fun clearToken() {
 <span class="nc" id="L1549">          _builder.clearToken()</span>
 <span class="nc" id="L1550">        }</span>
 
@@ -1556,7 +1556,7 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string filename = 2;&lt;/code&gt;
          */
-        public var filename: kotlin.String
+        var filename: kotlin.String
           @JvmName(&quot;getFilename&quot;)
 <span class="nc" id="L1561">          get() = _builder.getFilename()</span>
           @JvmName(&quot;setFilename&quot;)
@@ -1570,9 +1570,45 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string filename = 2;&lt;/code&gt;
          */
-        public fun clearFilename() {
+        fun clearFilename() {
 <span class="nc" id="L1574">          _builder.clearFilename()</span>
 <span class="nc" id="L1575">        }</span>
+
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Styles.Stylesheet stylesheet = 3;&lt;/code&gt;
+         */
+        var stylesheet: tools.elide.page.Context.Styles.Stylesheet
+          @JvmName(&quot;getStylesheet&quot;)
+<span class="nc" id="L1586">          get() = _builder.getStylesheet()</span>
+          @JvmName(&quot;setStylesheet&quot;)
+          set(value) {
+<span class="nc" id="L1589">            _builder.setStylesheet(value)</span>
+<span class="nc" id="L1590">          }</span>
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Styles.Stylesheet stylesheet = 3;&lt;/code&gt;
+         */
+        fun clearStylesheet() {
+<span class="nc" id="L1599">          _builder.clearStylesheet()</span>
+<span class="nc" id="L1600">        }</span>
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Styles.Stylesheet stylesheet = 3;&lt;/code&gt;
+         * @return Whether the stylesheet field is set.
+         */
+        fun hasStylesheet(): kotlin.Boolean {
+<span class="nc" id="L1610">          return _builder.hasStylesheet()</span>
+        }
 
         /**
          * &lt;pre&gt;
@@ -1581,13 +1617,13 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;bool renaming = 4;&lt;/code&gt;
          */
-        public var renaming: kotlin.Boolean
+        var renaming: kotlin.Boolean
           @JvmName(&quot;getRenaming&quot;)
-<span class="nc" id="L1586">          get() = _builder.getRenaming()</span>
+<span class="nc" id="L1622">          get() = _builder.getRenaming()</span>
           @JvmName(&quot;setRenaming&quot;)
           set(value) {
-<span class="nc" id="L1589">            _builder.setRenaming(value)</span>
-<span class="nc" id="L1590">          }</span>
+<span class="nc" id="L1625">            _builder.setRenaming(value)</span>
+<span class="nc" id="L1626">          }</span>
         /**
          * &lt;pre&gt;
          * Whether a renaming map is available for this stylesheet.
@@ -1595,22 +1631,22 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;bool renaming = 4;&lt;/code&gt;
          */
-        public fun clearRenaming() {
-<span class="nc" id="L1599">          _builder.clearRenaming()</span>
-<span class="nc" id="L1600">        }</span>
+        fun clearRenaming() {
+<span class="nc" id="L1635">          _builder.clearRenaming()</span>
+<span class="nc" id="L1636">        }</span>
       }
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializescriptBundle&quot;)
-  public inline fun scriptBundle(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle =
-<span class="nc" id="L1606">    tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl._create(tools.elide.assets.AssetBundle.ScriptBundle.newBuilder()).apply { block() }._build()</span>
-  public object ScriptBundleKt {
-<span class="nc" id="L1608">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
+  inline fun scriptBundle(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle =
+<span class="nc" id="L1642">    tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl._create(tools.elide.assets.AssetBundle.ScriptBundle.newBuilder()).apply { block() }._build()</span>
+  object ScriptBundleKt {
+<span class="nc" id="L1644">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L1610">    public class Dsl private constructor(</span>
-<span class="nc" id="L1611">      private val _builder: tools.elide.assets.AssetBundle.ScriptBundle.Builder</span>
+<span class="nc" id="L1646">    class Dsl private constructor(</span>
+<span class="nc" id="L1647">      private val _builder: tools.elide.assets.AssetBundle.ScriptBundle.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.ScriptBundle.Builder): Dsl = Dsl(builder)
@@ -1627,13 +1663,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public var module: kotlin.String
+      var module: kotlin.String
         @JvmName(&quot;getModule&quot;)
-<span class="nc" id="L1632">        get() = _builder.getModule()</span>
+<span class="nc" id="L1668">        get() = _builder.getModule()</span>
         @JvmName(&quot;setModule&quot;)
         set(value) {
-<span class="nc" id="L1635">          _builder.setModule(value)</span>
-<span class="nc" id="L1636">        }</span>
+<span class="nc" id="L1671">          _builder.setModule(value)</span>
+<span class="nc" id="L1672">        }</span>
       /**
        * &lt;pre&gt;
        * Script module name/path.
@@ -1641,16 +1677,16 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public fun clearModule() {
-<span class="nc" id="L1645">        _builder.clearModule()</span>
-<span class="nc" id="L1646">      }</span>
+      fun clearModule() {
+<span class="nc" id="L1681">        _builder.clearModule()</span>
+<span class="nc" id="L1682">      }</span>
 
       /**
        * An uninstantiable, behaviorless type to represent the field in
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class AssetProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Script code assets associated with this bundle. Always non-empty.
@@ -1658,7 +1694,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;repeated .assets.AssetBundle.ScriptBundle.ScriptAsset asset = 2;&lt;/code&gt;
        */
-       public val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;
+       val asset: com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getAssetList()
@@ -1673,7 +1709,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.add(value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
         _builder.addAsset(value)
       }
       /**
@@ -1687,7 +1723,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAsset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.plusAssign(value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
         add(value)
       }
       /**
@@ -1700,7 +1736,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset&gt;) {
         _builder.addAllAsset(values)
       }
       /**
@@ -1714,7 +1750,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllAsset&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset&gt;) {
         addAll(values)
       }
       /**
@@ -1728,7 +1764,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setAsset&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.set(index: kotlin.Int, value: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset) {
         _builder.setAsset(index, value)
       }
       /**
@@ -1740,7 +1776,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearAsset&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset, AssetProxy&gt;.clear() {
         _builder.clearAsset()
       }
 
@@ -1752,13 +1788,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        */
-      public var dependencies: tools.elide.assets.AssetBundle.AssetDependencies
+      var dependencies: tools.elide.assets.AssetBundle.AssetDependencies
         @JvmName(&quot;getDependencies&quot;)
-<span class="nc" id="L1757">        get() = _builder.getDependencies()</span>
+<span class="nc" id="L1793">        get() = _builder.getDependencies()</span>
         @JvmName(&quot;setDependencies&quot;)
         set(value) {
-<span class="nc" id="L1760">          _builder.setDependencies(value)</span>
-<span class="nc" id="L1761">        }</span>
+<span class="nc" id="L1796">          _builder.setDependencies(value)</span>
+<span class="nc" id="L1797">        }</span>
       /**
        * &lt;pre&gt;
        * Specifies dependencies that must be loaded before this module, if any.
@@ -1766,9 +1802,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        */
-      public fun clearDependencies() {
-<span class="nc" id="L1770">        _builder.clearDependencies()</span>
-<span class="nc" id="L1771">      }</span>
+      fun clearDependencies() {
+<span class="nc" id="L1806">        _builder.clearDependencies()</span>
+<span class="nc" id="L1807">      }</span>
       /**
        * &lt;pre&gt;
        * Specifies dependencies that must be loaded before this module, if any.
@@ -1777,8 +1813,8 @@ public object AssetBundleKt {
        * &lt;code&gt;.assets.AssetBundle.AssetDependencies dependencies = 3;&lt;/code&gt;
        * @return Whether the dependencies field is set.
        */
-      public fun hasDependencies(): kotlin.Boolean {
-<span class="nc" id="L1781">        return _builder.hasDependencies()</span>
+      fun hasDependencies(): kotlin.Boolean {
+<span class="nc" id="L1817">        return _builder.hasDependencies()</span>
       }
 
       /**
@@ -1788,13 +1824,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 4;&lt;/code&gt;
        */
-      public var compressable: kotlin.Boolean
+      var compressable: kotlin.Boolean
         @JvmName(&quot;getCompressable&quot;)
-<span class="nc" id="L1793">        get() = _builder.getCompressable()</span>
+<span class="nc" id="L1829">        get() = _builder.getCompressable()</span>
         @JvmName(&quot;setCompressable&quot;)
         set(value) {
-<span class="nc" id="L1796">          _builder.setCompressable(value)</span>
-<span class="nc" id="L1797">        }</span>
+<span class="nc" id="L1832">          _builder.setCompressable(value)</span>
+<span class="nc" id="L1833">        }</span>
       /**
        * &lt;pre&gt;
        * Whether this asset should be compressed when serving to end-users.
@@ -1802,9 +1838,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 4;&lt;/code&gt;
        */
-      public fun clearCompressable() {
-<span class="nc" id="L1806">        _builder.clearCompressable()</span>
-<span class="nc" id="L1807">      }</span>
+      fun clearCompressable() {
+<span class="nc" id="L1842">        _builder.clearCompressable()</span>
+<span class="nc" id="L1843">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -1813,13 +1849,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 5;&lt;/code&gt;
        */
-      public var cacheable: kotlin.Boolean
+      var cacheable: kotlin.Boolean
         @JvmName(&quot;getCacheable&quot;)
-<span class="nc" id="L1818">        get() = _builder.getCacheable()</span>
+<span class="nc" id="L1854">        get() = _builder.getCacheable()</span>
         @JvmName(&quot;setCacheable&quot;)
         set(value) {
-<span class="nc" id="L1821">          _builder.setCacheable(value)</span>
-<span class="nc" id="L1822">        }</span>
+<span class="nc" id="L1857">          _builder.setCacheable(value)</span>
+<span class="nc" id="L1858">        }</span>
       /**
        * &lt;pre&gt;
        * Whether this asset should be considered cacheable.
@@ -1827,9 +1863,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 5;&lt;/code&gt;
        */
-      public fun clearCacheable() {
-<span class="nc" id="L1831">        _builder.clearCacheable()</span>
-<span class="nc" id="L1832">      }</span>
+      fun clearCacheable() {
+<span class="nc" id="L1867">        _builder.clearCacheable()</span>
+<span class="nc" id="L1868">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -1838,13 +1874,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool external = 6;&lt;/code&gt;
        */
-      public var external: kotlin.Boolean
+      var external: kotlin.Boolean
         @JvmName(&quot;getExternal&quot;)
-<span class="nc" id="L1843">        get() = _builder.getExternal()</span>
+<span class="nc" id="L1879">        get() = _builder.getExternal()</span>
         @JvmName(&quot;setExternal&quot;)
         set(value) {
-<span class="nc" id="L1846">          _builder.setExternal(value)</span>
-<span class="nc" id="L1847">        }</span>
+<span class="nc" id="L1882">          _builder.setExternal(value)</span>
+<span class="nc" id="L1883">        }</span>
       /**
        * &lt;pre&gt;
        * Marked if this asset is external, in which case the described script should be referenced via a script tag.
@@ -1852,20 +1888,20 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool external = 6;&lt;/code&gt;
        */
-      public fun clearExternal() {
-<span class="nc" id="L1856">        _builder.clearExternal()</span>
-<span class="nc" id="L1857">      }</span>
+      fun clearExternal() {
+<span class="nc" id="L1892">        _builder.clearExternal()</span>
+<span class="nc" id="L1893">      }</span>
     }
     @kotlin.jvm.JvmName(&quot;-initializescriptAsset&quot;)
-    public inline fun scriptAsset(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset =
-<span class="nc" id="L1861">      tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl._create(tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.newBuilder()).apply { block() }._build()</span>
-    public object ScriptAssetKt {
-<span class="nc" id="L1863">      @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
+    inline fun scriptAsset(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset =
+<span class="nc" id="L1897">      tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl._create(tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.newBuilder()).apply { block() }._build()</span>
+    object ScriptAssetKt {
+<span class="nc" id="L1899">      @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
       @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L1865">      public class Dsl private constructor(</span>
-<span class="nc" id="L1866">        private val _builder: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.Builder</span>
+<span class="nc" id="L1901">      class Dsl private constructor(</span>
+<span class="nc" id="L1902">        private val _builder: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.Builder</span>
       ) {
-        public companion object {
+        companion object {
           @kotlin.jvm.JvmSynthetic
           @kotlin.PublishedApi
           internal fun _create(builder: tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.Builder): Dsl = Dsl(builder)
@@ -1882,13 +1918,13 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string token = 1;&lt;/code&gt;
          */
-        public var token: kotlin.String
+        var token: kotlin.String
           @JvmName(&quot;getToken&quot;)
-<span class="nc" id="L1887">          get() = _builder.getToken()</span>
+<span class="nc" id="L1923">          get() = _builder.getToken()</span>
           @JvmName(&quot;setToken&quot;)
           set(value) {
-<span class="nc" id="L1890">            _builder.setToken(value)</span>
-<span class="nc" id="L1891">          }</span>
+<span class="nc" id="L1926">            _builder.setToken(value)</span>
+<span class="nc" id="L1927">          }</span>
         /**
          * &lt;pre&gt;
          * Calculated token for this asset, including the asset's content digest.
@@ -1896,9 +1932,9 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string token = 1;&lt;/code&gt;
          */
-        public fun clearToken() {
-<span class="nc" id="L1900">          _builder.clearToken()</span>
-<span class="nc" id="L1901">        }</span>
+        fun clearToken() {
+<span class="nc" id="L1936">          _builder.clearToken()</span>
+<span class="nc" id="L1937">        }</span>
 
         /**
          * &lt;pre&gt;
@@ -1907,13 +1943,13 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string filename = 2;&lt;/code&gt;
          */
-        public var filename: kotlin.String
+        var filename: kotlin.String
           @JvmName(&quot;getFilename&quot;)
-<span class="nc" id="L1912">          get() = _builder.getFilename()</span>
+<span class="nc" id="L1948">          get() = _builder.getFilename()</span>
           @JvmName(&quot;setFilename&quot;)
           set(value) {
-<span class="nc" id="L1915">            _builder.setFilename(value)</span>
-<span class="nc" id="L1916">          }</span>
+<span class="nc" id="L1951">            _builder.setFilename(value)</span>
+<span class="nc" id="L1952">          }</span>
         /**
          * &lt;pre&gt;
          * Original name of the source file, if applicable.
@@ -1921,22 +1957,58 @@ public object AssetBundleKt {
          *
          * &lt;code&gt;string filename = 2;&lt;/code&gt;
          */
-        public fun clearFilename() {
-<span class="nc" id="L1925">          _builder.clearFilename()</span>
-<span class="nc" id="L1926">        }</span>
+        fun clearFilename() {
+<span class="nc" id="L1961">          _builder.clearFilename()</span>
+<span class="nc" id="L1962">        }</span>
+
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Scripts.JavaScript script = 3;&lt;/code&gt;
+         */
+        var script: tools.elide.page.Context.Scripts.JavaScript
+          @JvmName(&quot;getScript&quot;)
+<span class="nc" id="L1973">          get() = _builder.getScript()</span>
+          @JvmName(&quot;setScript&quot;)
+          set(value) {
+<span class="nc" id="L1976">            _builder.setScript(value)</span>
+<span class="nc" id="L1977">          }</span>
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Scripts.JavaScript script = 3;&lt;/code&gt;
+         */
+        fun clearScript() {
+<span class="nc" id="L1986">          _builder.clearScript()</span>
+<span class="nc" id="L1987">        }</span>
+        /**
+         * &lt;pre&gt;
+         * URL and DOM settings for this asset.
+         * &lt;/pre&gt;
+         *
+         * &lt;code&gt;.page.Context.Scripts.JavaScript script = 3;&lt;/code&gt;
+         * @return Whether the script field is set.
+         */
+        fun hasScript(): kotlin.Boolean {
+<span class="nc" id="L1997">          return _builder.hasScript()</span>
+        }
       }
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializegenericBundle&quot;)
-  public inline fun genericBundle(block: tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.GenericBundle =
-<span class="nc" id="L1932">    tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl._create(tools.elide.assets.AssetBundle.GenericBundle.newBuilder()).apply { block() }._build()</span>
-  public object GenericBundleKt {
-<span class="nc" id="L1934">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
+  inline fun genericBundle(block: tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.GenericBundle =
+<span class="nc" id="L2004">    tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl._create(tools.elide.assets.AssetBundle.GenericBundle.newBuilder()).apply { block() }._build()</span>
+  object GenericBundleKt {
+<span class="nc" id="L2006">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L1936">    public class Dsl private constructor(</span>
-<span class="nc" id="L1937">      private val _builder: tools.elide.assets.AssetBundle.GenericBundle.Builder</span>
+<span class="nc" id="L2008">    class Dsl private constructor(</span>
+<span class="nc" id="L2009">      private val _builder: tools.elide.assets.AssetBundle.GenericBundle.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.GenericBundle.Builder): Dsl = Dsl(builder)
@@ -1953,13 +2025,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public var module: kotlin.String
+      var module: kotlin.String
         @JvmName(&quot;getModule&quot;)
-<span class="nc" id="L1958">        get() = _builder.getModule()</span>
+<span class="nc" id="L2030">        get() = _builder.getModule()</span>
         @JvmName(&quot;setModule&quot;)
         set(value) {
-<span class="nc" id="L1961">          _builder.setModule(value)</span>
-<span class="nc" id="L1962">        }</span>
+<span class="nc" id="L2033">          _builder.setModule(value)</span>
+<span class="nc" id="L2034">        }</span>
       /**
        * &lt;pre&gt;
        * Generic asset name/path.
@@ -1967,9 +2039,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public fun clearModule() {
-<span class="nc" id="L1971">        _builder.clearModule()</span>
-<span class="nc" id="L1972">      }</span>
+      fun clearModule() {
+<span class="nc" id="L2043">        _builder.clearModule()</span>
+<span class="nc" id="L2044">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -1978,13 +2050,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string filename = 2;&lt;/code&gt;
        */
-      public var filename: kotlin.String
+      var filename: kotlin.String
         @JvmName(&quot;getFilename&quot;)
-<span class="nc" id="L1983">        get() = _builder.getFilename()</span>
+<span class="nc" id="L2055">        get() = _builder.getFilename()</span>
         @JvmName(&quot;setFilename&quot;)
         set(value) {
-<span class="nc" id="L1986">          _builder.setFilename(value)</span>
-<span class="nc" id="L1987">        }</span>
+<span class="nc" id="L2058">          _builder.setFilename(value)</span>
+<span class="nc" id="L2059">        }</span>
       /**
        * &lt;pre&gt;
        * Original name of the source file, as applicable.
@@ -1992,9 +2064,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string filename = 2;&lt;/code&gt;
        */
-      public fun clearFilename() {
-<span class="nc" id="L1996">        _builder.clearFilename()</span>
-<span class="nc" id="L1997">      }</span>
+      fun clearFilename() {
+<span class="nc" id="L2068">        _builder.clearFilename()</span>
+<span class="nc" id="L2069">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -2003,13 +2075,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string token = 3;&lt;/code&gt;
        */
-      public var token: kotlin.String
+      var token: kotlin.String
         @JvmName(&quot;getToken&quot;)
-<span class="nc" id="L2008">        get() = _builder.getToken()</span>
+<span class="nc" id="L2080">        get() = _builder.getToken()</span>
         @JvmName(&quot;setToken&quot;)
         set(value) {
-<span class="nc" id="L2011">          _builder.setToken(value)</span>
-<span class="nc" id="L2012">        }</span>
+<span class="nc" id="L2083">          _builder.setToken(value)</span>
+<span class="nc" id="L2084">        }</span>
       /**
        * &lt;pre&gt;
        * Hash token uniquely identifying the content in this module.
@@ -2017,16 +2089,16 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string token = 3;&lt;/code&gt;
        */
-      public fun clearToken() {
-<span class="nc" id="L2021">        _builder.clearToken()</span>
-<span class="nc" id="L2022">      }</span>
+      fun clearToken() {
+<span class="nc" id="L2093">        _builder.clearToken()</span>
+<span class="nc" id="L2094">      }</span>
 
       /**
        * An uninstantiable, behaviorless type to represent the field in
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class VariantProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class VariantProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Specifies each variant of an asset's main content.
@@ -2034,7 +2106,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;repeated .data.CompressedData variant = 4;&lt;/code&gt;
        */
-       public val variant: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;
+       val variant: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getVariantList()
@@ -2049,7 +2121,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.add(value: tools.elide.data.CompressedData) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.add(value: tools.elide.data.CompressedData) {
         _builder.addVariant(value)
       }
       /**
@@ -2063,7 +2135,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignVariant&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(value: tools.elide.data.CompressedData) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(value: tools.elide.data.CompressedData) {
         add(value)
       }
       /**
@@ -2076,7 +2148,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
         _builder.addAllVariant(values)
       }
       /**
@@ -2090,7 +2162,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllVariant&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
         addAll(values)
       }
       /**
@@ -2104,7 +2176,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setVariant&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressedData) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressedData) {
         _builder.setVariant(index, value)
       }
       /**
@@ -2116,7 +2188,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.clear() {
         _builder.clearVariant()
       }
 
@@ -2128,13 +2200,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 5;&lt;/code&gt;
        */
-      public var compressable: kotlin.Boolean
+      var compressable: kotlin.Boolean
         @JvmName(&quot;getCompressable&quot;)
-<span class="nc" id="L2133">        get() = _builder.getCompressable()</span>
+<span class="nc" id="L2205">        get() = _builder.getCompressable()</span>
         @JvmName(&quot;setCompressable&quot;)
         set(value) {
-<span class="nc" id="L2136">          _builder.setCompressable(value)</span>
-<span class="nc" id="L2137">        }</span>
+<span class="nc" id="L2208">          _builder.setCompressable(value)</span>
+<span class="nc" id="L2209">        }</span>
       /**
        * &lt;pre&gt;
        * Whether this asset should be compressed when serving to end-users.
@@ -2142,9 +2214,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool compressable = 5;&lt;/code&gt;
        */
-      public fun clearCompressable() {
-<span class="nc" id="L2146">        _builder.clearCompressable()</span>
-<span class="nc" id="L2147">      }</span>
+      fun clearCompressable() {
+<span class="nc" id="L2218">        _builder.clearCompressable()</span>
+<span class="nc" id="L2219">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -2153,13 +2225,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 6;&lt;/code&gt;
        */
-      public var cacheable: kotlin.Boolean
+      var cacheable: kotlin.Boolean
         @JvmName(&quot;getCacheable&quot;)
-<span class="nc" id="L2158">        get() = _builder.getCacheable()</span>
+<span class="nc" id="L2230">        get() = _builder.getCacheable()</span>
         @JvmName(&quot;setCacheable&quot;)
         set(value) {
-<span class="nc" id="L2161">          _builder.setCacheable(value)</span>
-<span class="nc" id="L2162">        }</span>
+<span class="nc" id="L2233">          _builder.setCacheable(value)</span>
+<span class="nc" id="L2234">        }</span>
       /**
        * &lt;pre&gt;
        * Whether this asset should be considered cacheable.
@@ -2167,9 +2239,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool cacheable = 6;&lt;/code&gt;
        */
-      public fun clearCacheable() {
-<span class="nc" id="L2171">        _builder.clearCacheable()</span>
-<span class="nc" id="L2172">      }</span>
+      fun clearCacheable() {
+<span class="nc" id="L2243">        _builder.clearCacheable()</span>
+<span class="nc" id="L2244">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -2178,13 +2250,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool external = 7;&lt;/code&gt;
        */
-      public var external: kotlin.Boolean
+      var external: kotlin.Boolean
         @JvmName(&quot;getExternal&quot;)
-<span class="nc" id="L2183">        get() = _builder.getExternal()</span>
+<span class="nc" id="L2255">        get() = _builder.getExternal()</span>
         @JvmName(&quot;setExternal&quot;)
         set(value) {
-<span class="nc" id="L2186">          _builder.setExternal(value)</span>
-<span class="nc" id="L2187">        }</span>
+<span class="nc" id="L2258">          _builder.setExternal(value)</span>
+<span class="nc" id="L2259">        }</span>
       /**
        * &lt;pre&gt;
        * Marked if this asset is external, in which case the described stylesheet should be referenced via a link tag.
@@ -2192,21 +2264,21 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;bool external = 7;&lt;/code&gt;
        */
-      public fun clearExternal() {
-<span class="nc" id="L2196">        _builder.clearExternal()</span>
-<span class="nc" id="L2197">      }</span>
+      fun clearExternal() {
+<span class="nc" id="L2268">        _builder.clearExternal()</span>
+<span class="nc" id="L2269">      }</span>
     }
   }
   @kotlin.jvm.JvmName(&quot;-initializeassetContent&quot;)
-  public inline fun assetContent(block: tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetContent =
-<span class="nc" id="L2202">    tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl._create(tools.elide.assets.AssetBundle.AssetContent.newBuilder()).apply { block() }._build()</span>
-  public object AssetContentKt {
-<span class="nc" id="L2204">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
+  inline fun assetContent(block: tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetContent =
+<span class="nc" id="L2274">    tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl._create(tools.elide.assets.AssetBundle.AssetContent.newBuilder()).apply { block() }._build()</span>
+  object AssetContentKt {
+<span class="nc" id="L2276">    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
     @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L2206">    public class Dsl private constructor(</span>
-<span class="nc" id="L2207">      private val _builder: tools.elide.assets.AssetBundle.AssetContent.Builder</span>
+<span class="nc" id="L2278">    class Dsl private constructor(</span>
+<span class="nc" id="L2279">      private val _builder: tools.elide.assets.AssetBundle.AssetContent.Builder</span>
     ) {
-      public companion object {
+      companion object {
         @kotlin.jvm.JvmSynthetic
         @kotlin.PublishedApi
         internal fun _create(builder: tools.elide.assets.AssetBundle.AssetContent.Builder): Dsl = Dsl(builder)
@@ -2223,13 +2295,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public var module: kotlin.String
+      var module: kotlin.String
         @JvmName(&quot;getModule&quot;)
-<span class="nc" id="L2228">        get() = _builder.getModule()</span>
+<span class="nc" id="L2300">        get() = _builder.getModule()</span>
         @JvmName(&quot;setModule&quot;)
         set(value) {
-<span class="nc" id="L2231">          _builder.setModule(value)</span>
-<span class="nc" id="L2232">        }</span>
+<span class="nc" id="L2303">          _builder.setModule(value)</span>
+<span class="nc" id="L2304">        }</span>
       /**
        * &lt;pre&gt;
        * Module which this asset is a member of.
@@ -2237,9 +2309,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string module = 1;&lt;/code&gt;
        */
-      public fun clearModule() {
-<span class="nc" id="L2241">        _builder.clearModule()</span>
-<span class="nc" id="L2242">      }</span>
+      fun clearModule() {
+<span class="nc" id="L2313">        _builder.clearModule()</span>
+<span class="nc" id="L2314">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -2248,13 +2320,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string filename = 2;&lt;/code&gt;
        */
-      public var filename: kotlin.String
+      var filename: kotlin.String
         @JvmName(&quot;getFilename&quot;)
-<span class="nc" id="L2253">        get() = _builder.getFilename()</span>
+<span class="nc" id="L2325">        get() = _builder.getFilename()</span>
         @JvmName(&quot;setFilename&quot;)
         set(value) {
-<span class="nc" id="L2256">          _builder.setFilename(value)</span>
-<span class="nc" id="L2257">        }</span>
+<span class="nc" id="L2328">          _builder.setFilename(value)</span>
+<span class="nc" id="L2329">        }</span>
       /**
        * &lt;pre&gt;
        * Original name of the source file.
@@ -2262,9 +2334,9 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string filename = 2;&lt;/code&gt;
        */
-      public fun clearFilename() {
-<span class="nc" id="L2266">        _builder.clearFilename()</span>
-<span class="nc" id="L2267">      }</span>
+      fun clearFilename() {
+<span class="nc" id="L2338">        _builder.clearFilename()</span>
+<span class="nc" id="L2339">      }</span>
 
       /**
        * &lt;pre&gt;
@@ -2273,13 +2345,13 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string token = 3;&lt;/code&gt;
        */
-      public var token: kotlin.String
+      var token: kotlin.String
         @JvmName(&quot;getToken&quot;)
-<span class="nc" id="L2278">        get() = _builder.getToken()</span>
+<span class="nc" id="L2350">        get() = _builder.getToken()</span>
         @JvmName(&quot;setToken&quot;)
         set(value) {
-<span class="nc" id="L2281">          _builder.setToken(value)</span>
-<span class="nc" id="L2282">        }</span>
+<span class="nc" id="L2353">          _builder.setToken(value)</span>
+<span class="nc" id="L2354">        }</span>
       /**
        * &lt;pre&gt;
        * Hash token uniquely identifying the content in this module.
@@ -2287,16 +2359,16 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;string token = 3;&lt;/code&gt;
        */
-      public fun clearToken() {
-<span class="nc" id="L2291">        _builder.clearToken()</span>
-<span class="nc" id="L2292">      }</span>
+      fun clearToken() {
+<span class="nc" id="L2363">        _builder.clearToken()</span>
+<span class="nc" id="L2364">      }</span>
 
       /**
        * An uninstantiable, behaviorless type to represent the field in
        * generics.
        */
       @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
-      public class VariantProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
+      class VariantProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
       /**
        * &lt;pre&gt;
        * Specifies each variant of an asset's main content.
@@ -2304,7 +2376,7 @@ public object AssetBundleKt {
        *
        * &lt;code&gt;repeated .data.CompressedData variant = 4;&lt;/code&gt;
        */
-       public val variant: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;
+       val variant: com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;
         @kotlin.jvm.JvmSynthetic
         get() = com.google.protobuf.kotlin.DslList(
           _builder.getVariantList()
@@ -2319,7 +2391,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.add(value: tools.elide.data.CompressedData) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.add(value: tools.elide.data.CompressedData) {
         _builder.addVariant(value)
       }
       /**
@@ -2333,7 +2405,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignVariant&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(value: tools.elide.data.CompressedData) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(value: tools.elide.data.CompressedData) {
         add(value)
       }
       /**
@@ -2346,7 +2418,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;addAllVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.addAll(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
         _builder.addAllVariant(values)
       }
       /**
@@ -2360,7 +2432,7 @@ public object AssetBundleKt {
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;plusAssignAllVariant&quot;)
       @Suppress(&quot;NOTHING_TO_INLINE&quot;)
-      public inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
+      inline operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.plusAssign(values: kotlin.collections.Iterable&lt;tools.elide.data.CompressedData&gt;) {
         addAll(values)
       }
       /**
@@ -2374,7 +2446,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;setVariant&quot;)
-      public operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressedData) {
+      operator fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.set(index: kotlin.Int, value: tools.elide.data.CompressedData) {
         _builder.setVariant(index, value)
       }
       /**
@@ -2386,7 +2458,7 @@ public object AssetBundleKt {
        */
       @kotlin.jvm.JvmSynthetic
       @kotlin.jvm.JvmName(&quot;clearVariant&quot;)
-      public fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.clear() {
+      fun com.google.protobuf.kotlin.DslList&lt;tools.elide.data.CompressedData, VariantProxy&gt;.clear() {
         _builder.clearVariant()
       }
 
@@ -2394,68 +2466,74 @@ public object AssetBundleKt {
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.copy(block: tools.elide.assets.AssetBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle =
+inline fun tools.elide.assets.AssetBundle.copy(block: tools.elide.assets.AssetBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle =
   tools.elide.assets.AssetBundleKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.DigestSettings.copy(block: tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.DigestSettings =
+inline fun tools.elide.assets.AssetBundle.DigestSettings.copy(block: tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.DigestSettings =
   tools.elide.assets.AssetBundleKt.DigestSettingsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.RewriteMap.copy(block: tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.RewriteMap =
+inline fun tools.elide.assets.AssetBundle.RewriteMap.copy(block: tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.RewriteMap =
   tools.elide.assets.AssetBundleKt.RewriteMapKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.BundlerSettings.copy(block: tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.BundlerSettings =
+inline fun tools.elide.assets.AssetBundle.BundlerSettings.copy(block: tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.BundlerSettings =
   tools.elide.assets.AssetBundleKt.BundlerSettingsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 val tools.elide.assets.AssetBundle.BundlerSettingsOrBuilder.digestSettingsOrNull: tools.elide.assets.AssetBundle.DigestSettings?
-<span class="nc bnc" id="L2413" title="All 2 branches missed.">  get() = if (hasDigestSettings()) getDigestSettings() else null</span>
+<span class="nc bnc" id="L2485" title="All 2 branches missed.">  get() = if (hasDigestSettings()) getDigestSettings() else null</span>
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.AssetDependencies.copy(block: tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetDependencies =
+inline fun tools.elide.assets.AssetBundle.AssetDependencies.copy(block: tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetDependencies =
   tools.elide.assets.AssetBundleKt.AssetDependenciesKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 val tools.elide.assets.AssetBundle.AssetDependenciesOrBuilder.maskOrNull: tools.elide.struct.BloomFilter?
-<span class="nc bnc" id="L2420" title="All 2 branches missed.">  get() = if (hasMask()) getMask() else null</span>
+<span class="nc bnc" id="L2492" title="All 2 branches missed.">  get() = if (hasMask()) getMask() else null</span>
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.StyleBundle.copy(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle =
+inline fun tools.elide.assets.AssetBundle.StyleBundle.copy(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle =
   tools.elide.assets.AssetBundleKt.StyleBundleKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.StyleBundle.StyleAsset.copy(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle.StyleAsset =
+inline fun tools.elide.assets.AssetBundle.StyleBundle.StyleAsset.copy(block: tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.StyleBundle.StyleAsset =
   tools.elide.assets.AssetBundleKt.StyleBundleKt.StyleAssetKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
+val tools.elide.assets.AssetBundle.StyleBundle.StyleAssetOrBuilder.stylesheetOrNull: tools.elide.page.Context.Styles.Stylesheet?
+<span class="nc bnc" id="L2503" title="All 2 branches missed.">  get() = if (hasStylesheet()) getStylesheet() else null</span>
+
 val tools.elide.assets.AssetBundle.StyleBundleOrBuilder.rewriteMapOrNull: tools.elide.assets.AssetBundle.RewriteMap?
-<span class="nc bnc" id="L2431" title="All 2 branches missed.">  get() = if (hasRewriteMap()) getRewriteMap() else null</span>
+<span class="nc bnc" id="L2506" title="All 2 branches missed.">  get() = if (hasRewriteMap()) getRewriteMap() else null</span>
 
 val tools.elide.assets.AssetBundle.StyleBundleOrBuilder.dependenciesOrNull: tools.elide.assets.AssetBundle.AssetDependencies?
-<span class="nc bnc" id="L2434" title="All 2 branches missed.">  get() = if (hasDependencies()) getDependencies() else null</span>
+<span class="nc bnc" id="L2509" title="All 2 branches missed.">  get() = if (hasDependencies()) getDependencies() else null</span>
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.ScriptBundle.copy(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle =
+inline fun tools.elide.assets.AssetBundle.ScriptBundle.copy(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle =
   tools.elide.assets.AssetBundleKt.ScriptBundleKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.copy(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset =
+inline fun tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset.copy(block: tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.ScriptBundle.ScriptAsset =
   tools.elide.assets.AssetBundleKt.ScriptBundleKt.ScriptAssetKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
+val tools.elide.assets.AssetBundle.ScriptBundle.ScriptAssetOrBuilder.scriptOrNull: tools.elide.page.Context.Scripts.JavaScript?
+<span class="nc bnc" id="L2520" title="All 2 branches missed.">  get() = if (hasScript()) getScript() else null</span>
+
 val tools.elide.assets.AssetBundle.ScriptBundleOrBuilder.dependenciesOrNull: tools.elide.assets.AssetBundle.AssetDependencies?
-<span class="nc bnc" id="L2445" title="All 2 branches missed.">  get() = if (hasDependencies()) getDependencies() else null</span>
+<span class="nc bnc" id="L2523" title="All 2 branches missed.">  get() = if (hasDependencies()) getDependencies() else null</span>
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.GenericBundle.copy(block: tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.GenericBundle =
+inline fun tools.elide.assets.AssetBundle.GenericBundle.copy(block: tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.GenericBundle =
   tools.elide.assets.AssetBundleKt.GenericBundleKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.assets.AssetBundle.AssetContent.copy(block: tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetContent =
+inline fun tools.elide.assets.AssetBundle.AssetContent.copy(block: tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl.() -&gt; kotlin.Unit): tools.elide.assets.AssetBundle.AssetContent =
   tools.elide.assets.AssetBundleKt.AssetContentKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 val tools.elide.assets.AssetBundleOrBuilder.settingsOrNull: tools.elide.assets.AssetBundle.BundlerSettings?
-<span class="nc bnc" id="L2456" title="All 2 branches missed.">  get() = if (hasSettings()) getSettings() else null</span>
+<span class="nc bnc" id="L2534" title="All 2 branches missed.">  get() = if (hasSettings()) getSettings() else null</span>
 
 val tools.elide.assets.AssetBundleOrBuilder.generatedOrNull: com.google.protobuf.Timestamp?
-<span class="nc bnc" id="L2459" title="All 2 branches missed.">  get() = if (hasGenerated()) getGenerated() else null</span>
+<span class="nc bnc" id="L2537" title="All 2 branches missed.">  get() = if (hasGenerated()) getGenerated() else null</span>
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

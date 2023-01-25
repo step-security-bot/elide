@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializesubmessageOptions&quot;)
-public inline fun submessageOptions(block: tools.elide.model.SubmessageOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SubmessageOptions =
+inline fun submessageOptions(block: tools.elide.model.SubmessageOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SubmessageOptions =
 <span class="nc" id="L8">  tools.elide.model.SubmessageOptionsKt.Dsl._create(tools.elide.model.SubmessageOptions.newBuilder()).apply { block() }._build()</span>
-public object SubmessageOptionsKt {
+object SubmessageOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.SubmessageOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.SubmessageOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;.model.CollectionMode mode = 1;&lt;/code&gt;
      */
-    public var mode: tools.elide.model.CollectionMode
+     var mode: tools.elide.model.CollectionMode
       @JvmName(&quot;getMode&quot;)
 <span class="nc" id="L34">      get() = _builder.getMode()</span>
       @JvmName(&quot;setMode&quot;)
@@ -43,7 +43,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;.model.CollectionMode mode = 1;&lt;/code&gt;
      */
-    public fun clearMode() {
+    fun clearMode() {
 <span class="nc" id="L47">      _builder.clearMode()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -54,7 +54,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;string concrete = 2;&lt;/code&gt;
      */
-    public var concrete: kotlin.String
+    var concrete: kotlin.String
       @JvmName(&quot;getConcrete&quot;)
 <span class="nc" id="L59">      get() = _builder.getConcrete()</span>
       @JvmName(&quot;setConcrete&quot;)
@@ -68,7 +68,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;string concrete = 2;&lt;/code&gt;
      */
-    public fun clearConcrete() {
+    fun clearConcrete() {
 <span class="nc" id="L72">      _builder.clearConcrete()</span>
 <span class="nc" id="L73">    }</span>
 
@@ -79,7 +79,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;string path = 3;&lt;/code&gt;
      */
-    public var path: kotlin.String
+    var path: kotlin.String
       @JvmName(&quot;getPath&quot;)
 <span class="nc" id="L84">      get() = _builder.getPath()</span>
       @JvmName(&quot;setPath&quot;)
@@ -93,7 +93,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;string path = 3;&lt;/code&gt;
      */
-    public fun clearPath() {
+    fun clearPath() {
 <span class="nc" id="L97">      _builder.clearPath()</span>
 <span class="nc" id="L98">    }</span>
 
@@ -105,7 +105,7 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;bool embed = 4;&lt;/code&gt;
      */
-    public var embed: kotlin.Boolean
+    var embed: kotlin.Boolean
       @JvmName(&quot;getEmbed&quot;)
 <span class="nc" id="L110">      get() = _builder.getEmbed()</span>
       @JvmName(&quot;setEmbed&quot;)
@@ -120,13 +120,13 @@ public object SubmessageOptionsKt {
      *
      * &lt;code&gt;bool embed = 4;&lt;/code&gt;
      */
-    public fun clearEmbed() {
+    fun clearEmbed() {
 <span class="nc" id="L124">      _builder.clearEmbed()</span>
 <span class="nc" id="L125">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.SubmessageOptions.copy(block: tools.elide.model.SubmessageOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SubmessageOptions =
+inline fun tools.elide.model.SubmessageOptions.copy(block: tools.elide.model.SubmessageOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SubmessageOptions =
   tools.elide.model.SubmessageOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

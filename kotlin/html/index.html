@@ -54,6 +54,268 @@
 <div class="main-content" id="content" pageIds="elide::.ext/allModules///PointingToDeclaration//0">
   <div class="breadcrumbs"></div>
   <div class="cover ">
+    <div class="cover "><p align="center">
+  <a href="https://github.com/elide-dev/v3">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./creative/logo/logo-wide-1200-w.png">
+      <img src="./creative/logo/logo-wide-1200-w.png" height="300">
+    </picture>
+  </a>
+</p><p align="center">
+<i>elide: verb. to omit (a sound or syllable) when speaking. to join together; to merge.</i>
+</p><hr />
+      <p class="paragraph"><a href="https://github.com/elide-dev/v3/actions/workflows/build.ci.yml"><img alt="Build" src="https://github.com/elide-dev/v3/actions/workflows/build.ci.yml/badge.svg"></a> <a href="https://codecov.io/gh/elide-dev/v3"></a> <a href="https://sonarcloud.io/summary/new_code?id=elide-dev_v3"></a> <a href="https://sonarcloud.io/summary/new_code?id=elide-dev_v3"></a> <a href="https://sonarcloud.io/summary/new_code?id=elide-dev_v3"></a> <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Felide-dev%2Fv3?ref=badge_shield"></a></p>
+      <p class="paragraph"><a href="https://openjdk.org/projects/jdk/19/"></a> <a href="https://www.graalvm.org/"></a> <a href="http://kotlinlang.org"></a> <a href="https://kotl.in/jsirsupported"></a> <a href="https://262.ecma-international.org/11.0/"></a></p>
+      <p class="paragraph"><i><strong>Elide is currently in alpha.</strong></i></p>
+      <p class="paragraph">Latest version: <code class="lang-kotlin">1.0-v3-alpha3-b4</code></p>
+<hr />      <p class="paragraph">Elide is a <strong>Kotlin/Multiplatform meta-framework</strong> for <strong>rapid, cross-platform application development</strong>. Write once in Kotlin and deploy everywhere: your server, the browser, and native app targets.</p>
+      <h2 class=""> Distinguishing features</h2>
+      <ul>
+        <li>
+          <p class="paragraph"><strong>Full-stack development.</strong> Share code across platforms with Kotlin Multiplatform. Quickly develop performant UIs in   Kotlin, TypeScript, or JavaScript, and execute them server-side (streaming SSR) or client-side (SPA).</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Countless ways to run.</strong> Use SSR (server rendering), CSR (client rendering), or an isomorphic approach. Compile your   app to HTML via SSG. Run your app on a JVM, Node.js, JS runtime, or compile it to a native binary and run it without   a runtime at all.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Pure Kotlin when you want it.</strong> Write your core application logic and models once, and share them across platforms   transparently. Leverage <a href="https://kotest.io">Kotest</a> for cross-platform, write-once-run-native testing. Enjoy   first-class support for the full suite of KotlinX libraries, including   <a href="https://kotlinlang.org/docs/serialization.html"><code class="lang-kotlin">serialization</code></a>,   <a href="https://github.com/Kotlin/kotlinx.atomicfu"><code class="lang-kotlin">atomicfu</code></a>, <a href="https://github.com/Kotlin/kotlinx.coroutines"><code class="lang-kotlin">coroutines</code></a>   and <a href="https://github.com/Kotlin/kotlinx-datetime"><code class="lang-kotlin">datetime</code></a>.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>TypeScript/JavaScript when you need it.</strong> Plug your Kotlin code into the JavaScript ecosystem with embedded guest VM   support for ES2022.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Isomorphic SSR with React.</strong> Write your UI in React, using JavaScript, TypeScript, or Kotlin. Package it for serving   via <a href="https://web.dev/rendering-on-the-web/">client-side rendering or hybrid isomorphic rendering</a> directly from your   Kotlin server.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Model-driven development.</strong> Write your models once, and use them everywhere, across platforms, <strong>without copying</strong>,   <strong>without glue-code</strong>, and <strong>without DTOs</strong>. Via <a href="https://developers.google.com/protocol-buffers">Protobuf</a> and   <a href="https://kotlinlang.org/docs/data-classes.html">Kotlin data classes</a>, the same Elide model is code-generated for use   with your database, API, and UI.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Extreme performance.</strong> Enjoy fast development locally with Kotlin and Gradle, and insanely fast runtime performance   thanks to GraalVM Native, Netty, and Micronaut. Deploy to bare metal, Docker <code class="lang-kotlin">scratch</code> images, or JARs.</p>
+        </li>
+      </ul>
+      <h2 class=""> Code samples</h2>
+      <p class="paragraph">A full suite of ./samples demo various functionality. The samples are runnable locally or via pre-built Docker images. Click through to each one for a short tour and getting started guide.</p>
+      <p class="paragraph">&quot;Blah blah blah, okay, show me some code.&quot; Certainly:</p>
+      <p class="paragraph"><code class="strong lang-kotlin"><strong>App.kt</strong></code> (for the server)</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">/** GET `/`: Controller for index page. */<br>@Controller class Index {<br>  // Serve an HTML page with isomorphic React SSR.<br>  @Get(&quot;/&quot;) fun index() = ssr {<br>    head {<br>      title { +&quot;Hello, Elide!&quot; }<br>      stylesheet(&quot;/styles/main.css&quot;)<br>      script(&quot;/scripts/ui.js&quot;, defer = true)<br>    }<br>    body {<br>      injectSSR()<br>    }<br>  }<br><br>  // Serve styles for the page.<br>  @Get(&quot;/styles/main.css&quot;) fun styles() = css {<br>    rule(&quot;body&quot;) {<br>      backgroundColor = Color(&quot;#bada55&quot;)<br>    }<br>    rule(&quot;strong&quot;) {<br>      fontFamily = &quot;-apple-system, BlinkMacSystemFont, sans-serif&quot;<br>    }<br>  }<br><br>  // Serve the built &amp; embedded JavaScript.<br>  @Get(&quot;/scripts/ui.js&quot;) suspend fun js(request: HttpRequest&lt;*&gt;) = script(request) {<br>    module(&quot;scripts.ui&quot;)<br>  }<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph"><code class="strong lang-kotlin"><strong>main.kt</strong></code> (for the browser)</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">// React props for a component<br>external interface HelloProps: Props {<br>  var name: String<br>}<br><br>// React component which says hello<br>val HelloApp = FC&lt;HelloProps&gt; { props -&gt;<br>  div {<br>    strong {<br>      +props.name<br>    }<br>  }<br>}<br><br>// Entrypoint for the browser<br>fun main() {<br>  hydrateRoot(<br>    document.getElementById(&quot;root&quot;),<br>    Fragment.create() {<br>      HelloApp {<br>        name = &quot;Elide&quot;<br>      }<br>    }<br>  )<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph">That's it. That's the entire app. In fact, it's just the ./samples/fullstack/react-ssr sample pasted into the README. What we get out of this is surprising:</p>
+      <ul>
+        <li>
+          <p class="paragraph"><strong>Server:</strong> JVM or Native server (via GraalVM) that serves our root page, our CSS, and our JS</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Client:</strong> Embedded JS VM that executes a Node copy of our React UI and splices it into the page for isomorphic rendering</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>For us</strong> (the developer):</p>
+        </li>
+        <ul>
+          <li>
+            <p class="paragraph">Completely type-checked calls across platforms, with almost no boilerplate</p>
+          </li>
+          <li>
+            <p class="paragraph">Single build graph, with aggressive caching and tool support</p>
+          </li>
+          <li>
+            <p class="paragraph">Build & test virtualized on any platform</p>
+          </li>
+          <li>
+            <p class="paragraph">Ship & perform natively on any platform</p>
+          </li>
+        </ul>
+      </ul>
+      <p class="paragraph">What's going on here? Elide has helped us wire together code from <strong>Micronaut</strong> (that's where <code class="lang-kotlin">@Controller</code> comes from), <strong>Kotlin/JS</strong>, <strong>GraalVM</strong>, and <strong>esbuild</strong> to make the above code make sense on both platforms. The React code builds for the browser <i>and</i> a pure server environment; both are embedded into the JAR and served through a thin runtime layer provided by the framework.</p>
+      <h4 class=""> Why is this useful?</h4>
+      <p class="paragraph">If you're participating in the React and Java ecosystems, this gives you a fantastic best-of-both-worlds runtime option: superb tooling support for React and Kotlin and an ideal serving and rendering mode, all handled for you.</p>
+      <p class="paragraph">You can do the same thing with these same tools in a custom codebase, but setting up the build environment for this kind of app is challenging and error-prone. Elide <i>intentionally</i> leverages existing frameworks with rich ecosystems and docs, <i>instead of</i> re-providing existing functionality so that you always have an escape hatch up to a more industrial toolset if you need it.</p>
+      <h3 class=""> Trying it out</h3>
+      <blockquote class="quotation">
+        <p class="paragraph"><strong>Note</strong> Elide is early. This guide will soon be usable without cloning the source.</p>
+      </blockquote>
+      <p class="paragraph">There are currently two ways to try out Elide. You can build a sample from source, or run the pre-built Docker images. Native images are not yet available via Docker, but you can build and test them locally.</p>
+      <p class="paragraph">The <code class="lang-kotlin">react-ssr</code> sample is recommended, because it demoes the broadest set of functionality currently available. Source code for each sample is in the ./samples directory. If you're going to build from source, make sure to see the <i>Requirements to build</i> section.</p>
+      <p class="paragraph"><strong>Run the </strong><code class="strong lang-kotlin"><strong>helloworld</strong></code><strong> sample via Docker (JVM):</strong></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">docker run --rm -it -p 8080:8080 ghcr.io/elide-dev/samples-server-helloworld-jvm</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph"><strong>Run the </strong><code class="strong lang-kotlin"><strong>react-ssr</strong></code><strong> sample via Docker (JVM):</strong></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">docker run --rm -it -p 8080:8080 ghcr.io/elide-dev/samples-fullstack-react-ssr-jvm:latest</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph"><strong>Run the </strong><code class="strong lang-kotlin"><strong>react-ssr</strong></code><strong> sample via Gradle (JVM):</strong></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">git clone git@github.com:elide-dev/v3.git &amp;&amp; cd v3<br>./gradlew :samples:fullstack:react-ssr:server:run</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph"><strong>Run the </strong><code class="strong lang-kotlin"><strong>react-ssr</strong></code><strong> sample via Gradle (Native):</strong></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">git clone git@github.com:elide-dev/v3.git &amp;&amp; cd v3<br>./gradlew :samples:fullstack:react-ssr:server:runNative</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h4 class=""> Requirements to build</h4>
+      <p class="paragraph">To build the JVM or JS samples in Kotlin, you will need <strong>JDK 11 or later</strong>. <a href="https://www.azul.com/downloads/">Zulu</a> is a good option if you don't have a preferred JVM.</p>
+      <p class="paragraph">To build native code, you'll need a recent version of <a href="https://www.graalvm.org/downloads/">GraalVM</a>. Make sure to install the <code class="lang-kotlin">native-image</code> tool after initially downloading, which you can do with:</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">gu install native-image espresso<br>gu rebuild-images</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph">Finally, you'll need a recent <a href="https://nodejs.org/">Node.js</a> runtime if you want to build JS or frontend code. That's it!</p>
+      <p class="paragraph">To summarize:</p>
+      <ul>
+        <li>
+          <p class="paragraph"><strong>For building via Gradle:</strong> JDK11+, any reasonable JVM should work.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>For building native:</strong> GraalVM (consult compat table for version advice).</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>For building browser/embedded JS:</strong> Recent Node.js toolchain. 16.x+ is recommended.</p>
+        </li>
+      </ul>
+      <h3 class=""> Powered-by</h3>
+      <p class="paragraph">Elide is modular. You can mix and match the following technologies in <strong>server</strong>, <strong>client</strong>, or <strong>hybrid/fullstack</strong> development scenarios:</p>
+      <ul>
+        <li>
+          <p class="paragraph"><a href="https://kotlinlang.org/"><strong>Kotlin</strong></a>. Elide is written from the inside out with support for Kotlin/Multiplatform, including native   platforms. Write once and use the same consistent code across server-side and client-side(s) platforms.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://graalvm.org/"><strong>GraalVM</strong></a>. GraalVM is a JVM and toolchain from Oracle which includes modernized JIT support, cross-language   <a href="https://developers.google.com/speed/pagespeed/module">polyglot</a> development in JS, Ruby, Python, and LLVM, and the ability to build native binaries from JVM apps.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://micronaut.io/"><strong>Micronaut</strong></a>. Micronaut is a new JVM-based framework for building server-side applications. Elide leverages   <a href="https://docs.micronaut.io/latest/guide/#ioc">Micronaut's</a> <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection</a> and   <a href="https://docs.micronaut.io/latest/guide/#aop">AOP</a> features, and transparently works with most add-ons.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://reactjs.org/"><strong>React</strong></a>. React is a popular UI library written for browser and server environments. Elide leverages   <a href="https://kotlinlang.org/docs/js-get-started.html">Kotlin/JS support for React</a> for isomorphic UI rendering. CSR and   SSR modes are supported natively.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://developers.google.com/protocol-buffers"><strong>Protobuf</strong></a> / <a href="https://grpc.io/"><strong>gRPC</strong></a>. Elide leverages cross-platform serialization through KotlinX's   <a href="https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/formats.md#protobuf-experimental"><code class="lang-kotlin">protobuf</code></a>   module, and includes <strong>native support for </strong><a href="https://github.com/grpc/grpc-web"><strong>gRPC Web</strong></a> without running a proxy.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://gradle.org/"><strong>Gradle</strong></a>. Early support for building multi-platform Kotlin applications via Gradle, including integrated   support for <a href="https://webpack.js.org/">Webpack</a>-based frontend builds and <a href="https://esbuild.github.io/">esbuild</a>-based   embedded SSR builds.</p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="https://esbuild.github.io/"><code class="strong lang-kotlin"><strong>esbuild</strong></code></a>. Elide leverages ESBuild when compiling and minifying JS code for the server or browser. ESBuild   sports extremely fast build times, modern language support, and tunable minification/DCE.</p>
+        </li>
+      </ul>
+      <h2 class=""> Version compatibility</h2>
+      <p class="paragraph">The following version matrix indicates tested support across tool and platform versions, including <strong>Java</strong>, <strong>Kotlin</strong>, <strong>GraalVM</strong>, <strong>Micronaut</strong>, and <strong>React</strong>.</p>
+      <p class="paragraph">Following this guide is recommended but optional. Depending on the style of development you're doing with Elide, you may not need some of these components:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th><strong>Java</strong></th>
+            <th><strong>Kotlin</strong></th>
+            <th><strong>GraalVM</strong></th>
+            <th><strong>Micronaut</strong></th>
+            <th><strong>React</strong></th>
+            <th><strong>Protobuf/gRPC</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">Java 19</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.8.0</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">22.3.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.7.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">18.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.21.11</code>/<code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.51.0</code></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">Java 17</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.8.0</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">22.3.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.7.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">18.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.21.1</code>/<code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.51.0</code></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">Java 11</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.7.22</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">22.3.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.5.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">18.x</code></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">3.20.1</code>/<code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">1.46.0</code></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><code class="org.jetbrains.dokka.pages.commenttable@4b8e0d86 lang-kotlin">Java 8-10</code></td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="paragraph">If you aren't using certain components on this list, for example, gRPC/Protobuf, you can ignore that column entirely.</p>
+      <h2 class=""> Contributing</h2>
+      <p class="paragraph">Elide is structured as a Gradle codebase, with additional support for Make and Node. Bazel is also coming soon. After cloning the project, you can run <code class="lang-kotlin">make help</code> to get familiar with some standard local dev tasks.</p>
+      <ol>
+        <li>
+          <p class="paragraph"><strong>Clone the repo.</strong></p>
+          <div class="sample-container">
+            <pre><code class="block lang-kotlin" theme="idea">git clone git@github.com:elide-dev/v3.git</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+              <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+            </span></div>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Install GraalVM.</strong> You can download CE <a href="https://www.graalvm.org/downloads/">here</a>. Make sure to install the    <code class="lang-kotlin">native-image</code>, <code class="lang-kotlin">espresso</code>, and <code class="lang-kotlin">js</code> tools after initially downloading, which you can do with:</p>
+          <div class="sample-container">
+            <pre><code class="block lang-kotlin" theme="idea">gu install native-image js espresso<br>gu rebuild-images</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+              <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+            </span></div>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Explore the Makefile.</strong> The <code class="lang-kotlin">Makefile</code> is self-describing. Run <code class="lang-kotlin">make help</code> to see what it can do for you:</p>
+        </li>
+      </ol>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">  Elide:<br>  api-check                      Check API/ABI compatibility with current changes.<br>  build                          Build the main library, and code-samples if SAMPLES=yes.<br>  clean-docs                     Clean documentation targets.<br>  clean-site                     Clean site targets.<br>  clean                          Clean build outputs and caches.<br>  cli-local                      Build the Elide command line tool and install it locally (into ~/bin, or LOCAL_CLI_INSTALL_DIR).<br>  cli                            Build the Elide command-line tool (native target).<br>  distclean                      DANGER: Clean and remove any persistent caches. Drops changes.<br>  docs                           Generate docs for all library modules.<br>  forceclean                     DANGER: Clean, distclean, and clear untracked files.<br>  help                           Show this help text ('make help').<br>  publish                        Publish a new version of all Elide packages.<br>  relock-deps                    Update dependency locks and hashes across Yarn and Gradle.<br>  reports                        Generate reports for tests, coverage, etc.<br>  serve-docs                     Serve documentation locally.<br>  serve-site                     Serve Elide site locally.<br>  site                           Generate the static Elide website.<br>  test                           Run the library testsuite, and code-sample tests if SAMPLES=yes.<br>  update-deps                    Perform interactive dependency upgrades across Yarn and Gradle.<br>  update-jdeps                   Interactively update Gradle dependencies.<br>  update-jsdeps                  Interactively update Yarn dependencies.</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <ol>
+        <li>
+          <p class="paragraph"><strong>Take a look at the Makefile flags.</strong> The <code class="lang-kotlin">Makefile</code> defines flags at the top of the source code:</p>
+        </li>
+      </ol>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">  # Flags that control this makefile, along with their defaults:<br>  #<br>  # DEBUG ?= no<br>  # STRICT ?= yes<br>  # RELEASE ?= no<br>  # JVMDEBUG ?= no<br>  # NATIVE ?= no<br>  # CI ?= no<br>  # DRY ?= no<br>  # SCAN ?= no<br>  # IGNORE_ERRORS ?= no<br>  # RELOCK ?= no</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph">When committing to Elide, make sure to follow the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> standard. This helps us keep changelogs clean and obvious.</p>
+      <h2 class=""> Reports</h2>
+      <h3 class=""> Licensing</h3>
+      <p class="paragraph">Elide itself is licensed LICENSE as of November 2022. Dependencies are scanned for license compatibility; the report is available via FOSSA:</p>
+      <p class="paragraph"><a href="https://app.fossa.com/projects/git%2Bgithub.com%2Felide-dev%2Fv3?ref=badge_large"></a></p>
+      <h3 class=""> Coverage</h3>
+      <p class="paragraph">Code coverage is continuously reported to <a href="https://app.codecov.io/gh/elide-dev/v3">Codecov</a> and <a href="https://sonarcloud.io/project/overview?id=elide-dev_v3">SonarCloud</a>:</p>
+      <p class="paragraph"><a href="https://codecov.io/gh/elide-dev/v3"></a></p>
+    </div>
     <h2 class="">All modules:</h2>
     <div class="table"><a data-name="-847608156%2FMain%2F0" anchor-label="base" id="-847608156%2FMain%2F0" data-filterable-set=""></a>
       <div class="table-row">
@@ -61,6 +323,39 @@
           <div class="w-100"><span class="inline-flex">
               <div><a href="packages/base/index.html">base</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847608156%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1076719779%2FMain%2F0" anchor-label="bundler" id="-1076719779%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="tools/bundler/index.html">bundler</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1076719779%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1273621101%2FMain%2F0" anchor-label="cli" id="1273621101%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/cli/index.html">cli</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1273621101%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-387464810%2FMain%2F0" anchor-label="core" id="-387464810%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/core/index.html">core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-387464810%2FMain%2F0"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div><span class="brief-comment"></span></div>
@@ -110,6 +405,17 @@
           <div><span class="brief-comment"></span></div>
         </div>
       </div>
+<a data-name="1424392068%2FMain%2F0" anchor-label="hellocss" id="1424392068%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="samples/server/hellocss/index.html">hellocss</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1424392068%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
 <a data-name="-40258172%2FMain%2F0" anchor-label="model" id="-40258172%2FMain%2F0" data-filterable-set=""></a>
       <div class="table-row">
         <div class="main-subrow ">
@@ -121,23 +427,78 @@
           <div><span class="brief-comment"></span></div>
         </div>
       </div>
-<a data-name="-799790524%2FMain%2F0" anchor-label="rpc-js" id="-799790524%2FMain%2F0" data-filterable-set=""></a>
+<a data-name="327814715%2FMain%2F0" anchor-label="processor" id="327814715%2FMain%2F0" data-filterable-set=""></a>
       <div class="table-row">
         <div class="main-subrow ">
           <div class="w-100"><span class="inline-flex">
-              <div><a href="packages/rpc-js/index.html">rpc-js</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-799790524%2FMain%2F0"></span>
+              <div><a href="tools/processor/index.html">processor</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="327814715%2FMain%2F0"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div><span class="brief-comment"></span></div>
         </div>
       </div>
-<a data-name="-701064460%2FMain%2F0" anchor-label="rpc-jvm" id="-701064460%2FMain%2F0" data-filterable-set=""></a>
+<a data-name="1461077361%2FMain%2F0" anchor-label="proto-core" id="1461077361%2FMain%2F0" data-filterable-set=""></a>
       <div class="table-row">
         <div class="main-subrow ">
           <div class="w-100"><span class="inline-flex">
-              <div><a href="packages/rpc-jvm/index.html">rpc-jvm</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-701064460%2FMain%2F0"></span>
+              <div><a href="packages/proto/proto-core/index.html">proto-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1461077361%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1761165816%2FMain%2F0" anchor-label="proto-flatbuffers" id="1761165816%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/proto/proto-flatbuffers/index.html">proto-flatbuffers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1761165816%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1910774757%2FMain%2F0" anchor-label="proto-kotlinx" id="-1910774757%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/proto/proto-kotlinx/index.html">proto-kotlinx</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1910774757%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-985508987%2FMain%2F0" anchor-label="proto-protobuf" id="-985508987%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/proto/proto-protobuf/index.html">proto-protobuf</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-985508987%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1097749330%2FMain%2F0" anchor-label="reports" id="-1097749330%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="tools/reports/index">reports</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1097749330%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1112910152%2FMain%2F0" anchor-label="rpc" id="1112910152%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/rpc/index.html">rpc</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1112910152%2FMain%2F0"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div><span class="brief-comment"></span></div>
@@ -149,6 +510,41 @@
           <div class="w-100"><span class="inline-flex">
               <div><a href="packages/server/index.html">server</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-726898318%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment">
+              <p class="paragraph">Module docs here</p>
+            </span></div>
+        </div>
+      </div>
+<a data-name="-726898318%2FMain%2F0" anchor-label="server" id="-726898318%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/server/index.html">server</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-726898318%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-427872410%2FMain%2F0" anchor-label="ssg" id="-427872410%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/ssg/index.html">ssg</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-427872410%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-86654533%2FMain%2F0" anchor-label="ssr" id="-86654533%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="packages/ssr/index.html">ssr</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-86654533%2FMain%2F0"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div><span class="brief-comment"></span></div>
@@ -165,11 +561,22 @@
           <div><span class="brief-comment"></span></div>
         </div>
       </div>
+<a data-name="-109677806%2FMain%2F0" anchor-label="tools" id="-109677806%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="tools/index">tools</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-109677806%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
                 class="pull-right"><span>Generated by </span><a
                 href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>

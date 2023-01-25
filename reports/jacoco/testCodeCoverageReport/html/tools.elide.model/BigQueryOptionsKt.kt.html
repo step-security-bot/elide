@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializebigQueryOptions&quot;)
-public inline fun bigQueryOptions(block: tools.elide.model.BigQueryOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.BigQueryOptions =
+inline fun bigQueryOptions(block: tools.elide.model.BigQueryOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.BigQueryOptions =
 <span class="nc" id="L8">  tools.elide.model.BigQueryOptionsKt.Dsl._create(tools.elide.model.BigQueryOptions.newBuilder()).apply { block() }._build()</span>
-public object BigQueryOptionsKt {
+object BigQueryOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.BigQueryOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.BigQueryOptions.Builder): Dsl = Dsl(builder)
@@ -24,7 +24,7 @@ public object BigQueryOptionsKt {
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.BigQueryOptions.copy(block: tools.elide.model.BigQueryOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.BigQueryOptions =
+inline fun tools.elide.model.BigQueryOptions.copy(block: tools.elide.model.BigQueryOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.BigQueryOptions =
   tools.elide.model.BigQueryOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

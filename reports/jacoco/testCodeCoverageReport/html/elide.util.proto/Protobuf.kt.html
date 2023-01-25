@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Protobuf.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.util.proto</a> &gt; <span class="el_source">Protobuf.kt</span></div><h1>Protobuf.kt</h1><pre class="source lang-java linenums">package elide.util.proto
+
+import elide.util.proto.adapters.ProtoConvertible
+import elide.util.proto.adapters.ProtoModel
+import elide.util.proto.adapters.ProtoSchemaConvertible
+import com.google.protobuf.Message
+import com.google.protobuf.Timestamp
+import kotlinx.datetime.Instant
+import java.util.*
+import kotlin.reflect.KClass
+import kotlin.reflect.full.companionObjectInstance
+
+/**
+ * # Utilities: Protocol Buffers
+ *
+ * General common utilities for protocol buffer objects in Java and Kotlin (JVM-only). This includes assembly of proto-
+ * message objects from universal Elide entities and vice versa, as well as Java type checking and null checking
+ * facilities used when building generic protocol messages.
+ *
+ * ## Adapting between models and messages
+ *
+ * All inheritors of [ProtoConvertible] gain the suite of methods defined here, but they are also usable on a static
+ * basis, outside of entity contexts. Additionally, since `UniversalModel` also extends [ProtoConvertible], any Elide
+ * universal model is immediately usable with these tools.
+ *
+ * To adopt [ProtoConvertible] (and its static cousin, [ProtoSchemaConvertible]), adopt the former on the object, and
+ * the latter on the companion. The former is used to convert the object to a protocol message, and the latter is used
+ * to create a new object from a protocol message.
+ *
+ * For example:
+ *
+ * ```proto
+ * syntax = &quot;proto3&quot;;
+ * option java_package = &quot;my.cool.models&quot;;
+ * // ...
+ *
+ * // Some cool model.
+ * message MyCoolModel {
+ *   // ID of the model.
+ *   string id = 1;
+ * }
+ * ```
+ *
+ * ```kotlin
+ * // imports...
+ * import my.cool.models.MyCoolModel as MyCoolModelProto
+ *
+ * /** Kotlin implementation of `MyCoolModel`. */
+ * @Serializable data class MyCoolModel(
+ *   @ProtoNumber(1) @SerialName(&quot;id&quot;) val id: String,
+ * ): ProtoConvertible&lt;MyCoolModelProto&gt; {
+ *     /** here is the implementation for moving *to* protos */
+ *     override fun toMessage(): MyCoolModelProto = buildFrom(::myCoolModel) { model -&gt;
+ *         id = ifNotBlank(model.id) { id = it }
+ *     }
+ * }
+ * ```
+ *
+ * Note how `buildFrom` and `ifNotBlank` are automatically available via Kotlin context receivers. This interface is
+ * modeled by [ProtoBuilderContext] and operates in addition to the context established by the builder itself. The
+ * current model is made available as a parameter for easy reference.
+ *
+ * @see ProtoBuilderContext for the context surface available when building protocol buffer messages.
+ */
+@Suppress(&quot;unused&quot;) object Protobuf {
+  /**
+   * ## Proto Builder: Context
+   *
+   * Describes the API surface area made available as context during assembly of a Protocol Buffer object via this
+   * interface. The context may be used as if the methods are present on `this`. Methods are provided which perform
+   * presence / null-ness checks, and which do conversion of essential types to Protocol Buffer Well Known Types.
+   *
+   * Every [ProtoConvertible] inheritor supports this context automatically, via Kotlin extension methods. To engage the
+   * context, call [Protobuf.buildFrom] from within [ProtoConvertible], and pass it the Kotlin generated Protocol
+   * Buffer builder function.
+   *
+   * @see Protobuf for static protocol buffer utilities.
+   */
+  class ProtoBuilderContext private constructor () {
+    /**
+     * ### `ifPresent`
+     *
+     * If the provided [value] is not `null`, dispatch `op` to assign it to a given protocol message property or perform
+     * some other task with the value.
+     *
+     * @see ifNotEmpty to check collections.
+     * @see ifNotBlank to check strings.
+     * @param C Raw type of the value.
+     * @param value Value which can be `null`, and which will be checked for null-ness.
+     * @param op Inline operation to dispatch if `value` is non-`null`.
+     */
+    inline fun &lt;C: Any&gt; ifPresent(value: C?, crossinline op: (value: C) -&gt; Unit) {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">      if (value != null) {</span>
+<span class="nc" id="L94">        op.invoke(value)</span>
+      }
+<span class="nc" id="L96">    }</span>
+
+    /**
+     * ### `ifPresent`
+     *
+     * If the provided [Optional] [value] is present, dispatch `op` to assign it to a given protocol message property or
+     * perform some other task with the value.
+     *
+     * @see ifNotEmpty to check collections.
+     * @see ifNotBlank to check strings.
+     * @param C Inner type of the value.
+     * @param value Optional value which can be empty, and which will be checked for presence.
+     * @param op Inline operation to dispatch if [value] is present.
+     */
+    inline fun &lt;C: Any&gt; ifPresent(value: Optional&lt;C&gt;, crossinline op: (value: C) -&gt; Unit) {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">      if (value.isPresent) {</span>
+<span class="nc" id="L112">        op.invoke(value.get())</span>
+      }
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * ### `ifNotEmpty`
+     *
+     * Check the provided [Collection] [value] of type [C] for emptiness; if the collection is non-empty, dispatch the
+     * provided operation ([op]) to assign the value or otherwise use the value.
+     *
+     * @see ifPresent to for `null` (which all methods here do).
+     * @see ifNotBlank to check strings.
+     * @param C Type of value within the collection.
+     * @param value Collection to check for emptiness.
+     * @param op Inline operation to dispatch if [value] is non-empty.
+     */
+    inline fun &lt;C: Collection&lt;*&gt;&gt; ifNotEmpty(value: C?, crossinline op: (value: C) -&gt; Unit) {
+<span class="nc bnc" id="L129" title="All 6 branches missed.">      if (!value.isNullOrEmpty()) {</span>
+<span class="nc" id="L130">        op.invoke(value)</span>
+      }
+<span class="nc" id="L132">    }</span>
+
+    /**
+     * ### `ifNotBlank`
+     *
+     * Check the provided [String] [value] for `null`-ness, emptiness, and blank-ness; if the [value] passes all checks,
+     * dispatch the provided operation ([op]) to assign the value or otherwise use the value.
+     *
+     * @see ifPresent to for `null` (which all methods here do).
+     * @see ifNotEmpty to check collection emptiness.
+     * @param value String to check for validity.
+     * @param op Inline operation to dispatch if [value] is non-blank, non-empty, and non-`null`.
+     */
+    inline fun ifNotBlank(value: String?, crossinline op: (value: String) -&gt; Unit) {
+<span class="nc bnc" id="L146" title="All 6 branches missed.">      if (!value.isNullOrBlank()) {</span>
+<span class="nc" id="L147">        op.invoke(value)</span>
+      }
+<span class="nc" id="L149">    }</span>
+
+    /**
+     * ### `toMessage`
+     *
+     * Build a [Message] from the provided [ProtoConvertible] model [value] [M] (structured by [type]); if no message
+     * can be created (because [value] is `null` or because it results in an empty message), then a default message
+     * instance is acquired via the [ProtoSchemaConvertible] interface and returned.
+     *
+     * @param M Message type which results from the operation.
+     * @param Model [ProtoConvertible] type which produces [Message] instances of [M].
+     * @param type Type of [Model] to convert to a [Message].
+     * @param value [Model] instance to convert to a message.
+     */
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    fun &lt;M: Message, Model: ProtoConvertible&lt;M&gt;&gt; toMessage(type: KClass&lt;Model&gt;, value: Model?): M {
+<span class="nc bnc" id="L165" title="All 10 branches missed.">      return value?.toMessage() ?: ((type.companionObjectInstance as? ProtoModel&lt;M&gt;)?.defaultMessageInstance() ?: error(</span>
+<span class="nc" id="L166">        &quot;Model value is `null` and no default instance was resolvable&quot;</span>
+      ))
+    }
+
+    /**
+     * ### `timestamp`
+     *
+     * Build a Protocol Buffer WKT [Timestamp] record from the provided [Instant]; if the provided [Instant] is `null`,
+     * return the default instance of [Timestamp].
+     *
+     * @param value [Instant] to convert to a [Timestamp].
+     * @return Protocol buffer [Timestamp] instance.
+     */
+    fun timestamp(value: Instant?): Timestamp {
+<span class="nc bnc" id="L180" title="All 2 branches missed.">      return if (value != null) {</span>
+<span class="nc" id="L181">        Timestamp.newBuilder()</span>
+<span class="nc" id="L182">          .setSeconds(value.epochSeconds)</span>
+<span class="nc" id="L183">          .setNanos(value.nanosecondsOfSecond)</span>
+<span class="nc" id="L184">          .build()</span>
+<span class="nc" id="L185">      } else {</span>
+<span class="nc" id="L186">        Timestamp.getDefaultInstance()</span>
+      }
+    }
+
+    /**
+     * ### `timestamp`
+     *
+     * Build a Protocol Buffer WKT [Timestamp] record from the provided [Instant]; if the provided [Instant] is `null`,
+     * return the default instance of [Timestamp].
+     *
+     * Alternatively, if the value is present, [op] is dispatched with the value to perform an assignment.
+     *
+     * @param value [Instant] to convert to a [Timestamp].
+     * @param op Operation to perform if the value is present.
+     * @return Protocol buffer [Timestamp] instance.
+     */
+    inline fun timestamp(value: Instant?, crossinline op: (Timestamp) -&gt; Unit) {
+<span class="nc bnc" id="L203" title="All 2 branches missed.">      if (value != null) {</span>
+<span class="nc" id="L204">        op.invoke(</span>
+<span class="nc" id="L205">          Timestamp.newBuilder()</span>
+<span class="nc" id="L206">            .setSeconds(value.epochSeconds)</span>
+<span class="nc" id="L207">            .setNanos(value.nanosecondsOfSecond)</span>
+<span class="nc" id="L208">            .build()</span>
+        )
+      }
+<span class="nc" id="L211">    }</span>
+
+    companion object {
+      /** Static creator. */
+<span class="nc" id="L215">      @JvmStatic fun create(): ProtoBuilderContext = ProtoBuilderContext()</span>
+    }
+  }
+
+  /**
+   * ### `Instant.fromMessage`
+   *
+   * Convert a Protocol Buffer WKT [Timestamp] ([proto]) to a KotlinX [Instant]; if the provided [proto] is empty or
+   * otherwise uninitialized, then `null` is returned.
+   *
+   * Use example:
+   * ```kotlin
+   * Instant.fromMessage(timestamp)
+   * ```
+   *
+   * @param proto Protocol buffer [Timestamp] instance to convert to an [Instant].
+   * @return [Instant] instance.
+   */
+  fun Instant.Companion.fromMessage(proto: Timestamp): Instant? {
+<span class="nc bnc" id="L234" title="All 4 branches missed.">    return if (proto.isInitialized &amp;&amp; proto.seconds &gt; 0) {</span>
+<span class="nc" id="L235">      fromEpochSeconds(</span>
+<span class="nc" id="L236">        proto.seconds,</span>
+<span class="nc" id="L237">        proto.nanos,</span>
+      )
+    } else {
+<span class="nc" id="L240">      null</span>
+    }
+  }
+
+  /**
+   * ## Builder context: `buildFrom`
+   *
+   * Establish a [ProtoBuilderContext] instance based on the provided inputs (a model [instance] to build from, and a
+   * code-generated Kotlin [builder]), and then run the provided operation ([op]) in order to build the instance; once
+   * the instance [M] is built, return it.
+   *
+   * @param In Input type to build the [Message] instance from.
+   * @param M Output [Message] type yielded by this builder operation.
+   * @param B Builder type code-generated for [Message] type [M].
+   * @param instance Model instance we are going to build from.
+   * @param builder Code-generated builder function.
+   * @param op Operation to execute to build the message.
+   * @return Build message of type [M].
+   */
+  inline fun &lt;In, M: Message, B: Message.Builder&gt; buildFrom(
+    instance: In,
+    builder: (B.() -&gt; Unit) -&gt; M,
+    crossinline op: context(ProtoBuilderContext) B.(In) -&gt; Unit,
+  ): M {
+<span class="nc" id="L264">    return builder.invoke {</span>
+<span class="nc" id="L265">      op.invoke(</span>
+<span class="nc" id="L266">        ProtoBuilderContext.create(),</span>
+<span class="nc" id="L267">        this,</span>
+<span class="nc" id="L268">        instance,</span>
+      )
+<span class="nc" id="L270">    }</span>
+  }
+
+  /**
+   * ## Builder context: `buildFrom`
+   *
+   * Establish a [ProtoBuilderContext] instance based on the provided inputs (a model [instance] to build from, and a
+   * code-generated Kotlin [builder]), and then run the provided operation ([op]) in order to build the instance; once
+   * the instance [M] is built, return it.
+   *
+   * @param In Input [ProtoSchemaConvertible] type to build the [Message] instance from.
+   * @param M Output [Message] type yielded by this builder operation.
+   * @param B Builder type code-generated for [Message] type [M].
+   * @param instance Model instance we are going to build from.
+   * @param builder Code-generated builder function.
+   * @param op Operation to execute to build the message.
+   * @return Build message of type [M].
+   */
+  inline fun &lt;In: ProtoSchemaConvertible, M: Message, B: Message.Builder&gt; buildFrom(
+    instance: In,
+    builder: (B.() -&gt; Unit) -&gt; M,
+    crossinline op: context(ProtoBuilderContext) B.(In) -&gt; Unit,
+  ): M {
+<span class="nc" id="L293">    return builder.invoke {</span>
+<span class="nc" id="L294">      op.invoke(</span>
+<span class="nc" id="L295">        ProtoBuilderContext.create(),</span>
+<span class="nc" id="L296">        this,</span>
+<span class="nc" id="L297">        instance,</span>
+      )
+<span class="nc" id="L299">    }</span>
+  }
+
+  /**
+   * ## Builder context: `Model.buildFrom`
+   *
+   * Within the context of a [Model] type which extends [ProtoConvertible] and produces [Message] instances of type [M],
+   * and a matching [builder] [B], establish a [ProtoBuilderContext] instance based on the provided inputs and then
+   * dispatch the provided operation ([op]) in order to build the instance; once the instance [M] is built, return it.
+   *
+   * @param M Output [Message] type yielded by this builder operation.
+   * @param Model Model type (implementing [ProtoConvertible]) which produces [Message] instances of type [M].
+   * @param B Builder type code-generated for [Message] type [M]. Inferred from [builder].
+   * @param builder Code-generated builder function which produces [Message] instances of type [M].
+   * @param op Operation to dispatch to build the entity.
+   * @return Built message of type [M].
+   */
+  inline fun &lt;M: Message, Model: ProtoConvertible&lt;M&gt;, B&gt; Model.buildFrom(
+    builder: (B.() -&gt; Unit) -&gt; M,
+    crossinline op: context(ProtoBuilderContext) B.(Model) -&gt; Unit,
+  ): M {
+<span class="nc" id="L320">    return builder.invoke {</span>
+<span class="nc" id="L321">      op.invoke(</span>
+<span class="nc" id="L322">        ProtoBuilderContext.create(),</span>
+<span class="nc" id="L323">        this,</span>
+<span class="nc" id="L324">        this@buildFrom,</span>
+      )
+<span class="nc" id="L326">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

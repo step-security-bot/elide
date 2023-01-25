@@ -1,0 +1,30 @@
+
+------------------------------------------------------------
+Tasks runnable from project ':tools:reports'
+------------------------------------------------------------
+
+Help tasks
+----------
+buildEnvironment - Displays all buildscript dependencies declared in project ':tools:reports'.
+dependencies - Displays all dependencies declared in project ':tools:reports'.
+dependencyInsight - Displays the insight into a specific dependency in project ':tools:reports'.
+help - Displays a help message.
+javaToolchains - Displays the detected java toolchains.
+kotlinDslAccessorsReport - Prints the Kotlin code for accessing the currently available project extensions and conventions.
+outgoingVariants - Displays the outgoing variants of project ':tools:reports'.
+projects - Displays the sub-projects of project ':tools:reports'.
+properties - Displays the properties of project ':tools:reports'.
+tasks - Displays the tasks runnable from project ':tools:reports'.
+
+Reporting tasks
+---------------
+projectReport - Generates a report about your project.
+
+Verification tasks
+------------------
+testAggregateTestReport - Generates aggregated test report.
+testCodeCoverageReport - Generates aggregated code coverage report.
+
+To see all tasks and more detail, run gradlew tasks --all
+
+To see more detail about a task, run gradlew help --task <task>

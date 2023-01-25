@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializetableFieldOptions&quot;)
-public inline fun tableFieldOptions(block: tools.elide.model.TableFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableFieldOptions =
+inline fun tableFieldOptions(block: tools.elide.model.TableFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableFieldOptions =
 <span class="nc" id="L8">  tools.elide.model.TableFieldOptionsKt.Dsl._create(tools.elide.model.TableFieldOptions.newBuilder()).apply { block() }._build()</span>
-public object TableFieldOptionsKt {
+object TableFieldOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.TableFieldOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.TableFieldOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool require = 1;&lt;/code&gt;
      */
-    public var require: kotlin.Boolean
+    var require: kotlin.Boolean
       @JvmName(&quot;getRequire&quot;)
 <span class="nc" id="L34">      get() = _builder.getRequire()</span>
       @JvmName(&quot;setRequire&quot;)
@@ -43,7 +43,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool require = 1;&lt;/code&gt;
      */
-    public fun clearRequire() {
+    fun clearRequire() {
 <span class="nc" id="L47">      _builder.clearRequire()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -54,7 +54,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool ignore = 2;&lt;/code&gt;
      */
-    public var ignore: kotlin.Boolean
+    var ignore: kotlin.Boolean
       @JvmName(&quot;getIgnore&quot;)
 <span class="nc" id="L59">      get() = _builder.getIgnore()</span>
       @JvmName(&quot;setIgnore&quot;)
@@ -68,7 +68,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool ignore = 2;&lt;/code&gt;
      */
-    public fun clearIgnore() {
+    fun clearIgnore() {
 <span class="nc" id="L72">      _builder.clearIgnore()</span>
 <span class="nc" id="L73">    }</span>
 
@@ -79,7 +79,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;.model.BigQueryOptions.BigQueryType bqtype = 3;&lt;/code&gt;
      */
-    public var bqtype: tools.elide.model.BigQueryOptions.BigQueryType
+     var bqtype: tools.elide.model.BigQueryOptions.BigQueryType
       @JvmName(&quot;getBqtype&quot;)
 <span class="nc" id="L84">      get() = _builder.getBqtype()</span>
       @JvmName(&quot;setBqtype&quot;)
@@ -93,7 +93,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;.model.BigQueryOptions.BigQueryType bqtype = 3;&lt;/code&gt;
      */
-    public fun clearBqtype() {
+    fun clearBqtype() {
 <span class="nc" id="L97">      _builder.clearBqtype()</span>
 <span class="nc" id="L98">    }</span>
 
@@ -104,7 +104,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;.model.SpannerOptions.SpannerType sptype = 4;&lt;/code&gt;
      */
-    public var sptype: tools.elide.model.SpannerOptions.SpannerType
+     var sptype: tools.elide.model.SpannerOptions.SpannerType
       @JvmName(&quot;getSptype&quot;)
 <span class="nc" id="L109">      get() = _builder.getSptype()</span>
       @JvmName(&quot;setSptype&quot;)
@@ -118,7 +118,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;.model.SpannerOptions.SpannerType sptype = 4;&lt;/code&gt;
      */
-    public fun clearSptype() {
+    fun clearSptype() {
 <span class="nc" id="L122">      _builder.clearSptype()</span>
 <span class="nc" id="L123">    }</span>
 
@@ -129,7 +129,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool repeated = 5;&lt;/code&gt;
      */
-    public var repeated: kotlin.Boolean
+    var repeated: kotlin.Boolean
       @JvmName(&quot;getRepeated&quot;)
 <span class="nc" id="L134">      get() = _builder.getRepeated()</span>
       @JvmName(&quot;setRepeated&quot;)
@@ -143,7 +143,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;bool repeated = 5;&lt;/code&gt;
      */
-    public fun clearRepeated() {
+    fun clearRepeated() {
 <span class="nc" id="L147">      _builder.clearRepeated()</span>
 <span class="nc" id="L148">    }</span>
 
@@ -154,7 +154,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;uint32 size = 6;&lt;/code&gt;
      */
-    public var size: kotlin.Int
+    var size: kotlin.Int
       @JvmName(&quot;getSize&quot;)
 <span class="nc" id="L159">      get() = _builder.getSize()</span>
       @JvmName(&quot;setSize&quot;)
@@ -168,7 +168,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;uint32 size = 6;&lt;/code&gt;
      */
-    public fun clearSize() {
+    fun clearSize() {
 <span class="nc" id="L172">      _builder.clearSize()</span>
 <span class="nc" id="L173">    }</span>
 
@@ -179,7 +179,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;string name = 7;&lt;/code&gt;
      */
-    public var name: kotlin.String
+    var name: kotlin.String
       @JvmName(&quot;getName&quot;)
 <span class="nc" id="L184">      get() = _builder.getName()</span>
       @JvmName(&quot;setName&quot;)
@@ -193,7 +193,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;string name = 7;&lt;/code&gt;
      */
-    public fun clearName() {
+    fun clearName() {
 <span class="nc" id="L197">      _builder.clearName()</span>
 <span class="nc" id="L198">    }</span>
 
@@ -204,7 +204,7 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;string id = 8;&lt;/code&gt;
      */
-    public var id: kotlin.String
+    var id: kotlin.String
       @JvmName(&quot;getId&quot;)
 <span class="nc" id="L209">      get() = _builder.getId()</span>
       @JvmName(&quot;setId&quot;)
@@ -218,13 +218,13 @@ public object TableFieldOptionsKt {
      *
      * &lt;code&gt;string id = 8;&lt;/code&gt;
      */
-    public fun clearId() {
+    fun clearId() {
 <span class="nc" id="L222">      _builder.clearId()</span>
 <span class="nc" id="L223">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.TableFieldOptions.copy(block: tools.elide.model.TableFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableFieldOptions =
+inline fun tools.elide.model.TableFieldOptions.copy(block: tools.elide.model.TableFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableFieldOptions =
   tools.elide.model.TableFieldOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

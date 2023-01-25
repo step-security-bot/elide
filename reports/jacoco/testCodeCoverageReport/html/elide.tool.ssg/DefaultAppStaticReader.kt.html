@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultAppStaticReader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">DefaultAppStaticReader.kt</span></div><h1>DefaultAppStaticReader.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import elide.runtime.LogLevel
+import elide.runtime.Logger
+import elide.runtime.Logging
+import elide.tool.ssg.StaticContentReader.ArtifactType
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
+import jakarta.inject.Singleton
+import org.jsoup.Jsoup
+import java.net.URL
+import java.nio.ByteBuffer
+
+/** Default content transformation and parsing logic. */
+<span class="fc" id="L17">@Singleton internal class DefaultAppStaticReader : StaticContentReader {</span>
+  private companion object {
+    // Link tag `rel` types to make eligible for downloading.
+<span class="fc" id="L20">    private val linkTagRelationTypes = sortedSetOf(</span>
+<span class="fc" id="L21">      &quot;stylesheet&quot;,</span>
+    )
+  }
+
+  // Private logger.
+<span class="fc" id="L26">  private val logging: Logger = Logging.of(DefaultAppStaticReader::class)</span>
+
+  /** @inheritDoc */
+  override fun consume(response: HttpResponse&lt;ByteArray&gt;): Pair&lt;Boolean, ByteBuffer&gt; {
+<span class="fc" id="L30">    val (body, shouldParse) = if (</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">      response.status == HttpStatus.OK &amp;&amp;</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">      response.contentLength &gt; 0 &amp;&amp;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">      response.body.isPresent</span>
+    ) {
+      // there must be body data present, and a content type of `text/html` in order for content to be eligible for
+      // parsing to discover additional URLs.
+<span class="fc" id="L37">      ByteBuffer.wrap(response.body()) to (response.contentType.orElse(null) == MediaType.TEXT_HTML_TYPE)</span>
+    } else {
+<span class="fc" id="L39">      ByteBuffer.allocate(0) to false</span>
+    }
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">    if (logging.isEnabled(LogLevel.TRACE))</span>
+<span class="fc" id="L42">      logging.trace(&quot;Consumed raw binary HTTP response body of length '${response.contentLength}'&quot;)</span>
+<span class="fc" id="L43">    return shouldParse to body</span>
+  }
+
+  /** @inheritDoc */
+  override fun parse(
+    request: HttpRequest&lt;*&gt;,
+    response: HttpResponse&lt;ByteArray&gt;,
+    content: ByteBuffer,
+  ): List&lt;DetectedArtifact&gt; {
+<span class="fc bfc" id="L52" title="All 4 branches covered.">    require(response.status == HttpStatus.OK) {</span>
+<span class="fc" id="L53">      &quot;Cannot parse non-OK response body&quot;</span>
+    }
+<span class="pc bpc" id="L55" title="1 of 6 branches missed.">    require(response.contentLength &gt; 0 &amp;&amp; response.body.isPresent) {</span>
+<span class="fc" id="L56">      &quot;Cannot parse content from an empty HTTP response body&quot;</span>
+    }
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    require(response.contentType.orElse(null) == MediaType.TEXT_HTML_TYPE) {</span>
+<span class="fc" id="L59">      &quot;Cannot parse content from a non-HTML HTTP response body&quot;</span>
+    }
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">    val bodyBytes = response.body.orElse(null) ?: error(</span>
+<span class="pc" id="L62">      &quot;Failed to parse HTML HTTP response body as a string&quot;</span>
+    )
+
+    // parse string into HTML
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">    val parsed = bodyBytes.inputStream().buffered().use { buf -&gt;</span>
+<span class="fc" id="L67">      Jsoup.parse(</span>
+<span class="fc" id="L68">        buf,</span>
+<span class="fc" id="L69">        null,  // parse `http-equiv` or fall back to UTF-8</span>
+<span class="fc" id="L70">        request.uri.toString(),</span>
+      )
+    }
+<span class="fc" id="L73">    val media = parsed.select(&quot;[src]&quot;)</span>
+<span class="fc" id="L74">    val imports = parsed.select(&quot;link[href]&quot;)</span>
+<span class="fc" id="L75">    return media.plus(imports).mapNotNull {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">      val (src, _) = if (it.tagName() == &quot;link&quot;) {</span>
+<span class="fc" id="L77">        val relation = it.attr(&quot;rel&quot;).lowercase().trim()</span>
+<span class="fc bfc" id="L78" title="All 4 branches covered.">        if (relation == &quot;&quot; || linkTagRelationTypes.contains(relation)) {</span>
+<span class="fc" id="L79">          it.attr(&quot;href&quot;) to relation</span>
+        } else {
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">          if (logging.isEnabled(LogLevel.TRACE))</span>
+<span class="fc" id="L82">            logging.trace(&quot;Tag &lt;link&gt; skipped because rel '$relation' is not eligible for download.&quot;)</span>
+<span class="fc" id="L83">          return@mapNotNull null</span>
+        }
+      } else {
+<span class="fc" id="L86">        it.attr(&quot;src&quot;) to &quot;&quot;</span>
+      }
+<span class="pc bpc" id="L88" title="3 of 10 branches missed.">      val artifactType = when (it.tagName()) {</span>
+<span class="fc" id="L89">        &quot;script&quot; -&gt; ArtifactType.SCRIPT</span>
+<span class="fc" id="L90">        &quot;img&quot; -&gt; ArtifactType.IMAGE</span>
+<span class="fc" id="L91">        &quot;link&quot; -&gt; ArtifactType.STYLE</span>
+<span class="fc" id="L92">        else -&gt; null</span>
+      }
+<span class="pc bpc" id="L94" title="2 of 10 branches missed.">      if ((artifactType == null || src.isNullOrBlank()) &amp;&amp; logging.isEnabled(LogLevel.TRACE)) logging.trace(</span>
+<span class="fc" id="L95">        &quot;Skipping ineligible artifact '${it}'&quot;</span>
+      )
+<span class="pc bpc" id="L97" title="4 of 14 branches missed.">      if (src.isNullOrBlank() || src == &quot;/&quot; || src == &quot;.&quot; || src == &quot;./&quot; || src == request.uri.toString()) {</span>
+        // special case: don't allow detection of the root page as an artifact, which can happen with standards-breaking
+        // HTML that is missing a `src` for a media element, in some cases.
+<span class="fc" id="L100">        return@mapNotNull null</span>
+      }
+
+      // detect relative URLs
+<span class="pc bpc" id="L104" title="1 of 4 branches missed.">      val resolvedUrl: URL = if (src.startsWith(&quot;http:&quot;) || src.startsWith(&quot;https:&quot;)) {</span>
+<span class="fc" id="L105">        URL(src)  // it's an absolute URL</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">      } else if (src.startsWith(&quot;://&quot;)) {</span>
+        // special case: it's a protocol-relative URL. these are rare and simply reference the origin URL protocol
+        // instead of an explicit protocol.
+<span class="fc" id="L109">        URL(&quot;${request.uri.scheme}://${src.drop(&quot;://&quot;.length)}&quot;)</span>
+<span class="fc" id="L110">      } else {</span>
+        // if it starts with `/`, it's a reference from the origin base, i.e. an origin-relative URL. we should
+        // initialize the URL with the origin base but `src` as the path.
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (src.startsWith(&quot;/&quot;)) {</span>
+<span class="fc" id="L114">          URL(</span>
+<span class="fc" id="L115">            request.uri.scheme,</span>
+<span class="fc" id="L116">            request.uri.host,</span>
+<span class="fc" id="L117">            request.uri.port,</span>
+<span class="fc" id="L118">            src,</span>
+          )
+        } else {
+          // otherwise, it's a completely relative link, so we need the original URL to calculate it.
+<span class="fc" id="L122">          request.uri.resolve(src).toURL()</span>
+        }
+      }
+
+      // if we were able to resolve an artifact type, return it, mapped to the source URL.
+<span class="fc bfc" id="L127" title="All 2 branches covered.">      artifactType?.let { type -&gt;</span>
+<span class="fc" id="L128">        type to resolvedUrl</span>
+      }
+<span class="fc" id="L130">    }.map { (type, src) -&gt;</span>
+<span class="fc" id="L131">      DetectedArtifact(</span>
+<span class="fc" id="L132">        type = type,</span>
+<span class="fc" id="L133">        request = request,</span>
+<span class="fc" id="L134">        url = src,</span>
+      )
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

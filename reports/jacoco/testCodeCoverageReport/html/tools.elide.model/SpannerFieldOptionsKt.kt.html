@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializespannerFieldOptions&quot;)
-public inline fun spannerFieldOptions(block: tools.elide.model.SpannerFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerFieldOptions =
+inline fun spannerFieldOptions(block: tools.elide.model.SpannerFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerFieldOptions =
 <span class="nc" id="L8">  tools.elide.model.SpannerFieldOptionsKt.Dsl._create(tools.elide.model.SpannerFieldOptions.newBuilder()).apply { block() }._build()</span>
-public object SpannerFieldOptionsKt {
+object SpannerFieldOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.SpannerFieldOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.SpannerFieldOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;string column = 1;&lt;/code&gt;
      */
-    public var column: kotlin.String
+    var column: kotlin.String
       @JvmName(&quot;getColumn&quot;)
 <span class="nc" id="L34">      get() = _builder.getColumn()</span>
       @JvmName(&quot;setColumn&quot;)
@@ -43,7 +43,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;string column = 1;&lt;/code&gt;
      */
-    public fun clearColumn() {
+    fun clearColumn() {
 <span class="nc" id="L47">      _builder.clearColumn()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -54,7 +54,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool ignore = 2;&lt;/code&gt;
      */
-    public var ignore: kotlin.Boolean
+    var ignore: kotlin.Boolean
       @JvmName(&quot;getIgnore&quot;)
 <span class="nc" id="L59">      get() = _builder.getIgnore()</span>
       @JvmName(&quot;setIgnore&quot;)
@@ -68,7 +68,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool ignore = 2;&lt;/code&gt;
      */
-    public fun clearIgnore() {
+    fun clearIgnore() {
 <span class="nc" id="L72">      _builder.clearIgnore()</span>
 <span class="nc" id="L73">    }</span>
 
@@ -79,7 +79,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;.model.SpannerOptions.SpannerType type = 3;&lt;/code&gt;
      */
-    public var type: tools.elide.model.SpannerOptions.SpannerType
+     var type: tools.elide.model.SpannerOptions.SpannerType
       @JvmName(&quot;getType&quot;)
 <span class="nc" id="L84">      get() = _builder.getType()</span>
       @JvmName(&quot;setType&quot;)
@@ -93,7 +93,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;.model.SpannerOptions.SpannerType type = 3;&lt;/code&gt;
      */
-    public fun clearType() {
+    fun clearType() {
 <span class="nc" id="L97">      _builder.clearType()</span>
 <span class="nc" id="L98">    }</span>
 
@@ -104,7 +104,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool json = 4;&lt;/code&gt;
      */
-    public var json: kotlin.Boolean
+    var json: kotlin.Boolean
       @JvmName(&quot;getJson&quot;)
 <span class="nc" id="L109">      get() = _builder.getJson()</span>
       @JvmName(&quot;setJson&quot;)
@@ -118,7 +118,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool json = 4;&lt;/code&gt;
      */
-    public fun clearJson() {
+    fun clearJson() {
 <span class="nc" id="L122">      _builder.clearJson()</span>
 <span class="nc" id="L123">    }</span>
 
@@ -129,7 +129,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;uint32 size = 5;&lt;/code&gt;
      */
-    public var size: kotlin.Int
+    var size: kotlin.Int
       @JvmName(&quot;getSize&quot;)
 <span class="nc" id="L134">      get() = _builder.getSize()</span>
       @JvmName(&quot;setSize&quot;)
@@ -143,7 +143,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;uint32 size = 5;&lt;/code&gt;
      */
-    public fun clearSize() {
+    fun clearSize() {
 <span class="nc" id="L147">      _builder.clearSize()</span>
 <span class="nc" id="L148">    }</span>
 
@@ -154,7 +154,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool nonnull = 6;&lt;/code&gt;
      */
-    public var nonnull: kotlin.Boolean
+    var nonnull: kotlin.Boolean
       @JvmName(&quot;getNonnull&quot;)
 <span class="nc" id="L159">      get() = _builder.getNonnull()</span>
       @JvmName(&quot;setNonnull&quot;)
@@ -168,7 +168,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool nonnull = 6;&lt;/code&gt;
      */
-    public fun clearNonnull() {
+    fun clearNonnull() {
 <span class="nc" id="L172">      _builder.clearNonnull()</span>
 <span class="nc" id="L173">    }</span>
 
@@ -179,7 +179,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;string expression = 7;&lt;/code&gt;
      */
-    public var expression: kotlin.String
+    var expression: kotlin.String
       @JvmName(&quot;getExpression&quot;)
 <span class="nc" id="L184">      get() = _builder.getExpression()</span>
       @JvmName(&quot;setExpression&quot;)
@@ -193,7 +193,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;string expression = 7;&lt;/code&gt;
      */
-    public fun clearExpression() {
+    fun clearExpression() {
 <span class="nc" id="L197">      _builder.clearExpression()</span>
 <span class="nc" id="L198">    }</span>
 
@@ -204,7 +204,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool stored = 8;&lt;/code&gt;
      */
-    public var stored: kotlin.Boolean
+    var stored: kotlin.Boolean
       @JvmName(&quot;getStored&quot;)
 <span class="nc" id="L209">      get() = _builder.getStored()</span>
       @JvmName(&quot;setStored&quot;)
@@ -218,7 +218,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool stored = 8;&lt;/code&gt;
      */
-    public fun clearStored() {
+    fun clearStored() {
 <span class="nc" id="L222">      _builder.clearStored()</span>
 <span class="nc" id="L223">    }</span>
 
@@ -229,7 +229,7 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool primary_key = 9;&lt;/code&gt;
      */
-    public var primaryKey: kotlin.Boolean
+    var primaryKey: kotlin.Boolean
       @JvmName(&quot;getPrimaryKey&quot;)
 <span class="nc" id="L234">      get() = _builder.getPrimaryKey()</span>
       @JvmName(&quot;setPrimaryKey&quot;)
@@ -243,13 +243,13 @@ public object SpannerFieldOptionsKt {
      *
      * &lt;code&gt;bool primary_key = 9;&lt;/code&gt;
      */
-    public fun clearPrimaryKey() {
+    fun clearPrimaryKey() {
 <span class="nc" id="L247">      _builder.clearPrimaryKey()</span>
 <span class="nc" id="L248">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.SpannerFieldOptions.copy(block: tools.elide.model.SpannerFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerFieldOptions =
+inline fun tools.elide.model.SpannerFieldOptions.copy(block: tools.elide.model.SpannerFieldOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.SpannerFieldOptions =
   tools.elide.model.SpannerFieldOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultAppLoader.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">DefaultAppLoader.kt</span></div><h1>DefaultAppLoader.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import elide.runtime.Logger
+import elide.runtime.Logging
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.client.DefaultHttpClientConfiguration
+import io.micronaut.http.client.HttpClient
+import io.micronaut.http.ssl.ClientSslConfiguration
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
+import kotlinx.coroutines.*
+import kotlinx.coroutines.reactive.awaitFirst
+import tools.elide.meta.AppManifest
+import tools.elide.meta.Endpoint
+import java.io.Closeable
+import java.io.File
+import java.net.JarURLConnection
+import java.net.URL
+import java.net.URLClassLoader
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
+import java.util.jar.Attributes
+
+/** Default [AppLoader] implementation, which works based on an isolated class-loader. */
+<span class="pc" id="L26">@Singleton public class DefaultAppLoader @Inject internal constructor (</span>
+<span class="fc" id="L27">  private val contentReader: StaticContentReader,</span>
+<span class="pc" id="L28">  private val dispatcher: CoroutineDispatcher = Dispatchers.Default,</span>
+) : AppLoader {
+  /** Defines a local interface for an app loader implementation. */
+  private sealed interface AppLoaderImpl : Closeable, AutoCloseable {
+    /** Perform any preparation or validation steps which can be executed ahead of time. */
+    fun prepare(info: LoadedAppInfo)
+
+    /** Connect to the target service, or JAR file. */
+    suspend fun connect()
+
+    /** Load a specific class, if supported by the implementation; or, pass `null` to load the main class. */
+    suspend fun classForName(qualifiedName: String?): Class&lt;*&gt;? {
+<span class="fc" id="L40">      return null  // not supported unless mode is JAR</span>
+    }
+
+    /** Execute the provided [request] against the backing application, to produce a response or error. */
+    suspend fun execute(request: HttpRequest&lt;*&gt;): HttpResponse&lt;ByteArray&gt;
+  }
+
+  /** Defines a local implementation of a JAR app loader. */
+<span class="nc" id="L48">  private inner class JARAppLoader(</span>
+<span class="nc" id="L49">    private val target: URL,</span>
+<span class="nc" id="L50">    private val path: String,</span>
+<span class="nc" id="L51">    ): AppLoaderImpl, URLClassLoader(arrayOf(target)) {</span>
+    // Whether we currently have an open JAR file.
+<span class="nc" id="L53">    private val loaded: AtomicBoolean = AtomicBoolean(false)</span>
+
+    // JAR connection.
+<span class="nc" id="L56">    private val connection: AtomicReference&lt;JarURLConnection&gt; = AtomicReference(null)</span>
+
+    // JAR file.
+<span class="nc" id="L59">    private val file: AtomicReference&lt;File&gt; = AtomicReference(null)</span>
+
+    override fun prepare(info: LoadedAppInfo) {
+<span class="nc bnc" id="L62" title="All 4 branches missed.">      require(!loaded.get()) {</span>
+<span class="nc" id="L63">        &quot;Cannot prepare an inner loader twice&quot;</span>
+      }
+<span class="nc" id="L65">      val subject = File(path)</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">      if (subject.exists()) {</span>
+<span class="nc" id="L67">        file.set(subject)</span>
+<span class="nc" id="L68">      } else throw SSGCompilerError.IOError(</span>
+<span class="nc" id="L69">        &quot;Failed to locate JAR file at path '${subject.absolutePath}'&quot;</span>
+      )
+<span class="nc" id="L71">    }</span>
+
+    @Suppress(&quot;BlockingMethodInNonBlockingContext&quot;)
+    override suspend fun connect() {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">      connection.set(withContext(dispatcher) {</span>
+<span class="nc" id="L76">        target.openConnection()</span>
+      } as JarURLConnection)
+
+<span class="nc" id="L79">      loaded.set(true)</span>
+<span class="nc" id="L80">    }</span>
+
+    override fun close() {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">      if (loaded.get()) {</span>
+<span class="nc" id="L84">        connection.set(null)</span>
+<span class="nc" id="L85">        loaded.set(false)</span>
+      }
+<span class="nc" id="L87">    }</span>
+
+    override suspend fun classForName(qualifiedName: String?): Class&lt;*&gt;? {
+<span class="nc bnc" id="L90" title="All 2 branches missed.">      return if (qualifiedName != null) {</span>
+<span class="nc" id="L91">        loadClass(qualifiedName, true)</span>
+      } else {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        val main = connection.get().mainAttributes[Attributes.Name.MAIN_CLASS] as? String</span>
+<span class="nc bnc" id="L94" title="All 6 branches missed.">        if (!main.isNullOrBlank()) {</span>
+<span class="nc" id="L95">          loadClass(main, true)</span>
+        } else {
+<span class="nc" id="L97">          null</span>
+        }
+      }
+    }
+
+    override suspend fun execute(request: HttpRequest&lt;*&gt;): HttpResponse&lt;ByteArray&gt; {
+<span class="nc" id="L103">      TODO(&quot;JAR-based request execution is not implemented yet.&quot;)</span>
+    }
+  }
+
+  /** Defines a local implementation of an HTTP app loader. */
+<span class="fc" id="L108">  private inner class HTTPAppLoader(private val client: HttpClient): AppLoaderImpl {</span>
+    // Whether we are currently connected to the server.
+<span class="fc" id="L110">    private val connected: AtomicBoolean = AtomicBoolean(false)</span>
+
+    override fun prepare(info: LoadedAppInfo) {
+<span class="pc bpc" id="L113" title="2 of 4 branches missed.">      require(!connected.get()) {</span>
+<span class="nc" id="L114">        &quot;Cannot prepare an inner loader twice&quot;</span>
+      }
+<span class="fc" id="L116">    }</span>
+
+    override suspend fun connect() {
+<span class="fc" id="L119">      client.start()</span>
+<span class="fc" id="L120">      connected.set(true)</span>
+<span class="fc" id="L121">    }</span>
+
+    override fun close() {
+<span class="fc" id="L124">      client.stop()</span>
+<span class="fc" id="L125">      connected.set(false)</span>
+<span class="fc" id="L126">    }</span>
+
+    override suspend fun execute(request: HttpRequest&lt;*&gt;): HttpResponse&lt;ByteArray&gt; {
+<span class="fc" id="L129">      logging.debug(&quot;Beginning HTTP request '${request.method.name} ${request.uri}'&quot;)</span>
+<span class="fc" id="L130">      val response = try {</span>
+<span class="fc" id="L131">        client.exchange(request, ByteArray::class.java).awaitFirst()</span>
+<span class="nc" id="L132">      } catch (err: Throwable) {</span>
+<span class="nc" id="L133">        logging.debug(&quot;Failed to execute HTTP request '${request.method.name} ${request.uri}'&quot;, err)</span>
+<span class="nc" id="L134">        throw err</span>
+      }
+<span class="fc" id="L136">      logging.debug(&quot;HTTP response finished with code: '${response.code()}'&quot;)</span>
+<span class="fc" id="L137">      return response</span>
+    }
+  }
+
+  // Private logger.
+<span class="fc" id="L142">  private val logging: Logger = Logging.of(DefaultAppLoader::class)</span>
+
+  // Whether the app loader is currently active/holding open resources.
+<span class="fc" id="L145">  private val active: AtomicBoolean = AtomicBoolean(false)</span>
+
+  // HTTP client to use when executing requests against the application.
+  private lateinit var httpClient: HttpClient
+
+  // Interpreted configuration.
+  private lateinit var config: LoadedAppInfo
+
+  // Request factory provided by the compiler.
+  private lateinit var requestFactory: RequestFactory
+
+  // Inner loader implementation.
+<span class="fc" id="L157">  private val inner: AtomicReference&lt;AppLoaderImpl&gt; = AtomicReference(null)</span>
+
+  // Indicate whether any endpoints within the provided `app` manifest are eligible for SSG compilation.
+  private fun appEligibleForSSG(app: AppManifest): Boolean {
+<span class="fc" id="L161">    return app.app.endpointsMap.values.any { it.options.precompilable }</span>
+  }
+
+  // Load a JAR-based class loader, or the HTTP app target, as applicable.
+<span class="fc" id="L165">  private suspend fun loadAppIfNeeded(info: LoadedAppInfo): LoadedAppInfo = coroutineScope {</span>
+<span class="fc" id="L166">    val target = inner.get()</span>
+<span class="fc" id="L167">    config = info</span>
+<span class="fc" id="L168">    target.prepare(info)</span>
+<span class="fc" id="L169">    target.connect()</span>
+<span class="fc" id="L170">    info</span>
+<span class="fc" id="L171">  }</span>
+
+  // Generate a static fragment spec for the provided inputs.
+<span class="fc" id="L174">  private suspend fun fragmentSpecFromEndpoint(endpoint: Endpoint): StaticFragmentSpec {</span>
+<span class="fc" id="L175">    return StaticFragmentSpec.fromEndpoint(</span>
+<span class="fc" id="L176">      endpoint = endpoint,</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">      request = requestFactory.create(</span>
+<span class="fc" id="L178">        endpoint,</span>
+<span class="fc" id="L179">        inner.get().classForName(endpoint.impl),</span>
+      ),
+    )
+  }
+
+  // Generate a static fragment spec from a detected URL in a response.
+  private fun fragmentSpecFromUrl(
+    @Suppress(&quot;UNUSED_PARAMETER&quot;) parent: StaticFragmentSpec,
+    request: HttpRequest&lt;*&gt;,
+    artifact: DetectedArtifact,
+<span class="fc" id="L189">  ): StaticFragmentSpec = StaticFragmentSpec.fromDetectedArtifact(</span>
+<span class="fc" id="L190">    request,</span>
+<span class="fc" id="L191">    artifact,</span>
+<span class="fc" id="L192">  )</span>
+
+  // Warn about a request which failed to execute.
+  private fun warnFailedRequest(request: HttpRequest&lt;*&gt;, endpoint: Endpoint?) {
+<span class="nc" id="L196">    logging.warn(</span>
+<span class="nc" id="L197">      &quot;Failed to execute app request '${request.method.name} ${request.uri}'&quot; +</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">      if (endpoint != null) {</span>
+<span class="nc" id="L199">        &quot; (endpoint: '${endpoint.impl}.${endpoint.member}')&quot;</span>
+      } else {
+<span class="nc" id="L201">        &quot; (endpoint: dynamic)&quot;</span>
+      }
+    )
+<span class="nc" id="L204">  }</span>
+
+  /**
+   * Close resources held by the default [AppLoader] after compilation has finished.
+   */
+  override fun close() {
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">    if (active.get()) {</span>
+<span class="fc" id="L211">      inner.get().close()</span>
+<span class="fc" id="L212">      active.set(false)</span>
+    }
+<span class="fc" id="L214">  }</span>
+
+  /** @inheritDoc */
+  override suspend fun prepAsync(
+    params: SiteCompilerParams,
+    app: AppManifest,
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">  ): Deferred&lt;LoadedAppInfo&gt; = coroutineScope {</span>
+    // parse the `target` value
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">    val url = URL(if (params.target.contains(&quot;://&quot;)) {</span>
+<span class="fc" id="L223">      params.target</span>
+    } else {
+      // if the target has no protocol, assume `file://`
+<span class="nc" id="L226">      &quot;jar:file://${params.target}!/&quot;</span>
+    })
+<span class="pc bpc" id="L228" title="1 of 2 branches missed.">    if (params.options.httpMode) {</span>
+<span class="fc" id="L229">      logging.debug(&quot;Detected HTTP mode is active; validating target as HTTP URL.&quot;)</span>
+<span class="pc bpc" id="L230" title="4 of 6 branches missed.">      require(url.protocol == &quot;http&quot; || url.protocol == &quot;https&quot;) {</span>
+<span class="nc" id="L231">        &quot;HTTP mode requires a HTTP or HTTPS URL, but got '${url.protocol}' (value: \&quot;${params.target}\&quot;)&quot;</span>
+      }
+<span class="fc" id="L233">      val cfg = DefaultHttpClientConfiguration()</span>
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">      if (params.options.ignoreCertErrors) {</span>
+<span class="nc" id="L235">        (cfg.sslConfiguration as ClientSslConfiguration).isInsecureTrustAllCertificates = true</span>
+      }
+<span class="fc" id="L237">      httpClient = HttpClient.create(url, cfg)</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">      inner.set(HTTPAppLoader(httpClient))</span>
+    } else {
+<span class="nc" id="L240">      logging.debug(&quot;Detected HTTP mode is inactive; validating target as file URL.&quot;)</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">      require(url.protocol == &quot;jar&quot;) {</span>
+<span class="nc" id="L242">        &quot;File mode requires a file path, but got \&quot;${params.target}\&quot;&quot;</span>
+      }
+<span class="nc" id="L244">      inner.set(JARAppLoader(url, params.target))</span>
+    }
+<span class="pc bpc" id="L246" title="2 of 4 branches missed.">    require(!active.get()) {</span>
+<span class="nc" id="L247">      &quot;Cannot prep the app loader while it is already active.&quot;</span>
+    }
+<span class="fc" id="L249">    active.compareAndSet(false, true)</span>
+
+<span class="fc" id="L251">    async {</span>
+      // prep interpreted app info, then pre-warm/connect/load app
+<span class="fc" id="L253">      loadAppIfNeeded(LoadedAppInfo(</span>
+<span class="fc" id="L254">        target = url,</span>
+<span class="fc" id="L255">        manifest = app,</span>
+<span class="fc" id="L256">        params = params,</span>
+<span class="fc" id="L257">        eligible = appEligibleForSSG(app),</span>
+      ))
+    }
+<span class="fc" id="L260">  }</span>
+
+  /** @inheritDoc */
+  override suspend fun generateRequests(factory: RequestFactory): Pair&lt;Int, Sequence&lt;StaticFragmentSpec&gt;&gt; {
+<span class="fc" id="L264">    requestFactory = factory</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">    val count = config.manifest.app.endpointsCount</span>
+<span class="fc" id="L266">    val specs = ArrayList&lt;StaticFragmentSpec&gt;(count)</span>
+<span class="pc bpc" id="L267" title="1 of 4 branches missed.">    for ((_, endpoint) in config.manifest.app.endpointsMap) {</span>
+<span class="pc bpc" id="L268" title="1 of 2 branches missed.">      if (!endpoint.options.precompilable) {</span>
+<span class="nc" id="L269">        continue  // skip ineligible handlers</span>
+      }
+<span class="fc" id="L271">      specs.add(fragmentSpecFromEndpoint(endpoint))</span>
+    }
+<span class="fc" id="L273">    return count to specs.asSequence()</span>
+  }
+
+  /** @inheritDoc */
+  override suspend fun executeRequest(spec: StaticFragmentSpec): StaticFragment? {
+    // execute the request against the app, logging a warning if it fails; at this stage, if the request fails due to an
+    // application-level error, it's a non-halting event because it may be coming from user code.
+<span class="fc" id="L280">    val response = try {</span>
+<span class="fc" id="L281">      inner.get().execute(spec.request)</span>
+<span class="nc" id="L282">    } catch (err: Throwable) {</span>
+<span class="nc" id="L283">      warnFailedRequest(spec.request, spec.endpoint)</span>
+<span class="nc" id="L284">      return null</span>
+    }
+
+    // with a response in hand, we consume and process the body. if the response indicates HTML content, we try to parse
+    // it to determine any additional URLs we need to fetch as followup tasks.
+<span class="fc" id="L289">    val (shouldScan, post) = contentReader.consume(response)</span>
+<span class="pc bpc" id="L290" title="1 of 6 branches missed.">    val followup = if (shouldScan &amp;&amp; config.params.options.crawl) {</span>
+<span class="fc" id="L291">      contentReader.parse(spec.request, response, post)</span>
+    } else {
+<span class="fc" id="L293">      emptyList()</span>
+    }
+<span class="fc" id="L295">    val url = spec.request().uri</span>
+<span class="fc bfc" id="L296" title="All 2 branches covered.">    val synthesized = if (spec.request().path == &quot;/&quot;) {</span>
+      // special case: if we are fetching the home/root path, synthesize a request for the `/favicon.ico`, which may or
+      // may not be present in the page. we should also add a mapping for `/robots.txt` and `/humans.txt`, which are not
+      // typically shown in the page but may be present anyway.
+<span class="fc" id="L300">      listOf(</span>
+<span class="fc" id="L301">        StaticFragmentSpec.SynthesizedSpec.fromRequest(</span>
+<span class="fc" id="L302">          base = spec.request(),</span>
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">          request = requestFactory.create(url.toURL(), &quot;/favicon.ico&quot;),</span>
+<span class="fc" id="L304">          expectedType = StaticContentReader.ArtifactType.IMAGE,</span>
+        ),
+<span class="fc" id="L306">        StaticFragmentSpec.SynthesizedSpec.fromRequest(</span>
+<span class="fc" id="L307">          base = spec.request(),</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">          request = requestFactory.create(url.toURL(), &quot;/robots.txt&quot;),</span>
+<span class="fc" id="L309">          expectedType = StaticContentReader.ArtifactType.TEXT,</span>
+        ),
+<span class="fc" id="L311">        StaticFragmentSpec.SynthesizedSpec.fromRequest(</span>
+<span class="fc" id="L312">          base = spec.request(),</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">          request = requestFactory.create(url.toURL(), &quot;/humans.txt&quot;),</span>
+<span class="fc" id="L314">          expectedType = StaticContentReader.ArtifactType.TEXT,</span>
+        ),
+      )
+    } else {
+<span class="fc" id="L318">      emptyList()</span>
+    }
+
+    // followup tasks then need to be spawned into specs.
+<span class="fc" id="L322">    val addlSpecs = followup.map {</span>
+<span class="fc" id="L323">      fragmentSpecFromUrl(</span>
+<span class="fc" id="L324">        spec,</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">        requestFactory.create(spec, it),</span>
+<span class="fc" id="L326">        it,</span>
+      )
+<span class="fc" id="L328">    }.plus(synthesized)</span>
+
+    // make sure to factory a specific fragment implementation based on the spec implementation.
+<span class="fc" id="L331">    return when (spec) {</span>
+<span class="fc bfc" id="L332" title="All 2 branches covered.">      is StaticFragmentSpec.EndpointSpec -&gt; StaticFragment.fromEndpoint(</span>
+<span class="fc" id="L333">        spec,</span>
+<span class="fc" id="L334">        response,</span>
+<span class="fc" id="L335">        post,</span>
+<span class="fc" id="L336">        addlSpecs,</span>
+      )
+
+<span class="fc" id="L339">      is StaticFragmentSpec.SynthesizedSpec -&gt; StaticFragment.fromDetectedArtifact(</span>
+<span class="fc" id="L340">        spec.artifact,</span>
+<span class="fc" id="L341">        response,</span>
+<span class="fc" id="L342">        post,</span>
+<span class="fc" id="L343">        addlSpecs,</span>
+      )
+    }
+  }
+<span class="nc" id="L347">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

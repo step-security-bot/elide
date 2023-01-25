@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializepersistenceOptions&quot;)
-public inline fun persistenceOptions(block: tools.elide.model.PersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.PersistenceOptions =
+inline fun persistenceOptions(block: tools.elide.model.PersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.PersistenceOptions =
 <span class="nc" id="L8">  tools.elide.model.PersistenceOptionsKt.Dsl._create(tools.elide.model.PersistenceOptions.newBuilder()).apply { block() }._build()</span>
-public object PersistenceOptionsKt {
+object PersistenceOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.PersistenceOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.PersistenceOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;.model.CollectionMode mode = 1;&lt;/code&gt;
      */
-    public var mode: tools.elide.model.CollectionMode
+     var mode: tools.elide.model.CollectionMode
       @JvmName(&quot;getMode&quot;)
 <span class="nc" id="L34">      get() = _builder.getMode()</span>
       @JvmName(&quot;setMode&quot;)
@@ -43,7 +43,7 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;.model.CollectionMode mode = 1;&lt;/code&gt;
      */
-    public fun clearMode() {
+    fun clearMode() {
 <span class="nc" id="L47">      _builder.clearMode()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -54,7 +54,7 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;string path = 2;&lt;/code&gt;
      */
-    public var path: kotlin.String
+    var path: kotlin.String
       @JvmName(&quot;getPath&quot;)
 <span class="nc" id="L59">      get() = _builder.getPath()</span>
       @JvmName(&quot;setPath&quot;)
@@ -68,7 +68,7 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;string path = 2;&lt;/code&gt;
      */
-    public fun clearPath() {
+    fun clearPath() {
 <span class="nc" id="L72">      _builder.clearPath()</span>
 <span class="nc" id="L73">    }</span>
 
@@ -79,7 +79,7 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;string parent = 3;&lt;/code&gt;
      */
-    public var parent: kotlin.String
+    var parent: kotlin.String
       @JvmName(&quot;getParent&quot;)
 <span class="nc" id="L84">      get() = _builder.getParent()</span>
       @JvmName(&quot;setParent&quot;)
@@ -93,13 +93,13 @@ public object PersistenceOptionsKt {
      *
      * &lt;code&gt;string parent = 3;&lt;/code&gt;
      */
-    public fun clearParent() {
+    fun clearParent() {
 <span class="nc" id="L97">      _builder.clearParent()</span>
 <span class="nc" id="L98">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.PersistenceOptions.copy(block: tools.elide.model.PersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.PersistenceOptions =
+inline fun tools.elide.model.PersistenceOptions.copy(block: tools.elide.model.PersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.PersistenceOptions =
   tools.elide.model.PersistenceOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

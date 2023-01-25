@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializefieldPersistenceOptions&quot;)
-public inline fun fieldPersistenceOptions(block: tools.elide.model.FieldPersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.FieldPersistenceOptions =
+inline fun fieldPersistenceOptions(block: tools.elide.model.FieldPersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.FieldPersistenceOptions =
 <span class="nc" id="L8">  tools.elide.model.FieldPersistenceOptionsKt.Dsl._create(tools.elide.model.FieldPersistenceOptions.newBuilder()).apply { block() }._build()</span>
-public object FieldPersistenceOptionsKt {
+object FieldPersistenceOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.FieldPersistenceOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.FieldPersistenceOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;.model.FieldType type = 1;&lt;/code&gt;
      */
-    public var type: tools.elide.model.FieldType
+     var type: tools.elide.model.FieldType
       @JvmName(&quot;getType&quot;)
 <span class="nc" id="L34">      get() = _builder.getType()</span>
       @JvmName(&quot;setType&quot;)
@@ -43,7 +43,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;.model.FieldType type = 1;&lt;/code&gt;
      */
-    public fun clearType() {
+    fun clearType() {
 <span class="nc" id="L47">      _builder.clearType()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -55,7 +55,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;string summary = 2;&lt;/code&gt;
      */
-    public var summary: kotlin.String
+    var summary: kotlin.String
       @JvmName(&quot;getSummary&quot;)
 <span class="nc" id="L60">      get() = _builder.getSummary()</span>
       @JvmName(&quot;setSummary&quot;)
@@ -70,7 +70,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;string summary = 2;&lt;/code&gt;
      */
-    public fun clearSummary() {
+    fun clearSummary() {
 <span class="nc" id="L74">      _builder.clearSummary()</span>
 <span class="nc" id="L75">    }</span>
 
@@ -82,7 +82,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool stamp_update = 3;&lt;/code&gt;
      */
-    public var stampUpdate: kotlin.Boolean
+    var stampUpdate: kotlin.Boolean
       @JvmName(&quot;getStampUpdate&quot;)
 <span class="nc" id="L87">      get() = _builder.getStampUpdate()</span>
       @JvmName(&quot;setStampUpdate&quot;)
@@ -97,7 +97,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool stamp_update = 3;&lt;/code&gt;
      */
-    public fun clearStampUpdate() {
+    fun clearStampUpdate() {
 <span class="nc" id="L101">      _builder.clearStampUpdate()</span>
 <span class="nc" id="L102">    }</span>
 
@@ -109,7 +109,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool stamp_create = 4;&lt;/code&gt;
      */
-    public var stampCreate: kotlin.Boolean
+    var stampCreate: kotlin.Boolean
       @JvmName(&quot;getStampCreate&quot;)
 <span class="nc" id="L114">      get() = _builder.getStampCreate()</span>
       @JvmName(&quot;setStampCreate&quot;)
@@ -124,7 +124,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool stamp_create = 4;&lt;/code&gt;
      */
-    public fun clearStampCreate() {
+    fun clearStampCreate() {
 <span class="nc" id="L128">      _builder.clearStampCreate()</span>
 <span class="nc" id="L129">    }</span>
 
@@ -136,7 +136,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool read_only = 5;&lt;/code&gt;
      */
-    public var readOnly: kotlin.Boolean
+    var readOnly: kotlin.Boolean
       @JvmName(&quot;getReadOnly&quot;)
 <span class="nc" id="L141">      get() = _builder.getReadOnly()</span>
       @JvmName(&quot;setReadOnly&quot;)
@@ -151,7 +151,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool read_only = 5;&lt;/code&gt;
      */
-    public fun clearReadOnly() {
+    fun clearReadOnly() {
 <span class="nc" id="L155">      _builder.clearReadOnly()</span>
 <span class="nc" id="L156">    }</span>
 
@@ -163,7 +163,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool immutable = 6;&lt;/code&gt;
      */
-    public var immutable: kotlin.Boolean
+    var immutable: kotlin.Boolean
       @JvmName(&quot;getImmutable&quot;)
 <span class="nc" id="L168">      get() = _builder.getImmutable()</span>
       @JvmName(&quot;setImmutable&quot;)
@@ -178,7 +178,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool immutable = 6;&lt;/code&gt;
      */
-    public fun clearImmutable() {
+    fun clearImmutable() {
 <span class="nc" id="L182">      _builder.clearImmutable()</span>
 <span class="nc" id="L183">    }</span>
 
@@ -190,7 +190,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool explicit = 7;&lt;/code&gt;
      */
-    public var explicit: kotlin.Boolean
+    var explicit: kotlin.Boolean
       @JvmName(&quot;getExplicit&quot;)
 <span class="nc" id="L195">      get() = _builder.getExplicit()</span>
       @JvmName(&quot;setExplicit&quot;)
@@ -205,7 +205,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;bool explicit = 7;&lt;/code&gt;
      */
-    public fun clearExplicit() {
+    fun clearExplicit() {
 <span class="nc" id="L209">      _builder.clearExplicit()</span>
 <span class="nc" id="L210">    }</span>
 
@@ -218,7 +218,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;.model.FieldVisibility visibility = 8;&lt;/code&gt;
      */
-    public var visibility: tools.elide.model.FieldVisibility
+     var visibility: tools.elide.model.FieldVisibility
       @JvmName(&quot;getVisibility&quot;)
 <span class="nc" id="L223">      get() = _builder.getVisibility()</span>
       @JvmName(&quot;setVisibility&quot;)
@@ -234,7 +234,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;.model.FieldVisibility visibility = 8;&lt;/code&gt;
      */
-    public fun clearVisibility() {
+    fun clearVisibility() {
 <span class="nc" id="L238">      _builder.clearVisibility()</span>
 <span class="nc" id="L239">    }</span>
 
@@ -245,7 +245,7 @@ public object FieldPersistenceOptionsKt {
      *
      * &lt;code&gt;string description = 9 [deprecated = true];&lt;/code&gt;
      */
-    @kotlin.Deprecated(message = &quot;Field description is deprecated&quot;) public var description: kotlin.String
+    @kotlin.Deprecated(message = &quot;Field description is deprecated&quot;) var description: kotlin.String
       @JvmName(&quot;getDescription&quot;)
 <span class="nc" id="L250">      get() = _builder.getDescription()</span>
       @JvmName(&quot;setDescription&quot;)
@@ -261,13 +261,13 @@ public object FieldPersistenceOptionsKt {
      * @deprecated model.FieldPersistenceOptions.description is deprecated.
      *     See elide/model/model.proto;l=256
      */
-    public fun clearDescription() {
+    fun clearDescription() {
 <span class="nc" id="L265">      _builder.clearDescription()</span>
 <span class="nc" id="L266">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.FieldPersistenceOptions.copy(block: tools.elide.model.FieldPersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.FieldPersistenceOptions =
+inline fun tools.elide.model.FieldPersistenceOptions.copy(block: tools.elide.model.FieldPersistenceOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.FieldPersistenceOptions =
   tools.elide.model.FieldPersistenceOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SiteCompilerParams.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">SiteCompilerParams.kt</span></div><h1>SiteCompilerParams.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import tools.elide.data.CompressionMode
+import java.util.SortedSet
+
+/**
+ * Parameters held internally for the site compiler.
+ *
+ * @param manifest Path to the manifest to read.
+ * @param target Path to the application JAR or running server URL.
+ * @param output Compiler output configuration.
+ * @param options Options to apply to this compile execution.
+ */
+<span class="fc" id="L14">public data class SiteCompilerParams(</span>
+<span class="fc" id="L15">  public val manifest: String,</span>
+<span class="fc" id="L16">  public val target: String,</span>
+<span class="fc" id="L17">  public val output: Output,</span>
+<span class="fc" id="L18">  public val options: Options = Options.DEFAULTS,</span>
+) {
+  /**
+   * Compiler output configuration.
+   *
+   * @param path Path for this output type.
+   * @param mode Output mode to use.
+   */
+<span class="fc" id="L26">  public sealed class Output(</span>
+<span class="pc" id="L27">    public open val path: String,</span>
+<span class="fc" id="L28">    public val mode: OutputMode,</span>
+  ) {
+    /** Output to a directory. */
+<span class="fc" id="L31">    public data class Directory(</span>
+<span class="fc" id="L32">      override val path: String,</span>
+<span class="fc" id="L33">    ): Output(path, OutputMode.DIRECTORY)</span>
+
+    /** Output to a file. */
+<span class="fc" id="L36">    public data class File(</span>
+<span class="fc" id="L37">      override val path: String,</span>
+<span class="fc" id="L38">      public val format: OutputFormat,</span>
+<span class="pc" id="L39">      public val compressed: Boolean,</span>
+<span class="fc" id="L40">    ): Output(path, OutputMode.FILE)</span>
+
+    internal companion object {
+      // Determine whether the provided `path` seems like, or is, a directory.
+<span class="fc bfc" id="L44" title="All 2 branches covered.">      private fun isDirectory(path: String): Boolean = !path.split(&quot;/&quot;).last().contains(&quot;.&quot;)</span>
+
+      // Determine the file output type in file output mode, along with a flag indicating default compression state.
+<span class="fc" id="L47">      private fun fileType(path: String): Pair&lt;Boolean, OutputFormat&gt; = when {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        path.endsWith(&quot;.zip&quot;) -&gt; true to OutputFormat.ZIP</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        path.endsWith(&quot;.tar&quot;) -&gt; false to OutputFormat.TAR</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        path.endsWith(&quot;.tar.gz&quot;) -&gt; true to OutputFormat.TAR</span>
+<span class="nc" id="L51">        else -&gt; error(&quot;Failed to resolve file extension type '$path' for SSG compiler output&quot;)</span>
+<span class="fc" id="L52">      }</span>
+
+      /** Create an [Output] spec from the provided [path]. */
+<span class="fc bfc" id="L55" title="All 2 branches covered.">      @JvmStatic internal fun fromParams(path: String): Output = if (isDirectory(path)) {</span>
+<span class="fc" id="L56">        Directory(path)</span>
+      } else {
+<span class="fc" id="L58">        val (compressed, format) = fileType(path)</span>
+<span class="fc" id="L59">        File(</span>
+<span class="fc" id="L60">          path,</span>
+<span class="fc" id="L61">          format = format,</span>
+<span class="fc" id="L62">          compressed = compressed,</span>
+        )
+<span class="fc" id="L64">      }</span>
+    }
+  }
+
+  /** Enumerates supported output modes. */
+  public enum class OutputMode {
+    /** Output to a directory structure. */
+<span class="fc" id="L71">    DIRECTORY,</span>
+
+    /** Output to a file. */
+<span class="fc" id="L74">    FILE,</span>
+  }
+
+  /** Types of output formats supported by the compiler. */
+  public enum class OutputFormat {
+    /** Output files to a single zip bundle. */
+<span class="fc" id="L80">    ZIP,</span>
+
+    /** Output files to a single tar bundle. */
+<span class="fc" id="L83">    TAR,</span>
+  }
+
+  /**
+   * Options payload for programmatic invocation of the SSG compiler.
+   *
+   * @param classpath Extra JARs to add to the app execution classpath.
+   * @param verbose Whether to emit verbose log messages.
+   * @param debug Whether to enable debugging features.
+   * @param httpMode Whether to run against the app in HTTP mode.
+   * @param ignoreCertErrors Whether to ignore certificate errors.
+   * @param crawl Whether to crawl HTML content for additional URLs.
+   * @param extraOrigins Extra origins to consider legal for crawling.
+   * @param timeout Timeout to apply when executing app requests. Expressed in seconds.
+   * @param precompress Whether to pre-compress assets as `*.gz` or `*.br` files, or both, or none.
+   * @param pretty Whether to enable color and other pretty terminal output features.
+   */
+<span class="fc" id="L100">  public data class Options(</span>
+<span class="pc" id="L101">    val classpath: String? = null,</span>
+<span class="pc" id="L102">    val verbose: Boolean = false,</span>
+<span class="pc" id="L103">    val debug: Boolean = false,</span>
+<span class="fc" id="L104">    val httpMode: Boolean = false,</span>
+<span class="fc" id="L105">    val ignoreCertErrors: Boolean = false,</span>
+<span class="fc" id="L106">    val crawl: Boolean = true,</span>
+<span class="pc" id="L107">    val extraOrigins: SortedSet&lt;String&gt; = sortedSetOf(),</span>
+<span class="pc" id="L108">    val timeout: Int = DEFAULT_REQUEST_TIMEOUT,</span>
+<span class="pc" id="L109">    val precompress: Set&lt;CompressionMode&gt; = emptySet(),</span>
+<span class="pc" id="L110">    val pretty: Boolean = true,</span>
+  ) {
+    public companion object {
+      /** Default options. */
+<span class="fc" id="L114">      public val DEFAULTS: Options = Options()</span>
+
+      /** Default request timeout, in seconds. */
+      public const val DEFAULT_REQUEST_TIMEOUT: Int = 30
+    }
+
+    // Apply these options to the provided `compiler` instance.
+    internal fun applyTo(compiler: SiteCompiler) {
+<span class="fc" id="L122">      compiler.debug = debug</span>
+<span class="fc" id="L123">      compiler.verbose = verbose</span>
+<span class="fc" id="L124">      compiler.classpath = classpath</span>
+<span class="fc" id="L125">      compiler.httpMode = httpMode</span>
+<span class="fc" id="L126">      compiler.ignoreCertErrors = ignoreCertErrors</span>
+<span class="fc" id="L127">      compiler.extraOrigins = extraOrigins</span>
+<span class="fc" id="L128">      compiler.timeout = timeout</span>
+<span class="fc" id="L129">      compiler.precompress = precompress</span>
+<span class="fc" id="L130">      compiler.pretty = pretty</span>
+<span class="fc" id="L131">    }</span>
+<span class="fc" id="L132">  }</span>
+<span class="fc" id="L133">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

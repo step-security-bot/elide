@@ -4,15 +4,15 @@
 package tools.elide.model;
 
 @kotlin.jvm.JvmName(&quot;-initializetableOptions&quot;)
-public inline fun tableOptions(block: tools.elide.model.TableOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableOptions =
+inline fun tableOptions(block: tools.elide.model.TableOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableOptions =
 <span class="nc" id="L8">  tools.elide.model.TableOptionsKt.Dsl._create(tools.elide.model.TableOptions.newBuilder()).apply { block() }._build()</span>
-public object TableOptionsKt {
+object TableOptionsKt {
 <span class="nc" id="L10">  @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)</span>
   @com.google.protobuf.kotlin.ProtoDslMarker
-<span class="nc" id="L12">  public class Dsl private constructor(</span>
+<span class="nc" id="L12">  class Dsl private constructor(</span>
 <span class="nc" id="L13">    private val _builder: tools.elide.model.TableOptions.Builder</span>
   ) {
-    public companion object {
+    companion object {
       @kotlin.jvm.JvmSynthetic
       @kotlin.PublishedApi
       internal fun _create(builder: tools.elide.model.TableOptions.Builder): Dsl = Dsl(builder)
@@ -29,7 +29,7 @@ public object TableOptionsKt {
      *
      * &lt;code&gt;string name = 1;&lt;/code&gt;
      */
-    public var name: kotlin.String
+    var name: kotlin.String
       @JvmName(&quot;getName&quot;)
 <span class="nc" id="L34">      get() = _builder.getName()</span>
       @JvmName(&quot;setName&quot;)
@@ -43,7 +43,7 @@ public object TableOptionsKt {
      *
      * &lt;code&gt;string name = 1;&lt;/code&gt;
      */
-    public fun clearName() {
+    fun clearName() {
 <span class="nc" id="L47">      _builder.clearName()</span>
 <span class="nc" id="L48">    }</span>
 
@@ -54,7 +54,7 @@ public object TableOptionsKt {
      *
      * &lt;code&gt;string description = 2;&lt;/code&gt;
      */
-    public var description: kotlin.String
+    var description: kotlin.String
       @JvmName(&quot;getDescription&quot;)
 <span class="nc" id="L59">      get() = _builder.getDescription()</span>
       @JvmName(&quot;setDescription&quot;)
@@ -68,13 +68,13 @@ public object TableOptionsKt {
      *
      * &lt;code&gt;string description = 2;&lt;/code&gt;
      */
-    public fun clearDescription() {
+    fun clearDescription() {
 <span class="nc" id="L72">      _builder.clearDescription()</span>
 <span class="nc" id="L73">    }</span>
   }
 }
 @kotlin.jvm.JvmSynthetic
-public inline fun tools.elide.model.TableOptions.copy(block: tools.elide.model.TableOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableOptions =
+inline fun tools.elide.model.TableOptions.copy(block: tools.elide.model.TableOptionsKt.Dsl.() -&gt; kotlin.Unit): tools.elide.model.TableOptions =
   tools.elide.model.TableOptionsKt.Dsl._create(this.toBuilder()).apply { block() }._build()
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

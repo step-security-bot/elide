@@ -16,15 +16,15 @@ import org.reactivestreams.Publisher
  * @see RequestContext.Key for an exhaustive review of available request context.
  */
 <span class="fc" id="L18">@Filter(&quot;/**&quot;) public class RequestContextFilter : HttpServerFilter {</span>
-<span class="nc bnc" id="L19" title="All 2 branches missed.">  @Inject internal lateinit var assetManager: AssetManager</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">  @Inject internal lateinit var assetManager: AssetManager</span>
 
   /** @inheritDoc */
   override fun doFilter(request: HttpRequest&lt;*&gt;, chain: ServerFilterChain): Publisher&lt;MutableHttpResponse&lt;*&gt;&gt; {
-<span class="nc" id="L23">    request.setAttribute(</span>
-<span class="nc" id="L24">      RequestContext.Key.ASSET_MANAGER.name,</span>
-<span class="nc" id="L25">      assetManager</span>
+<span class="fc" id="L23">    request.setAttribute(</span>
+<span class="fc" id="L24">      RequestContext.Key.ASSET_MANAGER.name,</span>
+<span class="fc" id="L25">      assetManager</span>
     )
-<span class="nc" id="L27">    return chain.proceed(request)</span>
+<span class="fc" id="L27">    return chain.proceed(request)</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

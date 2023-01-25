@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppStaticWriter.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.tool.ssg</a> &gt; <span class="el_source">AppStaticWriter.kt</span></div><h1>AppStaticWriter.kt</h1><pre class="source lang-java linenums">package elide.tool.ssg
+
+import kotlinx.coroutines.Deferred
+import java.io.Closeable
+import kotlin.jvm.Throws
+
+/**
+ * # SSG: Static Site Writer
+ *
+ * This interface defines the expected API surface of an object which can take a completed Static Site Generator compile
+ * routine and write the output. Typically, this is handled by the default implementation, which simply writes according
+ * to CLI or programmatic invocation parameters.
+ *
+ * During testing, an alternate implementation can be provided which holds results in memory, or does something else
+ * fancy with the compiler results.
+ */
+public interface AppStaticWriter : Closeable, AutoCloseable {
+  /**
+   * Container for the full set of written fragment outputs.
+   *
+   * @param path Output base path on the filesystem.
+   * @param fragments Set of fragments to encapsulate.
+   */
+<span class="fc" id="L24">  public class FragmentOutputs private constructor (</span>
+<span class="pc" id="L25">    public val path: String,</span>
+<span class="pc" id="L26">    public val fragments: List&lt;StaticFragment&gt;,</span>
+  ) {
+    public companion object {
+      /** Build a set of [FragmentOutputs] from the provided [fragments]. */
+      @JvmStatic public fun of(path: String, fragments: List&lt;StaticFragment&gt;): FragmentOutputs {
+<span class="fc" id="L31">        return FragmentOutputs(path, fragments)</span>
+      }
+    }
+  }
+
+  /**
+   * Container for a single written fragment output.
+   *
+   * @param fragment Fragment to wrap.
+   * @param writeResult Result of the write operation.
+   * @param path Relative path to this file, from the output base.
+   * @param size Size of the written file, in bytes.
+   * @param compressed Compressed size of the written file, in bytes.
+   * @param err Throwable caught while writing, if failed.
+   */
+<span class="fc" id="L46">  public class FragmentWrite private constructor (</span>
+<span class="fc" id="L47">    public val fragment: StaticFragment,</span>
+<span class="fc" id="L48">    public val writeResult: Boolean,</span>
+<span class="fc" id="L49">    public val path: String,</span>
+<span class="pc" id="L50">    public val size: Long? = null,</span>
+<span class="pc" id="L51">    public val compressed: Long? = null,</span>
+<span class="fc" id="L52">    public val err: Throwable? = null,</span>
+  ) {
+    public companion object {
+      @JvmStatic
+<span class="fc" id="L56">      public fun success(fragment: StaticFragment, path: String, size: Long, compressed: Long = -1): FragmentWrite =</span>
+<span class="fc" id="L57">        FragmentWrite(fragment, true, path, size, compressed)</span>
+
+      @JvmStatic
+      public fun failure(fragment: StaticFragment, path: String, err: Throwable): FragmentWrite =
+<span class="fc" id="L61">        FragmentWrite(fragment, false, path, null, null, err)</span>
+    }
+
+    override fun toString(): String {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">      val successLabel = if (writeResult) {</span>
+<span class="fc" id="L66">        &quot;Success&quot;</span>
+      } else {
+<span class="fc" id="L68">        &quot;Failure&quot;</span>
+      }
+<span class="fc" id="L70">      return &quot;FragmentWrite($successLabel, path = $path, size = $size, compressed = $compressed)&quot;</span>
+    }
+
+    override fun equals(other: Any?): Boolean {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">      if (this === other) return true</span>
+<span class="pc bpc" id="L75" title="2 of 4 branches missed.">      if (javaClass != other?.javaClass) return false</span>
+<span class="fc" id="L76">      other as FragmentWrite</span>
+<span class="fc" id="L77">      return (</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">        (fragment == other.fragment) &amp;&amp;</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        (writeResult == other.writeResult) &amp;&amp;</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        (path == other.path) &amp;&amp;</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        (size == other.size) &amp;&amp;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        (compressed == other.compressed)</span>
+      )
+    }
+
+    override fun hashCode(): Int {
+<span class="fc" id="L87">      var result = fragment.hashCode()</span>
+<span class="fc" id="L88">      result = 31 * result + writeResult.hashCode()</span>
+<span class="fc" id="L89">      result = 31 * result + path.hashCode()</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">      result = 31 * result + (size?.hashCode() ?: 0)</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">      result = 31 * result + (compressed?.hashCode() ?: 0)</span>
+<span class="fc" id="L92">      return result</span>
+    }
+
+
+<span class="fc" id="L96">  }</span>
+
+  /**
+   * Given the original set of compiler [params] passed via CLI or programmatic invocation, and a target output [buffer]
+   * to place results in, write all held outputs in the buffer, and then return a set of [FragmentOutputs] as results.
+   *
+   * This method operates synchronously, with suspension. For async dispatch (that produces a [Deferred] job), see
+   * [writeAsync].
+   *
+   * Because this method immediately awaits results, exceptions are thrown at the callsite; known exceptions are
+   * translated to [SSGCompilerError].
+   *
+   * @see writeAsync for asynchronous dispatch.
+   * @param params Compiler parameters, provided via CLI or programmatic invocation.
+   * @param buffer Output buffer which should be written.
+   * @return Set of written fragment outputs.
+   * @throws SSGCompilerError if a fatal compiler error occurs.
+   */
+  @Throws(SSGCompilerError::class)
+<span class="fc" id="L115">  public suspend fun write(params: SiteCompilerParams, buffer: StaticSiteBuffer): FragmentOutputs = writeAsync(</span>
+<span class="fc" id="L116">    params,</span>
+<span class="fc" id="L117">    buffer,</span>
+<span class="fc" id="L118">  ).await()</span>
+
+  /**
+   * Given the original set of compiler [params] passed via CLI or programmatic invocation, and a target output [buffer]
+   * to place results in, write all held outputs in the buffer, and then return a set of [FragmentOutputs] as results.
+   *
+   * This method operates asynchronously, with suspension. For virtualized synchronous dispatch (that produces a
+   * [FragmentOutputs] result directly), see [write].
+   *
+   * @see write for synchronous dispatch.
+   * @param params Compiler parameters, provided via CLI or programmatic invocation.
+   * @param buffer Output buffer which should be written.
+   * @return Set of written fragment outputs.
+   */
+  public suspend fun writeAsync(params: SiteCompilerParams, buffer: StaticSiteBuffer): Deferred&lt;FragmentOutputs&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

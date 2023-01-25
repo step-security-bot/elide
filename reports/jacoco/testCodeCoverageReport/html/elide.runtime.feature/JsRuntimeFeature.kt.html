@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsRuntimeFeature.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reports</a> &gt; <a href="index.source.html" class="el_package">elide.runtime.feature</a> &gt; <span class="el_source">JsRuntimeFeature.kt</span></div><h1>JsRuntimeFeature.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;DEPRECATION&quot;)
+
+package elide.runtime.feature
+
+import com.oracle.svm.core.annotate.AutomaticFeature
+import org.graalvm.nativeimage.hosted.Feature
+
+
+/** GraalVM feature which enables reflection required for the [elide.runtime.graalvm.JsRuntime]. */
+<span class="nc" id="L10">@AutomaticFeature</span>
+<span class="nc" id="L11">internal class JsRuntimeFeature : FrameworkFeature {</span>
+  // -- Interface: VM Feature -- //
+  /**
+   * Register types which must be callable via reflection or the Polyglot API within the Elide JS Runtime.
+   *
+   * @param access Before-analysis info for a given GraalVM image.
+   */
+  private fun registerJsRuntimeTypes(access: Feature.BeforeAnalysisAccess) {
+<span class="nc" id="L19">    registerClassForReflection(access, &quot;elide.runtime.graalvm.JsRuntime&quot;)</span>
+<span class="nc" id="L20">    registerClassForReflection(access, &quot;elide.runtime.graalvm.JsRuntime${'$'}ExecutionInputs&quot;)</span>
+<span class="nc" id="L21">  }</span>
+
+  /** @inheritDoc */
+  override fun beforeAnalysis(access: Feature.BeforeAnalysisAccess) {
+<span class="nc" id="L25">    registerJsRuntimeTypes(access)</span>
+<span class="nc" id="L26">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

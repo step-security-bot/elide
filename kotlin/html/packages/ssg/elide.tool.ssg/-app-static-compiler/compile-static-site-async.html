@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>compileStaticSiteAsync</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>elide</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="ssg::elide.tool.ssg/AppStaticCompiler/compileStaticSiteAsync/#kotlin.Int#elide.tool.ssg.LoadedAppInfo#kotlin.sequences.Sequence[elide.tool.ssg.StaticFragmentSpec]#elide.tool.ssg.StaticSiteBuffer/PointingToDeclaration//-132187826">
+  <div class="breadcrumbs"><a href="../../index.html">ssg</a><span class="delimiter">/</span><a href="../index.html">elide.tool.ssg</a><span class="delimiter">/</span><a href="index.html">AppStaticCompiler</a><span class="delimiter">/</span><span class="current">compileStaticSiteAsync</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>compile</span><wbr><span>Static</span><wbr><span>Site</span><wbr><span><span>Async</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":packages:ssg:dokkaHtmlPartial/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><span data-unresolved-link="kotlinx.coroutines/Deferred///PointingToDeclaration/">Deferred</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-site-compile-result/index.html">SiteCompileResult</a><span class="token operator">&gt;</span>&nbsp;<a href="compile-static-site-async.html"><span class="token function">compileStaticSiteAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a>&nbsp;count<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-loaded-app-info/index.html">LoadedAppInfo</a>&nbsp;appInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-static-fragment-spec/index.html">StaticFragmentSpec</a><span class="token operator">&gt;</span>&nbsp;seed<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-static-site-buffer/index.html">StaticSiteBuffer</a>&nbsp;buffer</span></span><span class="token punctuation">)</span></div><p class="paragraph">Run the static site compiler with the provided expected <a href="compile-static-site-async.html">seed</a> inputs (of length <a href="compile-static-site-async.html">count</a>); if so directed via the params passed to <a href="prepare.html">prepare</a>, the compiler will also attempt to discover additional URLs in returned HTML responses.</p><p class="paragraph">This method will execute until all requests have been fulfilled, or until the compiler has been interrupted. A call is considered "fulfilled" when the following conditions are true:</p><ol><li><p class="paragraph">A response has been received from the application, or</p></li><li><p class="paragraph">An error has been encountered while fulfilling the request, or</p></li><li><p class="paragraph">The request timeout value elapsed (a subset of case 2).</p></li></ol><p class="paragraph">This method operates asynchronously, by returning a <span data-unresolved-link="kotlinx.coroutines/Deferred///PointingToDeclaration/">Deferred</span> job which evaluates to the compiler result. For synchronous dispatch, see <a href="compile-static-site.html">compileStaticSite</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">Compiler execution result.</p></span><h4 class="">See also</h4><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="compile-static-site.html"><span>App</span><wbr><span>Static</span><wbr><span>Compiler.</span><wbr><span>compile</span><wbr><span>Static</span><wbr><span><span>Site</span></span></a></div></span></div><div><div class="title"><div data-togglable="See also"><p class="paragraph">for synchronous dispatch.</p></div></div></div></div></div></div></div><h4 class="">Parameters</h4><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>count</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Count of seed requests to begin the compilation with.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>app</span><wbr><span><span>Info</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Loaded application manifest and info.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>seed</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Expected requests which should be used to start the execution.</p></div></div></div></div></div><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>buffer</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Buffer which holds the results from each request/response cycle.</p></div></div></div></div></div></div></div><h4 class="">Throws</h4><div class="table" data-togglable="Throws"><div class="table-row" data-filterable-current=":packages:ssg:dokkaHtmlPartial/main" data-filterable-set=":packages:ssg:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-s-s-g-compiler-error/index.html"><span>SSGCompiler</span><wbr><span><span>Error</span></span></a></div></span></div><div><div class="title"><p class="paragraph">in the event of an unrecoverable error.</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+
